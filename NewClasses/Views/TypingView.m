@@ -107,7 +107,7 @@
             else
             {
                 Alert(parameters.typingRightButtonAlertTitle   , parameters.typingRightButtonAlertMessage,
-                      parameters.typingRightButtonAlertOkString, parameters.typingRightButtonAlertCancelString,
+                      parameters.typingRightButtonAlertOkString, nil,
                       ^(NSInteger pressedButtonIndex)
                       {
                           [defaults setBool:YES forKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
