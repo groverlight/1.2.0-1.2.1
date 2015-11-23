@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Typeface/NoConnectAlert.h">
-   </FileRef>
-   <FileRef
-      location = "group:Typeface/NoConnectAlert.m">
-   </FileRef>
-   <FileRef
       location = "group:Typeface.xcodeproj">
    </FileRef>
    <FileRef
