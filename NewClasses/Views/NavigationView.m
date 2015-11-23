@@ -465,11 +465,13 @@ SystemSoundID           soundEffect;
         {
             theMessage = [NSString stringWithFormat:@"%@ %@", theMessage, text];
         }
-        NSLog(@"This is the message %@", theMessage);
+       // NSLog(@"This is the message %@", theMessage);
+         NSString * shortMessage = [[theMessage substringToIndex: MIN(30, [theMessage length])] stringByAppendingString:@"..."];
+        NSLog(@"This is the message %@", shortMessage);
         myself->MessageToSend->placeHolder = record.phoneNumber;
         UpdateFriendRecordListForRecord(record, myself->MessageToSend->Timestamp);
         [PFCloud callFunctionInBackground:@"sendMessage"
-                           withParameters:@{@"phoneNumber": record.phoneNumber, @"message": theMessage, @"sender":senderName}
+                           withParameters:@{@"phoneNumber": record.phoneNumber, @"message": shortMessage, @"sender":senderName}
                                     block:^(NSString* success, NSError* error)
          {
              if (error != nil)
