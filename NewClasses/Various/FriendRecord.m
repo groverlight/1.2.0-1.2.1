@@ -54,7 +54,6 @@
         [coder encodeObject:self.user.objectId forKey:@"UserId"];
     }
     [coder encodeObject:self.fullName                                     forKey:@"FullName"];
-    [coder encodeObject:self.phoneNumber                                     forKey:@"phoneNumber"];
     [coder encodeObject:[NSNumber numberWithDouble:self.lastActivityTime] forKey:@"LastActivityTime"];
 }
 //__________________________________________________________________________________________________
@@ -65,7 +64,6 @@
     if (self)
     {
         self.fullName = [coder decodeObjectForKey:@"FullName"];
-        self.phoneNumber = [coder decodeObjectForKey:@"phoneNumber"];
         id objectId   = [coder decodeObjectForKey:@"UserId"];
         if (objectId == nil)
         {
@@ -178,10 +176,6 @@
 
 - (void)sortTimeList
 {
-    for (FriendRecord *record in TimeSortedList)
-    {
-        NSLog(@"number: %@", record.phoneNumber);
-    }
     NSLog(@"TIME SORT");
     if (TimeSortedList.count == 0)
     {
@@ -193,7 +187,7 @@
         NSMutableArray *uniqueArray = [NSMutableArray array];
         NSMutableSet *names = [NSMutableSet set];
         for (FriendRecord* record in TimeSortedList) {
-            NSString *destinationName = record.phoneNumber;
+            NSString *destinationName = record.fullName;
             if (![names containsObject:destinationName]) {
                 [uniqueArray addObject:record];
                 [names addObject:destinationName];

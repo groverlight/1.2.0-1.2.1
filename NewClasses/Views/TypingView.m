@@ -113,7 +113,7 @@
                           [defaults setBool:YES forKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
                           if (pressedButtonIndex == 1)
                           {
-                             // [myself faceButtonPressed];
+                              [myself faceButtonPressed];
                           }
                           else
                           {

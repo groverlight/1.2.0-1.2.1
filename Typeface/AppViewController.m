@@ -18,7 +18,6 @@
 #import "Mixpanel.h"
 #import "VideoViewController.h"
 #import "Reachability.h"
-#import "RollDownView.h"
 //__________________________________________________________________________________________________
 
 #define BE_YOUR_BEST_FRIEND 0 //!< Define to 1 to declare the current user to be his own friend.
@@ -47,7 +46,7 @@ static AppViewController* MainViewController = nil;
   NavigationView* NavView;
   BOOL            LoadingMessages;
   VideoViewController *Intro;
-  UILabel * networkLabel;
+    UILabel *noInternet;
 }
 //@synthesize cardNavigator;
 //____________________
@@ -349,47 +348,36 @@ static AppViewController* MainViewController = nil;
 //__________________________________________________________________________________________________
 -(void) checkNetwork
 {
-    UIView *noNetwork = [[UIView alloc]initWithFrame:self.view.bounds];
-    noNetwork.backgroundColor = [UIColor whiteColor];
     
     UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]
                                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     activityView.center=self.view.center;
-    activityView.backgroundColor = [UIColor clearColor];
+    activityView.backgroundColor = [UIColor whiteColor];
     [activityView startAnimating];
-
-    CGFloat width         = self.view.frame.size.width;
-   // CGFloat height        = self.view.frame.size.height;
-    RollDownView*           RollDownErrorView;
-    RollDownErrorView         = [RollDownView          new];
-    RollDownErrorView.frame   = CGRectMake(0, 0, width, [RollDownErrorView sizeThatFits:self.view.frame.size].height);
-    [self.view addSubview:RollDownErrorView];
-    [noNetwork addSubview:networkLabel];
-    [noNetwork addSubview:activityView];
     while(1){
         Reachability *myNetwork = [Reachability reachabilityWithHostname:@"www.google.com"];
         NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
         if (myStatus == NotReachable)
         {
            
-
                 dispatch_async(dispatch_get_main_queue(), ^{
                // NavView.hidden = YES;
-                    
-                [RollDownErrorView showWithTitle:@"OOPS!" andMessage:@"There seems to be no connection!"];
-                
+
+                self.view = activityView;
                // [self.view addSubview:activityView];
                     });
             
         }
         else
         {
-        
+            if(self.view !=ViewStack)
+            {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [RollDownErrorView hide];
+                ViewStack = [ViewStackView sharedInstance];
+                self.view = ViewStack;
                     });
-            
+            }
         }
 
     }
