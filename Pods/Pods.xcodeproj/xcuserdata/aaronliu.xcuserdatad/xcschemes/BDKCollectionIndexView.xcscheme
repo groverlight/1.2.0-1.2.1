@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F6A34A80D334E51E65455F99"
+               BlueprintIdentifier = "230E23C15CCF9575940A6AD6"
                BuildableName = "libBDKCollectionIndexView.a"
                BlueprintName = "BDKCollectionIndexView"
                ReferencedContainer = "container:Pods.xcodeproj">

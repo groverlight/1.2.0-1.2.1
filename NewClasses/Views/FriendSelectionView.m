@@ -22,7 +22,7 @@
 #import "ParseUser.h"
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "BDKCollectionIndexView.h"
+
 
 //__________________________________________________________________________________________________
 
