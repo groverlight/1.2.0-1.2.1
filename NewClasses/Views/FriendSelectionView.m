@@ -22,7 +22,7 @@
 #import "ParseUser.h"
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
-
+#import "BDKCollectionIndexView.h"
 
 //__________________________________________________________________________________________________
 
@@ -99,9 +99,8 @@ NSMutableArray*      contactsNotUsers;
   NSInteger             SelectedFriend;
   NSArray*              BlockedUsers;
   NSArray*              BlockingUsers;
- 
   SystemSoundID           soundEffect;
-    BDKCollectionIndexView * indexView;
+  BDKCollectionIndexView *indexView;
 }
 
 //____________________
@@ -116,6 +115,7 @@ NSMutableArray*      contactsNotUsers;
 -(void)Initialize
 {
   [super Initialize];
+
 
 //  [self registerForKeyboardNotifications];
   SelectedFriend                = NSNotFound;
@@ -446,6 +446,7 @@ NSMutableArray*      contactsNotUsers;
 
 - (void)layout
 {
+
   GlobalParameters* parameters  = GetGlobalParameters();
   if (KeyboardTop <= 0)
   {

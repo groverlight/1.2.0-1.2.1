@@ -36,6 +36,7 @@
     NSMutableArray* arrayOfPeopleInSection;
     NSMutableArray* arrayOfSectionTitles;
     NSInteger     MaxRecentFriends;
+ 
 
 }
 //____________________
@@ -44,7 +45,12 @@
 -(void)Initialize
 {
     [super Initialize];
-
+    indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+    // this stuff
+    self.sectionIndexColor = [UIColor blueColor]; // THIS CHANGES COLOR OF INDEX
+    /*self.sectionIndexColor = [UIColor blueColor];
+    self.sectionIndexBackgroundColor = [UIColor clearColor];
+    self.sectionIndexTrackingBackgroundColor = [UIColor blueColor];*/
 
     
     GlobalParameters* parameters  = GetGlobalParameters();
@@ -498,7 +504,7 @@
     }
 }
 //__________________________________________________________________________________________________
-/*- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     NSArray* IndexTitles = @[@"Recent",@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     if (AllFriendsList == contactsNotUsers)
@@ -513,7 +519,7 @@
     
     return nil;
     }
-}*/
+}
 //__________________________________________________________________________________________________
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {

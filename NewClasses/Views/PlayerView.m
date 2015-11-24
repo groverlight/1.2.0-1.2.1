@@ -283,7 +283,7 @@
 
 - (void)displayNextChunk:(BlockBoolAction)completion
 {
-//  NSLog(@"displayNextChunk: %d", (int)CurrentBlock);
+  NSLog(@"displayNextChunk: %d", (int)CurrentBlock);
   [self displayChunk:completion];
 }
 //__________________________________________________________________________________________________
