@@ -9,17 +9,20 @@
 #import "ParseUser.h"
 #import "FriendSelectionView.h"
 #import "VideoViewController.h"
+
 //__________________________________________________________________________________________________
 
 //! UIView based class that show a list of friends and some other objects.
+
 @implementation SendToFriendSelectionView
 
 {
-  NSInteger SelectedFriend;
-  UITableView *tableView;
+    NSInteger SelectedFriend;
+    UITableView *tableView;
     NSMutableArray *sectionTitles;
     NSMutableArray *sectionPeople;
     NSMutableArray *person;
+
 }
 
 //____________________
@@ -27,7 +30,7 @@
 //! Initialize the object however it has been created.
 -(void)Initialize
 {
-  [super Initialize];
+;
   GlobalParameters* parameters  = GetGlobalParameters();
   ListName.text                 = parameters.friendsSendToLabelTitle;
   self.showSectionHeaders       = YES;

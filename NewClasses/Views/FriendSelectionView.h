@@ -9,6 +9,7 @@
 #import "FriendSelectionList.h"
 #import "FriendRecord.h"
 #import "Parse.h"
+#import "BDKCollectionIndexView.h"
 //__________________________________________________________________________________________________
 
 @class ParseUser;
@@ -35,7 +36,6 @@ extern NSMutableArray* contactsNotUsers;
   BlockAction           EditionEnded;
   BlockStringAction     EditedStringChanged;
   FriendSelectionList*  FriendsList;
-
 }
 //____________________
 
