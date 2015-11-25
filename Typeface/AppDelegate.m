@@ -46,25 +46,29 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
   // Parse initialization.
   ParseAppDelegateInitialization(launchOptions);
 
-  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  RootViewController = [[AppViewController alloc] init];
-  [self.window setRootViewController:RootViewController];
-  [self.window makeKeyAndVisible];
-  return YES;
-
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"dd MMM YYYY HH:mm:ss";
     NSString *string = [formatter stringFromDate:[NSDate date]];
 
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
 
-    [mixpanel track:@"app opens"];
+    [mixpanel track:@"last seen"];
 
     [mixpanel identify:mixpanel.distinctId];
 
     [mixpanel.people set:@{@"$last_seen": string}];
 
-    [mixpanel.people increment:@"app opens" by:[NSNumber numberWithInt:1]];
+    [mixpanel flush];
+
+    NSLog(@"app launched from quit");
+
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  RootViewController = [[AppViewController alloc] init];
+  [self.window setRootViewController:RootViewController];
+  [self.window makeKeyAndVisible];
+  return YES;
+
+
 
 }
 //__________________________________________________________________________________________________

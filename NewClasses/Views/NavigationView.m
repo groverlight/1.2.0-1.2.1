@@ -576,6 +576,17 @@ SystemSoundID           soundEffect;
         if (messages->Messages.count == 0)
         {
           [myself hideLeftItemDot];
+
+            NSLog(@"read message");
+
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+
+            [mixpanel track:@"messages read"];
+
+            [mixpanel identify:mixpanel.distinctId];
+
+            [mixpanel.people increment:@"messages read" by:[NSNumber numberWithInt:1]];
+
         }
         UpdateFriendRecordListForMessages(messages, ^(BOOL changed)
         {
@@ -591,17 +602,6 @@ SystemSoundID           soundEffect;
       }
       myself->ScrollView.scrollView.scrollEnabled = YES;
       NSLog(@"PlayerChunkCompletionAction enable scroll: %d", myself->ScrollView.scrollView.scrollEnabled);
-
-            NSLog(@"I just watched a message");
-
-        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-
-        [mixpanel track:@"messages read"];
-
-        [mixpanel identify:mixpanel.distinctId];
-
-        [mixpanel.people increment:@"messages read" by:[NSNumber numberWithInt:1]];
-
 
       [myself hidePlayer];
     }

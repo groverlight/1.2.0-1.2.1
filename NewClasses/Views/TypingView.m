@@ -96,43 +96,21 @@
         get_myself;
         NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
         BOOL faceAlertAlreadyDone = [defaults boolForKey:FACE_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
-        BOOL goAlertAlreadyDone   = [defaults boolForKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
+
         if (faceAlertAlreadyDone)
         {
-            
-            if (goAlertAlreadyDone)
-            {
-                [myself faceButtonPressed];
-            }
-            else
-            {
-                Alert(parameters.typingRightButtonAlertTitle   , parameters.typingRightButtonAlertMessage,
-                      parameters.typingRightButtonAlertOkString, nil,
-                      ^(NSInteger pressedButtonIndex)
-                      {
-                          [defaults setBool:YES forKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
-                          if (pressedButtonIndex == 1)
-                          {
-                              [myself faceButtonPressed];
-                          }
-                          else
-                          {
-                              [myself->TextView becomeFirstResponder];
-                          }
-                      });
-            }
-            
 
-    
+            [myself faceButtonPressed];
+
 
         }
         else
         {
             NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"beep_prompt_2x"ofType:@"aif"];
             NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
-            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &(myself->soundEffect));
+            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &soundEffect);
 
-            AudioServicesPlaySystemSound(myself->soundEffect);
+            AudioServicesPlaySystemSound(soundEffect);
 
             NSLog(@"Calls the selfie alert!");
             Alert(parameters.typingLeftButtonAlertTitle   , parameters.typingLeftButtonAlertMessage,
@@ -143,21 +121,6 @@
                       if (pressedButtonIndex == 1)
                       {
                           [myself faceButtonPressed];
-                          // make sure they know there is a go button
-                          Alert(parameters.typingRightButtonAlertTitle   , parameters.typingRightButtonAlertMessage,
-                                parameters.typingRightButtonAlertOkString, parameters.typingRightButtonAlertCancelString,
-                                ^(NSInteger pressedButtonIndex2)
-                                {
-                                    [defaults setBool:YES forKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
-                                    if (pressedButtonIndex2 == 1)
-                                    {
-                                        [myself faceButtonPressed];
-                                    }
-                                    else
-                                    {
-                                        [myself->TextView becomeFirstResponder];
-                                    }
-                                });
 
                           NSLog(@"YES SELFIE");
 
@@ -168,28 +131,28 @@
                           [mixpanel identify:mixpanel.distinctId];
 
                           [mixpanel.people increment:@"Selfie Understood" by:[NSNumber numberWithInt:1]];
-                          
                       }
                       else {
 
-                      NSLog(@"NO SELFIE");
+                          NSLog(@"NO SELFIE");
 
-                      Mixpanel *mixpanel = [Mixpanel sharedInstance];
+                          Mixpanel *mixpanel = [Mixpanel sharedInstance];
 
-                      [mixpanel track:@"selfie NOT understood"];
+                          [mixpanel track:@"selfie NOT understood"];
 
-                      [mixpanel identify:mixpanel.distinctId];
+                          [mixpanel identify:mixpanel.distinctId];
 
-                      [mixpanel.people increment:@"selfie NOT understood" by:[NSNumber numberWithInt:1]];
+                          [mixpanel.people increment:@"selfie NOT understood" by:[NSNumber numberWithInt:1]];
 
                       }
 
                   });
 
-             }
+        }
     };
     TextView->DidBeginEditingAction = ^
     {
+
 
     };
     TextView->TextDidChangeAction = ^
@@ -226,12 +189,54 @@
     };
     TextView->DidPressGoButton = ^
     {
+
         get_myself;
         [myself->TextView resignFirstResponder];
-
+        NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
+        BOOL goAlertAlreadyDone   = [defaults boolForKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
+        if (goAlertAlreadyDone)
+        {
             [myself goButtonPressed];
+        }
+        else
+        {
+            NSLog(@"Calls send message alert");
 
-        
+            NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"beep_prompt_2x"ofType:@"aif"];
+            NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
+            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &soundEffect);
+
+            AudioServicesPlaySystemSound(soundEffect);
+
+            Alert(parameters.typingRightButtonAlertTitle   , parameters.typingRightButtonAlertMessage,
+                  parameters.typingRightButtonAlertOkString, parameters.typingRightButtonAlertCancelString,
+                  ^(NSInteger pressedButtonIndex)
+                  {
+                      [defaults setBool:YES forKey:GO_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
+                      if (pressedButtonIndex == 1)
+                      {
+                          [myself goButtonPressed];
+                          Mixpanel *mixpanel = [Mixpanel sharedInstance];
+
+                          [mixpanel track:@"go understood"];
+
+                          [mixpanel identify:mixpanel.distinctId];
+
+                          [mixpanel.people increment:@"Go understood" by:[NSNumber numberWithInt:1]];
+                      }
+                      else
+                      {
+                          [myself->TextView becomeFirstResponder];
+                          Mixpanel *mixpanel = [Mixpanel sharedInstance];
+                          
+                          [mixpanel track:@"go NOT understood"];
+                          
+                          [mixpanel identify:mixpanel.distinctId];
+                          
+                          [mixpanel.people increment:@"go NOT understood" by:[NSNumber numberWithInt:1]];
+                      }
+                  });
+        }
     };
 }
 //__________________________________________________________________________________________________

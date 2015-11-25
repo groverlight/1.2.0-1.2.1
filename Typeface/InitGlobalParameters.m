@@ -183,7 +183,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
 
   parameters.friendsTopBarBorderOffset              = 47;
   parameters.friendsTopBarTopOffset                 = 10;
-  parameters.friendsUsernameFont                  	= [UIFont fontWithName:@"AvenirNext-Regular" size:24];
+  parameters.friendsUsernameFont                  	= [UIFont fontWithName:@"AvenirNext-Regular" size:21];
   parameters.friendsUsernameMediumFont              = [UIFont fontWithName:@"AvenirNext-Bold" size:24];
   parameters.friendsSelectedUsernameTextColor       = WarmGrey;
   parameters.friendsUsernameTextColor               = WarmGrey;
@@ -194,17 +194,17 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
 
   parameters.friendsStateViewLeftMargin             = 14;
   parameters.friendsStateViewRightMargin            = 14;
-  parameters.friendsListRowHeight                 	= 68;
+  parameters.friendsListRowHeight                 	= 60;
   parameters.friendsListHeaderHeight                = 26;
 
   parameters.friendsListBackgroundColor             = Transparent;
   parameters.friendsListSeparatorColor              = LightGrey;
   parameters.friendsListSeparatorHeight             = 0.40;
   parameters.friendsListSeparatorBorderMargin       = 16;
-  parameters.friendsListRecentSectionHeaderTitle    = NSLocalizedString(@"Recent", @"");
-  parameters.friendsListAllSectionHeaderTitle       = NSLocalizedString(@"All", @"");
-  parameters.friendsListHeaderBackgroundColor       = [LightGrey colorWithAlphaComponent:0.5];
-  parameters.friendsListHeaderTextColor             = [Grey colorWithAlphaComponent:0.6];
+  parameters.friendsListRecentSectionHeaderTitle    = NSLocalizedString(@"RECENT", @"");
+  parameters.friendsListAllSectionHeaderTitle       = NSLocalizedString(@"ALL", @"");
+  parameters.friendsListHeaderBackgroundColor       = Transparent;
+  parameters.friendsListHeaderTextColor             = TypePink;
   parameters.friendsListHeaderTextFont              = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:17];
   parameters.friendsListHeaderTextLeftMargin        = 132;
   parameters.friendsListParseRefreshThresholdOffset = -50;
@@ -236,13 +236,13 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.addFriendIgnoreBlankSpaces             = YES;
   parameters.addFriendAllLowercase                  = NO;
 
-  parameters.friendStateViewCircleLineWidth               = 1.5;
-  parameters.friendStateViewCircleRadius                  = 10.5;
-  parameters.friendStateViewDiskRadius                    = 6.5;
-  parameters.friendStateViewProgressCircleRadius          = 15;
-  parameters.friendStateViewProgressDiskRadius            = 10;
+  parameters.friendStateViewCircleLineWidth               = 1.0;
+  parameters.friendStateViewCircleRadius                  = 8.0;
+  parameters.friendStateViewDiskRadius                    = 5.0;
+  parameters.friendStateViewProgressCircleRadius          = 12;
+  parameters.friendStateViewProgressDiskRadius            = 8.0;
   parameters.friendStateViewColor                         = TypePink;
-  parameters.friendStateViewProgressAnimationDuration     = 0.6;
+  parameters.friendStateViewProgressAnimationDuration     = 0.3;
 
   parameters.friendStateViewAnimParameters                = [PopAnimParameters new];
   parameters.friendStateViewAnimParameters.animationStyle = E_PopAnimationStyle_Spring;
@@ -312,7 +312,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.typingLeftButtonAlertCancelString    = NSLocalizedString(@"Not Ready", @"");
   parameters.typingRightButtonAlertTitle          = NSLocalizedString(@"You can type more blurbs!", @"");
   parameters.typingRightButtonAlertMessage        = NSLocalizedString(@"Tapping GO means you're ready to pick the recipient of the message", @"");
-  parameters.typingRightButtonAlertOkString       = NSLocalizedString(@"Done", @"");
+  parameters.typingRightButtonAlertOkString       = NSLocalizedString(@"Go", @"");
   parameters.typingRightButtonAlertCancelString   = NSLocalizedString(@"Type More", @"");
 
 
