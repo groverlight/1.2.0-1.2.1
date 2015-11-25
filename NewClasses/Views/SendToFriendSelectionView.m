@@ -10,6 +10,7 @@
 #import "FriendSelectionView.h"
 #import "VideoViewController.h"
 #import "BDKCollectionIndexView.h"
+#import "Colors.h"
 //__________________________________________________________________________________________________
 
 //! UIView based class that show a list of friends and some other objects.

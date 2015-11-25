@@ -47,10 +47,10 @@
     [super Initialize];
     indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     // this stuff
-    self.sectionIndexColor = [UIColor blueColor]; // THIS CHANGES COLOR OF INDEX
-    /*self.sectionIndexColor = [UIColor blueColor];
+
+    self.sectionIndexColor = Grey;
     self.sectionIndexBackgroundColor = [UIColor clearColor];
-    self.sectionIndexTrackingBackgroundColor = [UIColor blueColor];*/
+    self.sectionIndexTrackingBackgroundColor = [Grey colorWithAlphaComponent:0.25];
 
     
     GlobalParameters* parameters  = GetGlobalParameters();
@@ -506,7 +506,7 @@
 //__________________________________________________________________________________________________
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    NSArray* IndexTitles = @[@"Recent",@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+    NSArray* IndexTitles = @[@"√",@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     if (AllFriendsList == contactsNotUsers)
         {
             
@@ -529,7 +529,7 @@
 //__________________________________________________________________________________________________
 - (NSArray *)indexLettersForStrings:(NSArray *)records {
     NSMutableArray *letters = [NSMutableArray array];
-    [letters addObject:@"Recent"];
+    [letters addObject:@"√"];
     NSString *currentLetter = nil;
     for (FriendRecord* record in records) {
         if (record.fullName.length > 0) {

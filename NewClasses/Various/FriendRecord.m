@@ -54,6 +54,7 @@
         [coder encodeObject:self.user.objectId forKey:@"UserId"];
     }
     [coder encodeObject:self.fullName                                     forKey:@"FullName"];
+    [coder encodeObject:self.fullName                                     forKey:@"phoneNumber"];
     [coder encodeObject:[NSNumber numberWithDouble:self.lastActivityTime] forKey:@"LastActivityTime"];
 }
 //__________________________________________________________________________________________________
@@ -64,6 +65,7 @@
     if (self)
     {
         self.fullName = [coder decodeObjectForKey:@"FullName"];
+        self.phoneNumber = [coder decodeObjectForKey:@"phoneNumber" ];
         id objectId   = [coder decodeObjectForKey:@"UserId"];
         if (objectId == nil)
         {
@@ -213,6 +215,7 @@
              return NSOrderedSame;
          }
      }];
+    NSLog(@"TIME SORT");
         // First sort array by descending so I could capture the max id
         //NSArray *originalArray = ... // original array of objects with duplicates
 

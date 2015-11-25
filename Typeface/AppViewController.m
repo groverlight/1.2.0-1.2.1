@@ -303,7 +303,21 @@ static AppViewController* MainViewController = nil;
 - (void)applicationDidBecomeActive
 {
 
-  NSLog(@"applicationDidBecomeActive");
+    NSLog(@"app launched from background");
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"dd MMM YYYY HH:mm:ss";
+    NSString *string = [formatter stringFromDate:[NSDate date]];
+
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+
+    [mixpanel track:@"last seen"];
+
+    [mixpanel identify:mixpanel.distinctId];
+
+    [mixpanel.people set:@{@"$last_seen": string}];
+
+    [mixpanel flush];
 
 
   if ((GetCurrentParseUser() != nil) && MainViewController->LoggedIn)

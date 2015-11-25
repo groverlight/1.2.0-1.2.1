@@ -1,10 +1,11 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++40815D6",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++EAA19CC",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++40815D6" : 0,
+    "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++EAA19CC" : 0,
     "5B06EB564F9C1D68C3A03113D1570E775E24593F+++31C3560" : 0,
     "5B06EB564F9C1D68C3A03113D1570E775E24593F+++15BEFC0" : 0,
     "BD15A179E46F89FD21041E6658AE15C6D059DECE+++EC978B2" : 0,
@@ -13,6 +14,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B5A4FED5-087B-4EE0-B058-35445AC6DDEB",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++40815D6" : "testing1.2.0\/",
+    "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++EAA19CC" : "testingBrnach\/",
     "5B06EB564F9C1D68C3A03113D1570E775E24593F+++31C3560" : "typefaceAppStore%60\/",
     "5B06EB564F9C1D68C3A03113D1570E775E24593F+++15BEFC0" : "typefaceAppStore%60\/",
     "BD15A179E46F89FD21041E6658AE15C6D059DECE+++EC978B2" : "typefaceAppStore\/testing\/",
@@ -46,6 +48,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/groverlight\/testing1.2.0.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++40815D6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/groverlight\/testing1.2.0.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D1BDED7AE4C75B5FCC5A01A7E515922E48711AD7+++EAA19CC"
     }
   ]
 }
