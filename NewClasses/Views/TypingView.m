@@ -14,6 +14,7 @@
 #import "TopBarView.h"
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "Colors.h"
 //__________________________________________________________________________________________________
 
 #define FACE_BUTTON_ALERT_FLAG_DEFAULTS_KEY @"FaceButtonAlertFlag"  //!< The key to retrieve the FACE button alert flag in the user defaults.
@@ -31,7 +32,7 @@
   NSInteger             NumCharactersLeft;          //!< Number of character available to add to the current text.
   NSInteger             FaceCount;
   BOOL                  ChangingReturnButtonType;
-  SystemSoundID           soundEffect;
+  SystemSoundID         soundEffect;
   BOOL permission;
 }
 @synthesize snapshots;
@@ -77,6 +78,7 @@
   CharactersLeftLabel.textAlignment = NSTextAlignmentRight;
   CharactersLeftLabel.font          = [UIFont fontWithName:@"AvenirNext-Bold" size:parameters.typingCharacterCountFontSize];
   CharactersLeftLabel.size          = CalculateTextSize(@"999", CGSizeMake(100, 100), CharactersLeftLabel.font);
+
 
 
   snapshots = [[NSMutableArray alloc] initWithCapacity:10];
@@ -152,13 +154,21 @@
     };
     TextView->DidBeginEditingAction = ^
     {
-
+        FaceButton.backgroundColor = TypePink;
+        FaceButton.title = @"Type";
 
     };
     TextView->TextDidChangeAction = ^
     {
 
         get_myself;
+
+        FaceButton.backgroundColor = [UIColor clearColor];
+        FaceButton.layer.borderWidth = 2;
+        FaceButton.layer.borderColor = TypePink.CGColor;
+        CharactersLeftLabel.textColor = TypePink;
+        FaceButton.title = @"Face";
+        
         myself->TextView.disableTextEdition = NO;
         myself->TextView.useSmallFont       = (myself->TextView.totalNumCharacters > parameters.typingFontSizeCharacterCountTrigger);
 
@@ -167,9 +177,11 @@
         [myself->TextView showGoKey:((myself->TextView.numUnvalidatedChars == 0) && (myself->TextView.textRecords.count > 0))];
         myself->ChangingReturnButtonType = NO;
         [myself updateUI];
+
     };
     TextView->SelectionDidChangeAction = ^
     {
+
     };
     TextView->DidEndEditingAction = ^
     {

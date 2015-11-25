@@ -271,8 +271,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.whiteButtonBounceScaleFactor         = 1.5;
   parameters.whiteButtonHeight                    = 50;
   parameters.whiteButtonFontSize                  = 24;
-  parameters.whiteButtonIdleColor                 = White;
-  parameters.whiteButtonHighlightedColor          = White;
+  parameters.whiteButtonIdleColor                 = TypePink;
+  parameters.whiteButtonHighlightedColor          = TypePink;
   parameters.whiteButtonDisabledColor             = [White colorWithAlphaComponent:0.4];
   parameters.whiteButtonBounceDuration            = 0.2;
 
