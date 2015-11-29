@@ -79,7 +79,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.findUserMessagingNotSupportedAction  = ^
   {
     Alert(NSLocalizedString(@"Failed to send iMessage", @""), NSLocalizedString(@"Messaging is not supported on this device!", @""), NSLocalizedString(@"OK", @""), nil, ^(NSInteger pressedButton)
-    { // Do nothing!
+    { NSLog(@"I fucked Aria");
+
     });
   };
   parameters.findUserFailedToSendMessageAction = ^
@@ -229,8 +230,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
 
   parameters.friendsInviteButtonBottomGap           = 43;
   parameters.friendsAddButtonBottomGap              = 5;
-  parameters.friendsInviteButtonTitle               = NSLocalizedString(@"MORE FRIENDS", @"");
-  parameters.friendsAddButtonTitle                  = NSLocalizedString(@"ADD FRIEND", @"");
+  parameters.friendsInviteButtonTitle               = NSLocalizedString(@"INVITE", @"");
+  parameters.friendsAddButtonTitle                  = NSLocalizedString(@"ex. gigi", @"");
 
   parameters.addFriendAutoSearch                    = NO;
   parameters.addFriendIgnoreBlankSpaces             = YES;
@@ -270,10 +271,10 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
 
   parameters.whiteButtonBounceScaleFactor         = 1.5;
   parameters.whiteButtonHeight                    = 50;
-  parameters.whiteButtonFontSize                  = 24;
+  parameters.whiteButtonFontSize                  = 21;
   parameters.whiteButtonIdleColor                 = TypePink;
-  parameters.whiteButtonHighlightedColor          = TypePink;
-  parameters.whiteButtonDisabledColor             = [White colorWithAlphaComponent:0.4];
+  parameters.whiteButtonHighlightedColor          = Black;
+  parameters.whiteButtonDisabledColor             = [Black colorWithAlphaComponent:0.2];
   parameters.whiteButtonBounceDuration            = 0.2;
 
 
@@ -303,7 +304,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.typingFaceButtonTitle                = NSLocalizedString(@"FACE", @"");
   parameters.typingMaxCharacterCount              = 140;
   parameters.typingFontSizeCharacterCountTrigger  = 67;
-  parameters.typingCharacterCountFontSize         = 14;
+  parameters.typingCharacterCountFontSize         = 12;
     parameters.typingCharacterCountColor            = [White colorWithAlphaComponent:0.5];;
   parameters.typingCharacterCountRightMargin      = 24;
   parameters.typingLeftButtonAlertTitle           = NSLocalizedString(@"Ready for selfie?", @"");

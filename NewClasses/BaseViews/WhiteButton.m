@@ -198,6 +198,7 @@
     case E_PopViewState_Idle:
       EndLabelScale       = LabelScale;
       EndLabelColor       = LabelColor;
+            
       break;
     case E_PopViewState_Highlighted:
       EndLabelScale       = HighlightedLabelScale;

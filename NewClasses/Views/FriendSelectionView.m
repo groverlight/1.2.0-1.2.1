@@ -142,6 +142,8 @@ NSMutableArray*      contactsNotUsers;
   CurrentText                   = @"";
   self.topOffset                = 0;
 
+
+
   [self addSubview:ListName];
   [self addSubview:TopSeparator];
   [self addSubview:BottomSeparator];
@@ -152,6 +154,17 @@ NSMutableArray*      contactsNotUsers;
 
   InviteButton.title  = parameters.friendsInviteButtonTitle;
   AddButton.title     = parameters.friendsAddButtonTitle;
+
+
+    InviteButton.backgroundColor = [UIColor clearColor];
+    InviteButton.layer.borderWidth = 2;
+    InviteButton.layer.borderColor = TypePink.CGColor;
+
+
+    AddButton.backgroundColor = TypePink;
+
+
+
 
 
 
@@ -228,9 +241,11 @@ NSMutableArray*      contactsNotUsers;
   };
   InviteButtonPressed = ^
   { //Default action: do nothing!
+
   };
   AddButtonPressed = ^
   { //Default action: do nothing!
+
   };
   EditionStarted = ^
   { //Default action: do nothing!
@@ -285,12 +300,19 @@ NSMutableArray*      contactsNotUsers;
   {
     get_myself;
     myself->InviteButtonPressed();
+
   };
 
   AddButton.pressedAction = ^
   {
     get_myself;
     myself->AddButtonPressed();
+      AddButton.backgroundColor = TypePink;
+      AddButton.enabled = NO;
+      AddButton.title = @"ex. gigi";
+    
+      [self updateUI];
+
   };
 }
 //__________________________________________________________________________________________________
@@ -632,6 +654,7 @@ NSMutableArray*      contactsNotUsers;
 - (void)setEditorIsOnTop:(BOOL)editorIsOnTop
 {
   if (editorIsOnTop != EditorIsOnTop)
+
   {
     NSLog(@"setEditorIsOnTop: %d", editorIsOnTop);
     self.topOffset = editorIsOnTop? -(TopSeparator.bottom + EDITOR_TOP_OFFSET - GetStatusBarHeight()): 0;
@@ -782,11 +805,28 @@ NSMutableArray*      contactsNotUsers;
 - (void)clearEditor
 {
   Editor.text = @"";
+    NSLog(@"YOO");
 }
 //__________________________________________________________________________________________________
 
 - (void)textFieldDidChange:(UITextField*)textField
 {
+    if (textField.text.length == 0) {
+        AddButton.backgroundColor = TypePink;
+        AddButton.enabled = NO;
+        AddButton.title = @"ex. gigi";
+    }
+    else if (textField.text.length >= 1)
+
+    {
+        AddButton.backgroundColor = [UIColor clearColor];
+        AddButton.layer.borderWidth = 2;
+        AddButton.layer.borderColor = TypePink.CGColor;
+        AddButton.title = @"ADD FRIEND";
+
+    }
+
+
   if (textField.text.length > 0)
   {
     GlobalParameters* parameters = GetGlobalParameters();
@@ -832,6 +872,8 @@ NSMutableArray*      contactsNotUsers;
   self.editorIsOnTop = YES;
   [UIView animateWithDuration:0.3 animations:^
   {
+
+
     TopSeparator.alpha = 0.0;
   }];
   EditionStarted();
@@ -840,12 +882,16 @@ NSMutableArray*      contactsNotUsers;
 
 - (void)textFieldDidEndEditing:(UITextField*)textField
 {
+     NSLog(@"Kim");
   EditionEnded();
 }
 //__________________________________________________________________________________________________
 
 - (BOOL)textFieldShouldReturn:(UITextField*)textField
 {
+
+    NSLog(@"Kylie");
+
   UseHideKeyboard = YES;
   self.editorIsOnTop = NO;
   [UIView animateWithDuration:0.3 animations:^

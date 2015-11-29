@@ -34,18 +34,21 @@
   BOOL                  ChangingReturnButtonType;
   SystemSoundID         soundEffect;
   BOOL permission;
+
 }
 @synthesize snapshots;
 //____________________
 
 - (void)reset
 {
+
   GlobalParameters* parameters  = GetGlobalParameters();
   [snapshots  removeAllObjects];
   FaceCount                    = 0;
   TextView.largeFontSize      = parameters.typingLargeFontSize;
   TextView.smallFontSize      = parameters.typingSmallFontSize;
   TextView.disableTextEdition = NO;
+
   [self updateUI];
 }
 //____________________
@@ -53,6 +56,7 @@
 //! Initialize the object however it has been created.
 -(void)Initialize
 {
+
   [super Initialize];
   permission = NO;
   CharactersLeftLabel = [PopLabel     new];
@@ -96,6 +100,7 @@
     FaceButton.pressedAction = ^
     {
         get_myself;
+
         NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
         BOOL faceAlertAlreadyDone = [defaults boolForKey:FACE_BUTTON_ALERT_FLAG_DEFAULTS_KEY];
 
@@ -103,6 +108,7 @@
         {
 
             [myself faceButtonPressed];
+
 
 
         }
@@ -154,25 +160,59 @@
     };
     TextView->DidBeginEditingAction = ^
     {
-        FaceButton.backgroundColor = TypePink;
-        FaceButton.title = @"Type";
+
+        get_myself;
+
+        NSLog(@"Kylie");
+
+        if (myself->TextView.totalNumCharacters == 0) {
+            FaceButton.backgroundColor = TypePink;
+            CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
+            FaceButton.title = @"START TYPING";
+            FaceButton.enabled = NO;
+
+        }
+
+        else {
+//                    FaceButton.backgroundColor = [UIColor clearColor];
+//                    FaceButton.layer.borderWidth = 2;
+//                    FaceButton.layer.borderColor = TypePink.CGColor;
+//                    CharactersLeftLabel.textColor = TypePink;
+//                    FaceButton.title = @"K";
+
+        }
 
     };
     TextView->TextDidChangeAction = ^
     {
+        NSLog(@"Kendall");
 
         get_myself;
 
-        FaceButton.backgroundColor = [UIColor clearColor];
-        FaceButton.layer.borderWidth = 2;
-        FaceButton.layer.borderColor = TypePink.CGColor;
-        CharactersLeftLabel.textColor = TypePink;
-        FaceButton.title = @"Face";
-        
+
+        if (myself->TextView.totalNumCharacters == 0) {
+            FaceButton.backgroundColor = TypePink;
+            CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
+            FaceButton.title = @"START TYPING";
+            FaceButton.enabled = NO;
+
+        }
+
+        else {
+            FaceButton.backgroundColor = [UIColor clearColor];
+            FaceButton.layer.borderWidth = 2;
+            FaceButton.layer.borderColor = TypePink.CGColor;
+            CharactersLeftLabel.textColor = TypePink;
+            FaceButton.title = @"ADD A FACE";
+            FaceButton.enabled = YES;
+        }
+
+
         myself->TextView.disableTextEdition = NO;
         myself->TextView.useSmallFont       = (myself->TextView.totalNumCharacters > parameters.typingFontSizeCharacterCountTrigger);
 
-        myself->FaceButton.enabled = (myself->TextView.numUnvalidatedChars > 0);
+        //myself->FaceButton.enabled = (myself->TextView.numUnvalidatedChars > 0);
+
         myself->ChangingReturnButtonType = YES;
         [myself->TextView showGoKey:((myself->TextView.numUnvalidatedChars == 0) && (myself->TextView.textRecords.count > 0))];
         myself->ChangingReturnButtonType = NO;
@@ -182,16 +222,18 @@
     TextView->SelectionDidChangeAction = ^
     {
 
+
     };
     TextView->DidEndEditingAction = ^
     {
+
     };
     TextView->ShouldBeginEditingAction = ^BOOL()
     {
         return YES;
     };
     TextView->DidDeleteLastChunk = ^
-    {
+    { 
         get_myself;
         if (myself->FaceCount > 0)
         {
@@ -352,15 +394,22 @@
 
 - (void)faceButtonPressed
 {
+
+
+
   [TextView setChunkIsComplete];
   [self addSnapshot];
   ++FaceCount;
-  FaceButton.enabled = NO;
   GlobalParameters* parameters  = GetGlobalParameters();
   NumCharactersLeft = parameters.typingMaxCharacterCount - TextView.numUnvalidatedChars;
   ChangingReturnButtonType = YES;
   [TextView showGoKey:YES];
   ChangingReturnButtonType = NO;
+
+  FaceButton.backgroundColor = TypePink;
+  CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
+  FaceButton.title = @"KEEP TYPING";
+  FaceButton.enabled = NO;
   [self updateUI];
 }
 //__________________________________________________________________________________________________
@@ -376,6 +425,8 @@
   NumCharactersLeft           = GetGlobalParameters().typingMaxCharacterCount - TextView.numUnvalidatedChars;
   CharactersLeftLabel.text    = [NSString stringWithFormat:@"%d", (int)NumCharactersLeft];
   TextView.disableTextEdition = (NumCharactersLeft <= 0);
+
+
 }
 //__________________________________________________________________________________________________
 

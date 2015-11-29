@@ -16,6 +16,8 @@
 #import "Tools.h"
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "WhiteButton.h"
+#import "Colors.h"
 //__________________________________________________________________________________________________
 
 #define USE_AUTOSEARCH 1
@@ -42,6 +44,8 @@
   SystemSoundID           soundEffect;
   NSString *soundPath;
   NSURL *soundURL;
+  WhiteButton*          InviteButton;
+
 
 }
 //____________________
@@ -62,11 +66,13 @@
   self.simulateButton           = YES;
   self.addButtonEnabled         = NO;
   self.ignoreUnreadMessages     = YES;
+  InviteButton                  = [WhiteButton          new];
   PendingFriends                = [NSMutableArray arrayWithCapacity:10];
   RollDownErrorView             = [RollDownView        new];
   InviteBusyIndicator           = [NetworkActivityView new];
   [self addSubview:RollDownErrorView];
   [self addSubview:InviteBusyIndicator];
+  [self addSubview:InviteButton];
 
   AddFriendStarted = ^
   { // DefaultAction: do nothing!
@@ -222,6 +228,7 @@
   if(![MFMessageComposeViewController canSendText])
   {
     parameters.findUserMessagingNotSupportedAction();
+
   }
   else
   {
@@ -236,8 +243,10 @@
 
     // Present message view controller on screen.
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:messageController animated:YES completion:^
-    {
+
+     {
       [InviteBusyIndicator hideAnimated:YES];
+
     }];
   }
 }
