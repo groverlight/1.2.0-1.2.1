@@ -29,6 +29,10 @@
 #define WarmGrey        Color(E_Color_WarmGrey)
 #define TypePink        Color(E_Color_TypePink)
 #define TypeTeal        Color(E_Color_TypeTeal)
+#define TypeBlue        Color(E_Color_TypeBlue)
+#define TypeTealDark    Color(E_Color_TypeTealDark)
+#define LightPink        Color(E_Color_LightPink)
+
 //__________________________________________________________________________________________________
 
 //! All the colors defined for this App.
@@ -57,6 +61,9 @@ typedef enum
   E_Color_WarmGrey,
   E_Color_TypePink,
   E_Color_TypeTeal,
+  E_Color_TypeBlue,
+  E_Color_TypeTealDark,
+  E_Color_LightPink,
 } T_Colors;
 //__________________________________________________________________________________________________
 

@@ -16,7 +16,6 @@
 #import "Tools.h"
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "WhiteButton.h"
 #import "Colors.h"
 //__________________________________________________________________________________________________
 
@@ -44,7 +43,7 @@
   SystemSoundID           soundEffect;
   NSString *soundPath;
   NSURL *soundURL;
-  WhiteButton*          InviteButton;
+
 
 
 }
@@ -66,13 +65,12 @@
   self.simulateButton           = YES;
   self.addButtonEnabled         = NO;
   self.ignoreUnreadMessages     = YES;
-  InviteButton                  = [WhiteButton          new];
   PendingFriends                = [NSMutableArray arrayWithCapacity:10];
   RollDownErrorView             = [RollDownView        new];
   InviteBusyIndicator           = [NetworkActivityView new];
   [self addSubview:RollDownErrorView];
   [self addSubview:InviteBusyIndicator];
-  [self addSubview:InviteButton];
+
 
   AddFriendStarted = ^
   { // DefaultAction: do nothing!
@@ -232,6 +230,8 @@
   }
   else
   {
+      
+
     [InviteBusyIndicator showAnimated:YES];
     NSArray*  recipents = @[];
     NSString* message   = [NSString stringWithFormat:parameters.findUserMessagingSampleText, GetCurrentParseUser().username];
@@ -247,12 +247,14 @@
      {
       [InviteBusyIndicator hideAnimated:YES];
 
+
     }];
   }
 }
 //__________________________________________________________________________________________________
 
 // Action when the Add button is pressed.
+
 -(void)addButtonPressed
 {
     soundPath = [[NSBundle mainBundle] pathForResource:@"button20" ofType:@"aiff"];
@@ -315,6 +317,7 @@
             soundURL = [NSURL fileURLWithPath:soundPath];
             AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &soundEffect);
             AudioServicesPlaySystemSound(soundEffect);
+
         }
         else if ([PendingFriends indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL* stop)
                  {

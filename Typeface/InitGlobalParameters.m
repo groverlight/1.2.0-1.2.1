@@ -116,7 +116,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.cameraWhiteBalanceBlueGain           = 1.0;
   parameters.cameraUseBackCamera                  = NO;
 
-  parameters.gradientTopColor                     = ColorWithAlpha(White , 1.0);
+  parameters.gradientTopColor                     = ColorWithAlpha(White, 1.0);
   parameters.gradientBottomColor                  = ColorWithAlpha(White , 0.55);
   parameters.gradientAlpha                        = 1.0;
 
@@ -204,7 +204,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.friendsListSeparatorBorderMargin       = 16;
   parameters.friendsListRecentSectionHeaderTitle    = NSLocalizedString(@"RECENT", @"");
   parameters.friendsListAllSectionHeaderTitle       = NSLocalizedString(@"ALL", @"");
-  parameters.friendsListHeaderBackgroundColor       = Transparent;
+    parameters.friendsListHeaderBackgroundColor       = Transparent;
   parameters.friendsListHeaderTextColor             = TypePink;
   parameters.friendsListHeaderTextFont              = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:17];
   parameters.friendsListHeaderTextLeftMargin        = 132;
@@ -238,8 +238,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.addFriendAllLowercase                  = NO;
 
   parameters.friendStateViewCircleLineWidth               = 1.0;
-  parameters.friendStateViewCircleRadius                  = 8.0;
-  parameters.friendStateViewDiskRadius                    = 5.0;
+  parameters.friendStateViewCircleRadius                  = 10.0;
+  parameters.friendStateViewDiskRadius                    = 8.0;
   parameters.friendStateViewProgressCircleRadius          = 12;
   parameters.friendStateViewProgressDiskRadius            = 8.0;
   parameters.friendStateViewColor                         = TypePink;
@@ -291,7 +291,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.typingValidatedBackgroundColor       = Transparent;
   parameters.typingTopBarBorderOffset             = 42;
   parameters.typingTopBarTopOffset                = -3;
-  parameters.typingCursorColor                    = TypePink;
+  parameters.typingCursorColor                    = TypeBlue;
   parameters.typingFont                           = [UIFont fontWithName:@"AvenirNext-Medium" size:18];
 
 

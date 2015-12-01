@@ -203,7 +203,7 @@
             FaceButton.layer.borderWidth = 2;
             FaceButton.layer.borderColor = TypePink.CGColor;
             CharactersLeftLabel.textColor = TypePink;
-            FaceButton.title = @"ADD A FACE";
+            FaceButton.title = @"TAKE SELFIE";
             FaceButton.enabled = YES;
         }
 

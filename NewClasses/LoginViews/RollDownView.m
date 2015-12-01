@@ -5,6 +5,7 @@
 
 #import "GlobalParameters.h"
 #import "RollDownView.h"
+#import "Colors.h"
 //__________________________________________________________________________________________________
 
 #define TITLE_TOP_MARGIN              23  //!< Vertical position ot the top of the title label.
@@ -15,6 +16,7 @@
 #define BUTTON_HEIGHT                 20  //!< Height of the button.
 #define BEST_VIEW_HEIGHT              74  //!< Preferred height of the roll down view.
 #define BEST_VIEW_HEIGHT_WITH_BUTTON 100  //!< Preferred height of the roll down view when button is visible.
+
 //__________________________________________________________________________________________________
 
 //! UIView based class that contain additions common to many views in the project.
@@ -41,8 +43,8 @@
   Message.font          = [UIFont fontWithName:@"AvenirNext-Medium" size:13];
   Title.textAlignment   = NSTextAlignmentCenter;
   Message.textAlignment = NSTextAlignmentCenter;
-  Title.textColor = [UIColor whiteColor];
-  Message.textColor = [UIColor whiteColor];
+  Title.textColor = TypeTealDark;
+  Message.textColor = TypeTealDark;
   Message.numberOfLines = 2;
   Message.lineBreakMode = NSLineBreakByWordWrapping;
   self.backgroundColor  = [UIColor clearColor];

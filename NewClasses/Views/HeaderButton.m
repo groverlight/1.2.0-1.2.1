@@ -180,7 +180,7 @@
 
   Label                         = [UILabel  new];
   Dot                           = [DotView  new];
-  Label.font                    = [UIFont fontWithName:@"AvenirNext-Regular" size:19];
+  Label.font                    = [UIFont fontWithName:@"AvenirNext-Bold" size:18];
   Label.textAlignment           = NSTextAlignmentCenter;
   Dot.bounds                    = CGRectMake(0, 0, 4 * HighlightedDotRadius, 4 * HighlightedDotRadius);
   Dot.center                    = CGPointZero;

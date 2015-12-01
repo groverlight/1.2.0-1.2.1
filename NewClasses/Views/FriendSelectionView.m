@@ -177,7 +177,7 @@ NSMutableArray*      contactsNotUsers;
   Editor.returnKeyType            = UIReturnKeyDone;
   //Editor.keyboardAppearance = UIKeyboardAppearanceDark;
   Editor.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-  Editor.font                     = [UIFont fontWithName:@"AvenirNext-Medium" size:parameters.friendsEditorFontSize];
+  Editor.font                     = [UIFont fontWithName:@"AvenirNext-Regular" size:parameters.friendsEditorFontSize];
   Editor.autocorrectionType  = UITextAutocorrectionTypeNo;
   Editor.autocapitalizationType  = UITextAutocapitalizationTypeNone;
 
