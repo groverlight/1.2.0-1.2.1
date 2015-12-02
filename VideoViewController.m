@@ -12,7 +12,7 @@
 #import "Parse.h"
 #import "Alert.h"
 #import <Contacts/Contacts.h>
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 
 @interface VideoViewController ()
 
@@ -20,21 +20,18 @@
 @property (strong, nonatomic) IBOutlet UIView *movieView;
 @property (strong, nonatomic) IBOutlet UIView *gradientView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UILabel *firstLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *logo;
 
 @end
 
 @implementation VideoViewController
 {
     AppViewController *appview;
-    UIPageControl *pageControl;
-    UILabel *label;
-    UIButton *button1;
-    UIButton *button2;
     UIButton *camera;
     UIButton *contacts;
     UIButton *notifications;
-    
     NSInteger buttonIndicate;
     POPSpringAnimation *spring;
     POPBasicAnimation *disappear;
@@ -51,6 +48,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.frame = [UIScreen mainScreen].bounds;
+    /*-----------------------------------------------------------------------------------------*/
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRight];
+    
+
     buttonIndicate = 0;
     /*-----------------------------------------------------------------------------------------*/
     spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
@@ -62,42 +71,9 @@
     disappear = [POPBasicAnimation animation];
     disappear.property = [POPAnimatableProperty propertyWithName:kPOPViewAlpha];
     disappear.toValue = @(0);
-    /*-----------------------------------------------------------------------------------------*/
-    pageControl = [[UIPageControl alloc] init];
-    pageControl.frame = self.view.frame;
-    pageControl.numberOfPages = 10;
-    pageControl.currentPage = 0;
-    pageControl.userInteractionEnabled = NO;
-    /*-----------------------------------------------------------------------------------------*/
-    
-    label = [[UILabel alloc] initWithFrame:CGRectMake(70,350,200,20)];
-    label.text = @"0";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    [self.view addSubview:label];
-    /*-----------------------------------------------------------------------------------------*/
-    button1 =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
-    button1.backgroundColor = [UIColor purpleColor];
-    button1.layer.cornerRadius = 10;
-    button1.clipsToBounds = YES;
-    [button1 addTarget:self
-               action:@selector(button1Pressed:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [button1 setTitle:@"Continue  ➣" forState:UIControlStateNormal];
-    button1.frame = CGRectMake(100, 450, 160.0, 40.0);
-    [self.view addSubview:button1];
-    /*-----------------------------------------------------------------------------------------*/
-    button2 =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
-    button2.backgroundColor = [UIColor purpleColor];
-    
-    button2.layer.cornerRadius = 10;
-    button2.clipsToBounds = YES;
-    [button2 addTarget:self
-                action:@selector(button2Pressed:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [button2 setTitle:@"I already Know" forState:UIControlStateNormal];
-    button2.frame = CGRectMake(90, 500, 200, 40.0);
-    [self.view addSubview:button2];
+
+
+
     /*-----------------------------------------------------------------------------------------*/
     camera =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
     camera.backgroundColor = [UIColor purpleColor];
@@ -163,6 +139,9 @@
     gradient.frame = [[UIScreen mainScreen] bounds];
     gradient.colors = [NSArray arrayWithObjects:(id)[UIColorFromRGB(0x030303) CGColor], (id)[[UIColor clearColor] CGColor], (id)[UIColorFromRGB(0x030303) CGColor],nil];
     [self.gradientView.layer insertSublayer:gradient atIndex:0];*/
+    UIView* backgroundColor = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    backgroundColor.backgroundColor =[UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:.5];
+    [self.view addSubview:backgroundColor];
 }
 
 
@@ -189,82 +168,7 @@
 }
 
 
-- (IBAction)button1Pressed:(id)sender {
 
-    [button1 pop_addAnimation:spring forKey:@"springAnimation"];
-    [self.movieView pop_addAnimation:disappear forKey:@"kPOPViewAlpha"];
-    ++pageControl.currentPage;
-    switch (pageControl.currentPage) {
-        case 0:
-            label.text = @"0";
-            break;
-        case 1:
-            label.text = @"1";
-            break;
-        case 2:
-            label.text = @"2";
-            break;
-        case 3:
-            label.text = @"3";
-            break;
-        case 4:
-            label.text = @"4";
-            break;
-        case 5:
-            label.text = @"5";
-            break;
-        case 6:
-            label.text = @"6";
-            break;
-        case 7:
-            label.text = @"7";
-            break;
-        case 8:
-            label.text = @"8";
-            [self.movieView removeFromSuperview];
-            [self.gradientView removeFromSuperview];
-            button2.hidden = YES;
-            camera.hidden = NO;
-            contacts.hidden = NO;
-            notifications.hidden = NO;
-            button1.userInteractionEnabled = NO;
-            button1.backgroundColor = [UIColor grayColor];
-            break;
-        case 9:
-            label.text = @"9";
-            
-            
-            [self dismissViewControllerAnimated:YES completion:nil];
-            break;
-
-            
-        default:
-            break;
-            
-    }
-    
-    
-
- 
-   }
-- (IBAction)button2Pressed:(id)sender {
-
-    [button2 pop_addAnimation:spring forKey:@"springAnimation"];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        pageControl.currentPage = 9;
-    });
-    [self.movieView removeFromSuperview];
-    [self.gradientView removeFromSuperview];
-    button2.hidden = YES;
-    camera.hidden = NO;
-    contacts.hidden = NO;
-    notifications.hidden = NO;
-    button1.userInteractionEnabled = NO;
-    button1.backgroundColor = [UIColor grayColor];
-    label.text = @"9";
-    
-}
 -(IBAction)cameraPermission:(id)sender{
 
     [camera pop_addAnimation:spring forKey:@"springAnimation"];
@@ -279,8 +183,8 @@
                 buttonIndicate++;
                 if (buttonIndicate == 3)
                 {
-                    button1.userInteractionEnabled = YES;
-                    button1.backgroundColor = [UIColor purpleColor];
+
+
                 }
                
             });
@@ -308,8 +212,7 @@
                 buttonIndicate++;
                 if (buttonIndicate == 3)
                 {
-                    button1.userInteractionEnabled = YES;
-                    button1.backgroundColor = [UIColor purpleColor];
+
                 }
             }
             else
@@ -333,8 +236,7 @@
                                                           buttonIndicate++;
                                                           if (buttonIndicate == 3)
                                                           {
-                                                              button1.userInteractionEnabled = YES;
-                                                              button1.backgroundColor = [UIColor purpleColor];
+
                                                           }
                                                       });
             
@@ -356,8 +258,37 @@
     [avPlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     [avPlayerLayer setFrame:[[UIScreen mainScreen] bounds]];
 
-    [self.movieView.layer addSublayer:avPlayerLayer];
+    //[self.movieView.layer addSublayer:avPlayerLayer]; // this sets up Video
         
+}
+
+- (void)swipe:(UISwipeGestureRecognizer *)swipeRecogniser
+{
+    if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionLeft)
+    {
+        self.pageControl.currentPage -=1;
+    }
+    else if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionRight)
+    {
+        self.pageControl.currentPage +=1;
+    }
+    NSLog(@" page Control : %lu", (long)self.pageControl.currentPage);
+    NSInteger page = self.pageControl.currentPage;
+    switch (page)
+    {
+        case 0:
+            _logo.hidden = NO;
+            _firstLabel.hidden = NO;
+            break;
+        case 1:
+            _logo.hidden = YES;
+            _firstLabel.hidden = YES;
+            break;
+        case 2:
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning

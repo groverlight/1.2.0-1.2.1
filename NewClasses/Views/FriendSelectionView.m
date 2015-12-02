@@ -754,8 +754,7 @@ NSMutableArray*      contactsNotUsers;
 {
   
   NSInteger recentFriendsCount = self.recentFriends.count;
-    NSLog(@"friendIndex: %lu", friendIndex);
-    NSLog(@"recentFriendsCount: %lu",recentFriendsCount);
+
   if (friendIndex < recentFriendsCount)
   {
 
@@ -776,8 +775,7 @@ NSMutableArray*      contactsNotUsers;
 {
     
     NSInteger recentFriendsCount = self.recentFriends.count;
-    NSLog(@"friendIndex: %lu", friendIndex);
-    NSLog(@"recentFriendsCount: %lu",recentFriendsCount);
+
     if (friendIndex < recentFriendsCount)
     {
         
@@ -914,7 +912,6 @@ NSMutableArray*      contactsNotUsers;
      }];
     NSMutableArray *fullName = [[NSMutableArray alloc]init];
     NSMutableArray *phoneNumber = [[NSMutableArray alloc]init];
-    NSLog(@"contacts count %lu", [contactsNotUsers count]);
             if ([contactsNotUsers count] ==0)
                  {
             NSLog(@"INITIATING CONTACT SYNC"); // IMPORTANT
@@ -1097,11 +1094,13 @@ NSMutableArray*      contactsNotUsers;
                                 {
                                     contactsNotUsers = [[NSMutableArray alloc]init];
                                 }
+                        
                                  for (NSString* name in fullName)
                                  {
-
-                                    if (![name isEqualToString:@""])
+                                    BOOL containsLetter = NSNotFound != [name rangeOfCharacterFromSet:NSCharacterSet.letterCharacterSet].location;
+                                    if(containsLetter)
                                     {
+                                     // if (![name isEqualToString:@""];
                                      //NSLog( @"timestampstring:%@ timestampdouble:%f",timeStamp, [[NSDate date] timeIntervalSince1970]);
                                      FriendRecord * newUser = [FriendRecord new];
                                      newUser.fullName = name;
@@ -1167,7 +1166,7 @@ NSMutableArray*      contactsNotUsers;
 
                                               UpdateFriendRecordListForFriends(friends);
 
-                                             // NSLog(@"%@", GetNameSortedFriendRecords());
+                                              NSLog(@"%@", GetNameSortedFriendRecords());
                                               for (NSInteger i=0; i < [contactsNotUsers count]; i++)
                                               {
                                                   FriendRecord *temprecord = [contactsNotUsers objectAtIndex:i];
@@ -1211,7 +1210,7 @@ NSMutableArray*      contactsNotUsers;
 
                                  }];
 
-                        NSLog(@"contactsNotUsers %@", contactsNotUsers);
+
                         
              
                        

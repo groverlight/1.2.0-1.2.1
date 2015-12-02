@@ -2,7 +2,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VideoViewController : UIViewController <UIScrollViewDelegate>
+@interface VideoViewController : UIViewController 
 {
     		
 }

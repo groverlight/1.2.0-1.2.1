@@ -1,34 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoViewController" propertyAccessControl="none">
             <connections>
+                <outlet property="firstLabel" destination="Hm2-qI-aVS" id="wCk-qf-c1A"/>
                 <outlet property="gradientView" destination="jDe-OS-DOF" id="f2Z-EG-Ekm"/>
+                <outlet property="logo" destination="5Qr-kA-fS4" id="gah-Fm-kLH"/>
                 <outlet property="movieView" destination="bXy-qe-Bbv" id="JFi-M4-eCA"/>
+                <outlet property="pageControl" destination="CSI-H6-xac" id="rfd-4v-7A0"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
+        <view contentMode="center" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="bXy-qe-Bbv">
+                <view contentMode="center" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXy-qe-Bbv">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zTc-BZ-iyo">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="656"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TVm-Up-qIL">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="656"/>
+                                    <subviews>
+                                        <view contentMode="redraw" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDe-OS-DOF">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="656"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="spelled_out.png" translatesAutoresizingMaskIntoConstraints="NO" id="kby-tV-9bV">
+                                                    <rect key="frame" x="124" y="534" width="73" height="17"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo_tut.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Qr-kA-fS4">
+                                                    <rect key="frame" x="124" y="56" width="71" height="71"/>
+                                                </imageView>
+                                                <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="6" translatesAutoresizingMaskIntoConstraints="NO" id="CSI-H6-xac">
+                                                    <rect key="frame" x="119" y="489" width="82" height="37"/>
+                                                    <gestureRecognizers/>
+                                                    <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="currentPageIndicatorTintColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                </pageControl>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Talk without making a sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hm2-qI-aVS">
+                                                    <rect key="frame" x="0.0" y="242" width="320" height="54"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="jNl-bs-VTI" appends="YES" id="rNz-pD-e3o"/>
+                                            </connections>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jDe-OS-DOF" firstAttribute="centerX" secondItem="TVm-Up-qIL" secondAttribute="centerX" id="mr6-8o-9Ho"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" id="jDe-OS-DOF">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="656"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="zTc-BZ-iyo" firstAttribute="centerX" secondItem="bXy-qe-Bbv" secondAttribute="centerX" id="QEp-VQ-fZx"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="bXy-qe-Bbv" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="ZyE-bL-aXp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="433" y="256"/>
         </view>
+        <swipeGestureRecognizer direction="right" id="jNl-bs-VTI"/>
     </objects>
+    <resources>
+        <image name="logo_tut.png" width="273" height="188"/>
+        <image name="spelled_out.png" width="190" height="42"/>
+    </resources>
 </document>
