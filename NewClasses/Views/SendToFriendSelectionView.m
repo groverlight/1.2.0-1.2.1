@@ -77,6 +77,16 @@
          
          return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
      }];
+    NSMutableArray *uniqueArray = [NSMutableArray array];
+    NSMutableSet *names = [NSMutableSet set];
+    for (FriendRecord* record in contactsNotUsers) {
+        NSString *destinationName = record.fullName;
+        if (![names containsObject:destinationName]) {
+            [uniqueArray addObject:record];
+            [names addObject:destinationName];
+        }
+    }
+    contactsNotUsers = uniqueArray;
     self.allFriends     = contactsNotUsers;
   self->FriendsList.contentOffset = CGPointMake(0, 0- FriendsList.contentInset.top);
 
