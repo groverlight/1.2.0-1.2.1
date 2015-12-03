@@ -545,7 +545,9 @@ NSMutableArray*      contactsNotUsers;
   {
     [Editor resignFirstResponder];
   }
+    dispatch_async(dispatch_get_main_queue(), ^{
   [self contactsync];
+    });
 }
 //__________________________________________________________________________________________________
 
@@ -1194,10 +1196,8 @@ NSMutableArray*      contactsNotUsers;
                                                   [[PFUser currentUser] saveInBackground];
 
                                               }
-                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                              [self updateFriendsLists];
-                                      });
-                                                                                        }];
+                                              [self updateFriendsLists];
+                                        }];
                                      }
                                      
                                          
@@ -1206,11 +1206,7 @@ NSMutableArray*      contactsNotUsers;
                                          NSLog(@"Did not find anyone");
                                          
                                      }
-                                     RefreshAllFriends(^
-                                                       {
-                                                 
-                                                           [self updateFriendsLists];
-                                                       });
+
                                      
                                  }];
 

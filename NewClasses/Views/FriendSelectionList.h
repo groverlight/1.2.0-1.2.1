@@ -9,7 +9,7 @@
 //__________________________________________________________________________________________________
 
 //! UIView based class that let select a friend in a list.
-@interface FriendSelectionList : TableView <UIScrollViewDelegate>
+@interface FriendSelectionList : TableView <UITableViewDataSource, UITableViewDelegate>
 {
 @public
   BlockAction         RefreshRequest;

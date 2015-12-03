@@ -58,6 +58,7 @@
 }
 //__________________________________________________________________________________________________
 
+
 - (void)updateFriendsLists
 {
     indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
@@ -89,8 +90,9 @@
     contactsNotUsers = uniqueArray;
     self.allFriends     = contactsNotUsers;
   self->FriendsList.contentOffset = CGPointMake(0, 0- FriendsList.contentInset.top);
-
+dispatch_async(dispatch_get_main_queue(), ^{
   [self->FriendsList ReloadTableData];
+});
   [indexView addTarget:self action:@selector(indexViewValueChanged:) forControlEvents:UIControlEventValueChanged];
 
 

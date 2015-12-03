@@ -293,7 +293,7 @@
     if (index == NSNotFound)
     {
         [NameSortedList addObject:friendRecord];
-        //[TimeSortedList addObject:friendRecord];
+        [TimeSortedList addObject:friendRecord];
         [self sortNameList];
         changed = YES;
     }
@@ -334,7 +334,7 @@
     {
         NSLog(@"index == nsnotfound");
         [NameSortedList addObject:friendRecord];
-        [TimeSortedList addObject:friendRecord];
+        //[TimeSortedList addObject:friendRecord];
 
         [self sortNameList];
         changed = YES;
