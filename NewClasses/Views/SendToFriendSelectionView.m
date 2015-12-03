@@ -24,6 +24,7 @@
     NSMutableArray *sectionPeople;
     NSMutableArray *person;
     BDKCollectionIndexView *indexView;
+    NSArray * indexTitles;
 }
 
 //____________________
@@ -32,7 +33,8 @@
 -(void)Initialize
 {
     [super Initialize];
-
+    indexView.delegate = self;
+  self.clipsToBounds = NO;
   GlobalParameters* parameters  = GetGlobalParameters();
   ListName.text                 = parameters.friendsSendToLabelTitle;
   self.showSectionHeaders       = YES;
@@ -58,23 +60,42 @@
 
 - (void)updateFriendsLists
 {
-    NSArray * indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
-    
-    self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,self.window.height,28,self.window.height) indexTitles: indexTitles];
+    indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+    self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,60,28,self.window.height-60) indexTitles:nil];
+    self->indexView = [self->indexView initWithFrame:CGRectMake(self.window.width-28,self.window.height,28,self.window.height) indexTitles: indexTitles];
     NSLog(@"INDEX VIEW FRAME2: %@", NSStringFromCGRect(self->indexView.frame));
-    
+    self->indexView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self->indexView];
+    //[self bringSubviewToFront:self->indexView];
 
   self.recentFriends  = GetTimeSortedFriendRecords();
    // NSLog(@"contacts: %@", contactsNotUsers);
+    [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+     {
+         FriendRecord* record1 = (FriendRecord*)obj1;
+         FriendRecord* record2 = (FriendRecord*)obj2;
+         
+         return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
+     }];
     self.allFriends     = contactsNotUsers;
   self->FriendsList.contentOffset = CGPointMake(0, 0- FriendsList.contentInset.top);
-    
-  [self->FriendsList ReloadTableData];
 
+  [self->FriendsList ReloadTableData];
+  [indexView addTarget:self action:@selector(indexViewValueChanged:) forControlEvents:UIControlEventValueChanged];
 
 
 }
-//__________________________________________________________________________________________________
 
+//__________________________________________________________________________________________________
+- (void)indexViewValueChanged:(BDKCollectionIndexView *)sender {
+   // NSLog(@"indexView.currentIndex %lu", [self->FriendsList getIndex:indexView.currentIndex and:0]);
+    NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
+    NSInteger listIndex =[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]];
+    if (listIndex < 100)
+    {
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:listIndex];
+   //self->FriendsList->indexForList = indexView.currentIndex;
+  [self->FriendsList scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
 @end

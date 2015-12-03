@@ -189,6 +189,7 @@
         NSMutableArray *uniqueArray = [NSMutableArray array];
         NSMutableSet *names = [NSMutableSet set];
         for (FriendRecord* record in TimeSortedList) {
+            NSLog(@"phoneNumber: %@", record.phoneNumber);
             NSString *destinationName = record.fullName;
             if (![names containsObject:destinationName]) {
                 [uniqueArray addObject:record];
@@ -474,6 +475,7 @@ switch (myStatus) {
 {
     NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
     NSArray* loadedArray      = [defaults objectForKey:FRIEND_RECORD_LIST_NAME];
+    
     if (loadedArray != nil)
     {
         TimeSortedList = [NSMutableArray arrayWithCapacity:loadedArray.count];
@@ -495,7 +497,7 @@ switch (myStatus) {
                 BOOL found = NO;
                 for (FriendRecord* record in TimeSortedList)
                 {
-                    if (((record.user != nil) && (record.user == friendRecord.user)) || [record.objectId isEqualToString:friendRecord.objectId])
+                    if (([record.phoneNumber isEqualToString:friendRecord.phoneNumber]) ||(record.user == friendRecord.user) || [record.objectId isEqualToString:friendRecord.objectId])
                     {
                         found = YES;
                         break;
@@ -511,6 +513,10 @@ switch (myStatus) {
     else
     {
         TimeSortedList = [NSMutableArray arrayWithCapacity:10];
+    }
+    for (FriendRecord *record in TimeSortedList)
+    {
+        NSLog(@"phone Number", record.phoneNumber);
     }
     NameSortedList = [NSMutableArray arrayWithArray:TimeSortedList];
 }

@@ -131,27 +131,30 @@ BOOL ParseInitialization
     {
         contactsNotUsers = [[NSMutableArray alloc]init];
     }
-    for (NSDictionary *person in temp[@"FriendsList"])
+    if ([contactsNotUsers count] == 0)
     {
+        for (NSDictionary *person in temp[@"FriendsList"])
+        {
+            
+          //  NSLog(@"%@", person);
+            FriendRecord* tempRecord    = [FriendRecord new];
+            tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
+            tempRecord.fullName = [person objectForKey:@"fullName"];
+            tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
+           // NSLog(@"tempRecord: %@", tempRecord);
+            [contactsNotUsers addObject:tempRecord];
+        }
         
-      //  NSLog(@"%@", person);
-        FriendRecord* tempRecord    = [FriendRecord new];
-        tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
-        tempRecord.fullName = [person objectForKey:@"fullName"];
-        tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
-       // NSLog(@"tempRecord: %@", tempRecord);
-        [contactsNotUsers addObject:tempRecord];
+        [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+         {
+             FriendRecord* record1 = (FriendRecord*)obj1;
+             FriendRecord* record2 = (FriendRecord*)obj2;
+             
+             return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
+         }];
+        
+      NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
     }
-    
-    [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
-     {
-         FriendRecord* record1 = (FriendRecord*)obj1;
-         FriendRecord* record2 = (FriendRecord*)obj2;
-         
-         return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
-     }];
-    
-  NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
   NSString* parseUserToken = [defaults stringForKey:PARSE_USER_TOKEN_DEFAULTS_KEY];
   FirstRun = (parseUserToken == nil);

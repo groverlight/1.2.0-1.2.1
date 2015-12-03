@@ -23,7 +23,7 @@
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "BDKCollectionIndexView.h"
-
+#import "NavigationView.h"
 //__________________________________________________________________________________________________
 
 #define TOP_OFFSET        120
@@ -116,7 +116,7 @@ NSMutableArray*      contactsNotUsers;
 {
   [super Initialize];
 
-
+  
 //  [self registerForKeyboardNotifications];
   SelectedFriend                = NSNotFound;
   KeyboardTop                   = -1;
@@ -545,7 +545,7 @@ NSMutableArray*      contactsNotUsers;
   {
     [Editor resignFirstResponder];
   }
-   [self contactsync];
+  [self contactsync];
 }
 //__________________________________________________________________________________________________
 
@@ -1084,6 +1084,7 @@ NSMutableArray*      contactsNotUsers;
 }
 -(void)updateTable:(NSArray*)fullName phone:(NSArray*)phoneNumber 
                     {
+                                
                                  PFQuery *query = [PFUser query];
                                  
                                  [query whereKey:@"phoneNumber" containedIn:phoneNumber];
@@ -1114,13 +1115,6 @@ NSMutableArray*      contactsNotUsers;
                                     }
                                  }
 
-                        [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
-                         {
-                             FriendRecord* record1 = (FriendRecord*)obj1;
-                             FriendRecord* record2 = (FriendRecord*)obj2;
-                             
-                             return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
-                         }];
 
 
                         
@@ -1166,6 +1160,13 @@ NSMutableArray*      contactsNotUsers;
 
                                               UpdateFriendRecordListForFriends(friends);
 
+                                              [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+                                               {
+                                                   FriendRecord* record1 = (FriendRecord*)obj1;
+                                                   FriendRecord* record2 = (FriendRecord*)obj2;
+                                                   
+                                                   return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
+                                               }];
                                               NSLog(@"%@", GetNameSortedFriendRecords());
                                               for (NSInteger i=0; i < [contactsNotUsers count]; i++)
                                               {
@@ -1193,11 +1194,10 @@ NSMutableArray*      contactsNotUsers;
                                                   [[PFUser currentUser] saveInBackground];
 
                                               }
-                      
-                                          
-                                              [self updateFriendsLists];
-                                              
-                                          }];
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                              [self updateFriendsLists];
+                                      });
+                                                                                        }];
                                      }
                                      
                                          
@@ -1206,8 +1206,12 @@ NSMutableArray*      contactsNotUsers;
                                          NSLog(@"Did not find anyone");
                                          
                                      }
-                                     [self updateFriendsLists];
-
+                                     RefreshAllFriends(^
+                                                       {
+                                                 
+                                                           [self updateFriendsLists];
+                                                       });
+                                     
                                  }];
 
 

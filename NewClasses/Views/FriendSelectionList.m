@@ -33,8 +33,7 @@
     BOOL          ParseRefreshActive;
     NSArray*      RecentFriendsList;
     NSArray*      AllFriendsList;
-    NSMutableArray* arrayOfPeopleInSection;
-    NSMutableArray* arrayOfSectionTitles;
+
     NSInteger     MaxRecentFriends;
  
 
@@ -504,7 +503,7 @@
     }
 }
 //__________________________________________________________________________________________________
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+/*- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     NSArray* IndexTitles = @[@"√",@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     if (AllFriendsList == contactsNotUsers)
@@ -519,8 +518,7 @@
     
     return nil;
     }
-}
-//__________________________________________________________________________________________________
+}*///__________________________________________________________________________________________________
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
     NSLog(@"index, %lu", index);
@@ -641,7 +639,8 @@
 //__________________________________________________________________________________________________
 -(NSInteger) getIndex:(NSInteger)tableSection and:(NSInteger)tableRow
 {
-    
+    NSLog(@"%@", arrayOfSectionTitles);
+    NSLog(@"%lu", tableSection);
     NSInteger indexCounter = 0;
     for ( int i = 0; i < tableSection; i++)
     {
@@ -651,7 +650,7 @@
         NSLog(@"people count %lu", indexCounter);
         
     }
-    NSLog(@"%lu", indexCounter);
+    
     NSInteger index = 0;
     if (tableSection == 0 )
     {
@@ -661,7 +660,7 @@
     {
         index = indexCounter + tableRow + [RecentFriendsList count];
     }
-    
+    NSLog(@"index: %lu", index);
     return index;
 }
 

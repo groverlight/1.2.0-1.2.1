@@ -25,7 +25,10 @@
   BOOL                UseDotsVsState;
   BOOL                SimulateButton;
   BOOL                IgnoreUnreadMessages;
+NSMutableArray* arrayOfPeopleInSection;
+NSMutableArray* arrayOfSectionTitles;
   NSArray* indexTitles;
+  NSInteger indexForList;
 }
 //____________________
 
@@ -35,6 +38,7 @@
 //____________________
 
 - (void)clearSelection;
+-(NSInteger) getIndex:(NSInteger)tableSection and:(NSInteger)tableRow;
 //____________________
 
 @end
