@@ -190,7 +190,7 @@
         NSMutableSet *names = [NSMutableSet set];
         for (FriendRecord* record in TimeSortedList) {
             NSLog(@"phoneNumber: %@", record.phoneNumber);
-            NSString *destinationName = record.fullName;
+            NSString *destinationName = record.phoneNumber;
             if (![names containsObject:destinationName]) {
                 [uniqueArray addObject:record];
                 [names addObject:destinationName];
@@ -293,7 +293,7 @@
     if (index == NSNotFound)
     {
         [NameSortedList addObject:friendRecord];
-        [TimeSortedList addObject:friendRecord];
+        //[TimeSortedList addObject:friendRecord];
         [self sortNameList];
         changed = YES;
     }
