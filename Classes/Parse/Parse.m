@@ -1097,15 +1097,21 @@ void ParseSendSilentPushNotificationToUser(NSString* destUserObjectId)
 void ParseSetBadge(NSInteger badgeNumber)
 {
 //  NSLog(@"1 ParseSetBadge: %d", (int)badgeNumber);
-  [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
-  PFInstallation* currentInstallation = [PFInstallation currentInstallation];
-  if (currentInstallation.badge != badgeNumber)
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
+    PFInstallation* currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation.badge++;
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    { // Use the block version of the saveInBackground call is a workaround for a Parse bug.
+    }];
+    NSLog(@"Old badge bumber: %ld", (long)badgeNumber);
+ /* if (currentInstallation.badge != badgeNumber)
   {
 //    NSLog(@"2 ParseSetBadge: %d, %d", (int)currentInstallation.badge, (int)badgeNumber);
     currentInstallation.badge = badgeNumber;
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     { // Use the block version of the saveInBackground call is a workaround for a Parse bug.
-    }];  }
+    }];  } change badge number*/
 }
 //__________________________________________________________________________________________________
 
