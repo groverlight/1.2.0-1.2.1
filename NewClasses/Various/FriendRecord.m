@@ -178,7 +178,7 @@
 
 - (void)sortTimeList
 {
-    //NSLog(@"TIME SORT");
+    NSLog(@"TIME SORT");
     if (TimeSortedList.count == 0)
     {
         [TimeSortedList removeAllObjects];
@@ -191,7 +191,7 @@
         NSMutableSet *names = [NSMutableSet set];
         for (FriendRecord* record in TimeSortedList) {
             NSLog(@"phoneNumber: %@", record.phoneNumber);
-            NSLog(@"Timestamp : %f", record.lastActivityTime);
+           // NSLog(@"Timestamp : %f", record.lastActivityTime);
             NSString *destinationName = record.phoneNumber;
             if (![names containsObject:destinationName]) {
                 [uniqueArray addObject:record];
