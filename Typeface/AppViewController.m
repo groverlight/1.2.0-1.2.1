@@ -119,7 +119,7 @@ static AppViewController* MainViewController = nil;
                     [object saveInBackground];
                 }
                 fromUsers = (NSMutableArray*)[[NSOrderedSet orderedSetWithArray:fromUsers] array];
-                for (NSString* objectID in fromUsers)
+                /*for (NSString* objectID in fromUsers)
                 {
                     PFQuery *pushQuery = [PFInstallation query];
                     [pushQuery whereKey:@"user" equalTo:objectID];
@@ -140,7 +140,7 @@ static AppViewController* MainViewController = nil;
                      {
                          NSLog(@"Sending Push");
                      }];
-                }
+                }*/
             }
             else {
                 // Log details of the failure
