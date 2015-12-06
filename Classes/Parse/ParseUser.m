@@ -89,11 +89,11 @@ NSMutableArray* GetSharedFriendsList(void)
             record.phoneNumber = user.phoneNumber;
             record.lastActivityTime = user.lastActivityTimestamp;
           [contactsNotUsers addObject:record];
-            NSLog(@"contactsNotUsers1: %@", contactsNotUsers);
+           // NSLog(@"contactsNotUsers1: %@", contactsNotUsers);
             NSMutableArray *uniqueArray = [NSMutableArray array];
             NSMutableSet *names = [NSMutableSet set];
             for (FriendRecord* record2 in contactsNotUsers) {
-                NSLog(@"fullName: %@", record2.fullName);
+               // NSLog(@"fullName: %@", record2.fullName);
                 //NSLog(@"Timestamp : %f", record2.lastActivityTime);
                 NSString *destinationName = record2.fullName;
                 if (![names containsObject:destinationName]) {
@@ -111,7 +111,7 @@ NSMutableArray* GetSharedFriendsList(void)
                  return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
              }];
 
-            NSLog(@"contactsNotUsers2: %@", contactsNotUsers);
+            //NSLog(@"contactsNotUsers2: %@", contactsNotUsers);
         }
         --fetchCount;
         if (fetchCount == 0)

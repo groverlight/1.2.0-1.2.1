@@ -62,7 +62,7 @@
 - (void)updateFriendsLists
 {
     indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
-    self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,60,28,self.window.height-60) indexTitles:nil];
+    self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,120,28,self.window.height-120) indexTitles:nil];
     self->indexView = [self->indexView initWithFrame:CGRectMake(self.window.width-28,self.window.height,28,self.window.height) indexTitles: indexTitles];
    // NSLog(@"INDEX VIEW FRAME2: %@", NSStringFromCGRect(self->indexView.frame));
     self->indexView.contentMode = UIViewContentModeScaleAspectFill;
