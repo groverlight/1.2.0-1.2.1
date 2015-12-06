@@ -45,6 +45,18 @@
 #define PARSE_ERROR_CODE              141 //!< Error code specific to the Parse library.
 #define PREFIX_LABEL_TAP_MARGIN       10  //!< Margin to make easier to tap on the country code label.
 #define THIRD_SEPARATOR_TOP_OFFSET    90
+
+// NEW SHIT
+
+#define ONE_LABEL_TOP_OFFSET          10
+#define TWO_LABEL_TOP_OFFSET          10
+#define THREE_LABEL_TOP_OFFSET        10
+
+#define PROGRESS_LIGHT_BOTTOM_OFFSET  20
+#define PROGRESS_DARK_BOTTOM_OFFSET   20
+
+
+
 //__________________________________________________________________________________________________
 
 //! States of the login state machine.
@@ -75,6 +87,14 @@ typedef enum
     UILabel*                FirstLabel;             //!< The label at the top of the view.
     UILabel*                SecondLabel;            //!< The second label from the top of the view.
     UIView*                 FirstSeparatorView;     //!< The first separator line view.
+
+    UILabel*                OneLabel;
+    UILabel*                TwoLabel;
+    UILabel*                ThreeLabel;
+
+    UIView*                 ProgressLight;
+    UIView*                 ProgressDark;
+
     UILabel*                PrefixLabel;            //!< The country prefix label.
     UITextField*            UpperEditor;            //!< The user's full name editor.
     UITextField*            LowerEditor;            //!< The phone number, verification code and username editor.
@@ -134,6 +154,11 @@ typedef enum
     RollDownErrorView         = [RollDownView          new];
     FirstLabel                = [UILabel               new];
     SecondLabel               = [UILabel               new];
+
+    OneLabel                  = [UILabel               new];
+    TwoLabel                  = [UILabel               new];
+    ThreeLabel                = [UILabel               new];
+
     FirstSeparatorView        = [UIView                new];
     ThirdSeparatorView        = [UIView                new];
     PrefixLabel               = [UILabel               new];
@@ -158,6 +183,23 @@ typedef enum
     PrefixLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:26];
     PrefixLabel.hidden    = NO;
     PrefixLabel.textColor = WarmGrey;
+
+
+    OneLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
+    OneLabel.numberOfLines = 1;
+    OneLabel.textAlignment  = NSTextAlignmentCenter;
+    OneLabel.textColor = WarmGrey;
+
+    TwoLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
+    TwoLabel.numberOfLines = 1;
+    TwoLabel.textAlignment  = NSTextAlignmentCenter;
+    TwoLabel.textColor = WarmGrey;
+
+    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
+    FirstLabel.numberOfLines = 1;
+    FirstLabel.textAlignment  = NSTextAlignmentCenter;
+    FirstLabel.textColor = WarmGrey;
+
     
     UpperEditor.placeholder        = GlobalParams.fullNamePlaceholder;
     UpperEditor.delegate           = self;
