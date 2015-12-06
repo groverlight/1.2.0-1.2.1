@@ -392,8 +392,11 @@ SystemSoundID           soundEffect;
     get_myself;
     UnreadMessages* messages = GetSharedUnreadMessages();
     myself->MessageToPlay = [messages getFirstMessageFromUser:[myself->ActivityListView getFriendAtIndex:tableIndex]];
+     // NSLog(@"MessageToPlay %@", myself->MessageToPlay->FromUser.objectId);
+      
     if (myself->MessageToPlay != nil)
     {
+        
       [myself->Player prepareForFirstChunkWithMessage:myself->MessageToPlay];
       [myself->Player showAnimatedFromPoint:point andInitialRadius:parameters.friendStateViewCircleRadius completion:^
       {
@@ -576,9 +579,28 @@ SystemSoundID           soundEffect;
    NSLog(@"PlayerChunkCompletionAction");
     if (done)
     {
+        
       if (!myself->ScrollView.scrollView.scrollEnabled)
       {
         UnreadMessages* messages = GetSharedUnreadMessages();
+          PFQuery *pushQuery = [PFInstallation query];
+          [pushQuery whereKey:@"user" equalTo:myself->MessageToPlay->FromUser];
+          NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
+          
+          NSDictionary *data = @{
+                                 @"alert" : [NSString stringWithFormat:@"%@ has read your message." ,Name],
+                                 @"p" :[PFUser currentUser].objectId,
+                                 @"t" :[PFUser currentUser][@"phoneNumber"]
+                                 };
+          
+          PFPush *push = [[PFPush alloc] init];
+          [push setQuery:pushQuery];
+          //[push setMessage:@"this works"];
+          [push setData:data];
+          [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
+           {
+               NSLog(@"Sending Push");
+           }];
         [messages deleteMessage:myself->MessageToPlay];
         ParseSetBadge(messages->Messages.count);  // Update the icon badge number with the number of unread messages.
         if (messages->Messages.count == 0)

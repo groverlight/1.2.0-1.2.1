@@ -1100,11 +1100,8 @@ void ParseSetBadge(NSInteger badgeNumber)
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
     PFInstallation* currentInstallation = [PFInstallation currentInstallation];
-    if (badgeNumber != 0 )
+    if (badgeNumber == 0 )
     {
-    currentInstallation.badge++;
-    }
-    else{
         currentInstallation.badge = 0;
     }
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -1112,13 +1109,14 @@ void ParseSetBadge(NSInteger badgeNumber)
     }];
     NSLog(@"Old badge bumber: %ld", (long)badgeNumber);
     NSLog(@"New badge bumber: %ld", (long)currentInstallation.badge);
- /* if (currentInstallation.badge != badgeNumber)
+  if (currentInstallation.badge != badgeNumber)
   {
 //    NSLog(@"2 ParseSetBadge: %d, %d", (int)currentInstallation.badge, (int)badgeNumber);
     currentInstallation.badge = badgeNumber;
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     { // Use the block version of the saveInBackground call is a workaround for a Parse bug.
-    }];  } change badge number*/
+    }];
+  }
 }
 //__________________________________________________________________________________________________
 

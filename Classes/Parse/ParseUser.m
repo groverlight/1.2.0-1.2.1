@@ -10,7 +10,7 @@
 #import "ParseUser.h"
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
-
+#import "FriendSelectionView.h"
 //__________________________________________________________________________________________________
 
 //! Get the shared (singleton) FriendRecord.h array object.
@@ -84,6 +84,34 @@ NSMutableArray* GetSharedFriendsList(void)
         {
 //          NSLog(@"2 findUserWithObjectId: friendObjectId: %@", friendObjectId);
           [friends addObject:user];
+        FriendRecord *record = [FriendRecord new];
+            record.fullName = user.fullName;
+            record.phoneNumber = user.phoneNumber;
+            record.lastActivityTime = user.lastActivityTimestamp;
+          [contactsNotUsers addObject:record];
+            NSLog(@"contactsNotUsers1: %@", contactsNotUsers);
+            NSMutableArray *uniqueArray = [NSMutableArray array];
+            NSMutableSet *names = [NSMutableSet set];
+            for (FriendRecord* record2 in contactsNotUsers) {
+                NSLog(@"fullName: %@", record2.fullName);
+                //NSLog(@"Timestamp : %f", record2.lastActivityTime);
+                NSString *destinationName = record2.fullName;
+                if (![names containsObject:destinationName]) {
+                    [uniqueArray addObject:record2];
+                    [names addObject:destinationName];
+                }
+            }
+            contactsNotUsers = uniqueArray;
+            
+            [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+             {
+                 FriendRecord* record1 = (FriendRecord*)obj1;
+                 FriendRecord* record2 = (FriendRecord*)obj2;
+                 
+                 return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
+             }];
+
+            NSLog(@"contactsNotUsers2: %@", contactsNotUsers);
         }
         --fetchCount;
         if (fetchCount == 0)

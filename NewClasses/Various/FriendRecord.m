@@ -186,14 +186,12 @@
 
     else
     {
-        for (FriendRecord *record in TimeSortedList)
-        {
-            NSLog(@"Record phone: %@", record.phoneNumber);
-        }
+
         NSMutableArray *uniqueArray = [NSMutableArray array];
         NSMutableSet *names = [NSMutableSet set];
         for (FriendRecord* record in TimeSortedList) {
             NSLog(@"phoneNumber: %@", record.phoneNumber);
+            NSLog(@"Timestamp : %f", record.lastActivityTime);
             NSString *destinationName = record.phoneNumber;
             if (![names containsObject:destinationName]) {
                 [uniqueArray addObject:record];
@@ -220,7 +218,7 @@
              return NSOrderedSame;
          }
      }];
-    NSLog(@"TIME SORT");
+
         // First sort array by descending so I could capture the max id
         //NSArray *originalArray = ... // original array of objects with duplicates
 
@@ -338,7 +336,7 @@
     {
         NSLog(@"index == nsnotfound");
         [NameSortedList addObject:friendRecord];
-        //[TimeSortedList addObject:friendRecord];
+        [TimeSortedList addObject:friendRecord];
 
         [self sortNameList];
         changed = YES;
@@ -431,7 +429,7 @@
             NSLog(@"9 updateActivityForFriends: %@", friend.fullName);
             FriendRecord* friendRecord = [[FriendRecord alloc] initWithUser:friend andTime:time];
             [NameSortedList addObject:friendRecord];
-            [TimeSortedList addObject:friendRecord];
+            //[TimeSortedList addObject:friendRecord];// empty time list
             changed = YES;
         }
 
