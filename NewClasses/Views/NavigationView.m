@@ -197,18 +197,19 @@ SystemSoundID           soundEffect;
           if (myself->AzFriendsListView.alpha > 0.0)
           {
             [myself->AzFriendsListView activate];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                  [myself->SendToListView updateFriendsLists];
+              }];
+        /*dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [myself->SendToListView updateFriendsLists];
-        });
+        });*/
           }
           else
           {
             [myself->SendToListView activate];
-              dispatch_async(dispatch_get_main_queue(), ^{
-                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                      [myself->SendToListView updateFriendsLists];
-                  });
-              });
+              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                  [myself->SendToListView updateFriendsLists];
+              }];
           }
         }];
       }

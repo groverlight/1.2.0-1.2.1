@@ -545,9 +545,10 @@ NSMutableArray*      contactsNotUsers;
   {
     [Editor resignFirstResponder];
   }
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [self performSelectorOnMainThread:@selector(contactsync) withObject:@"" waitUntilDone:YES];
+    /*dispatch_async(dispatch_get_main_queue(), ^{
   [self contactsync];
-    });
+    });*/
 }
 //__________________________________________________________________________________________________
 
