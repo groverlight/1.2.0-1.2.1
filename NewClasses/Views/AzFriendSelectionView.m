@@ -17,6 +17,7 @@
 #import "Mixpanel.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "Colors.h"
+#import "FriendSelectionView.h"
 //__________________________________________________________________________________________________
 
 #define USE_AUTOSEARCH 1
@@ -456,6 +457,14 @@
       });
     });
   }];
+    NSString *fullName = friend.fullName;
+    for (FriendRecord *record in contactsNotUsers)
+    {
+        if ([record.fullName isEqualToString:fullName])
+        {
+            [contactsNotUsers removeObject:record ];
+        }
+    }
 }
 //__________________________________________________________________________________________________
 
