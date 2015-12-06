@@ -23,7 +23,7 @@
 #define LOGIN_FULL_NAME_DEFAULTS_KEY          @"LoginFullName"          //!< The key to retrieve the user's full name in the user defaults.
 //__________________________________________________________________________________________________
 
-#define FIRST_LABEL_TOP_OFFSET        40  //!< Position of the top of the first label.
+#define FIRST_LABEL_TOP_OFFSET        30  //!< Position of the top of the first label.
 #define SECOND_LABEL_TOP_OFFSET       FIRST_LABEL_TOP_OFFSET + 34  //!< Position of the top of the second label.
 #define SEPARATOR_END_MARGIN          20  //!< Right margin of the separator lines.
 #define SEPARATOR_LINE_WIDTH          0.40   //!< Width of the separator lines.
@@ -139,6 +139,7 @@ typedef enum
 {
     [super Initialize];
 
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     KeyboardHeight  = DEFAULT_KEYBOARD_HEIGHT;
     GlobalParams    = GetGlobalParameters();
@@ -159,6 +160,9 @@ typedef enum
     TwoLabel                  = [UILabel               new];
     ThreeLabel                = [UILabel               new];
 
+    ProgressLight             = [UIView                new];
+    ProgressDark              = [UIView                new];
+
     FirstSeparatorView        = [UIView                new];
     ThirdSeparatorView        = [UIView                new];
     PrefixLabel               = [UILabel               new];
@@ -169,11 +173,15 @@ typedef enum
     PickerView                = [IntlPhonePrefixPicker new];
     LeftButton                = [UIButton buttonWithType:UIButtonTypeSystem];
     RightButton               = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
-    FirstLabel.numberOfLines = 1;
+
+
+
+    //Define all properties that ONLY stay the same
+
+    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:16];
+    FirstLabel.numberOfLines = 2;
     FirstLabel.textAlignment  = NSTextAlignmentCenter;
-    FirstLabel.textColor = WarmGrey;
+
     
     SecondLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:14];
     SecondLabel.numberOfLines = 1;
@@ -185,20 +193,20 @@ typedef enum
     PrefixLabel.textColor = WarmGrey;
 
 
-    OneLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
+    OneLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14];
     OneLabel.numberOfLines = 1;
     OneLabel.textAlignment  = NSTextAlignmentCenter;
     OneLabel.textColor = WarmGrey;
 
-    TwoLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
+    TwoLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14];
     TwoLabel.numberOfLines = 1;
     TwoLabel.textAlignment  = NSTextAlignmentCenter;
     TwoLabel.textColor = WarmGrey;
 
-    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:20];
-    FirstLabel.numberOfLines = 1;
-    FirstLabel.textAlignment  = NSTextAlignmentCenter;
-    FirstLabel.textColor = WarmGrey;
+    ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14];
+    ThreeLabel.numberOfLines = 1;
+    ThreeLabel.textAlignment  = NSTextAlignmentCenter;
+    ThreeLabel.textColor = WarmGrey;
 
     
     UpperEditor.placeholder        = GlobalParams.fullNamePlaceholder;
@@ -250,6 +258,8 @@ typedef enum
     FirstSeparatorView.backgroundColor  = [UIColor lightGrayColor];
     SecondSeparatorView.backgroundColor = [UIColor lightGrayColor];
     ThirdSeparatorView.backgroundColor = [UIColor lightGrayColor];
+
+
     
     [LeftButton   setTitle:GlobalParams.loginLeftButtonLabel  forState:UIControlStateNormal];
     [RightButton  setTitle:GlobalParams.loginRightButtonLabel forState:UIControlStateNormal];
@@ -265,7 +275,12 @@ typedef enum
     
     [self addSubview:FirstLabel];
     [self addSubview:SecondLabel];
+    [self addSubview:OneLabel];
+    [self addSubview:TwoLabel];
+    [self addSubview:ThreeLabel];
     [self addSubview:FirstSeparatorView];
+    [self addSubview:ProgressLight];
+    [self addSubview:ProgressDark];
     [self addSubview:UpperEditor];
     [self addSubview:LowerEditor];
     [self addSubview:SecondSeparatorView];
@@ -327,6 +342,18 @@ typedef enum
     RollDownErrorView.frame   = CGRectMake(0, 0, width, [RollDownErrorView sizeThatFits:self.frame.size].height);
     FirstLabel.frame          = CGRectMake(0, FIRST_LABEL_TOP_OFFSET , width, [FirstLabel  sizeThatFits:self.frame.size].height);
     SecondLabel.frame         = CGRectMake(0, SECOND_LABEL_TOP_OFFSET, width, [SecondLabel sizeThatFits:self.frame.size].height);
+
+    OneLabel.frame            = CGRectMake(30, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
+    TwoLabel.frame            = CGRectMake(0, TWO_LABEL_TOP_OFFSET, width, [TwoLabel sizeThatFits:self.frame.size].height);
+    ThreeLabel.frame          = CGRectMake(-30, THREE_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
+
+    FirstSeparatorView.frame  = CGRectMake(SEPARATOR_END_MARGIN, FIRST_SEPARATOR_TOP_OFFSET , width - 2 * SEPARATOR_END_MARGIN, SEPARATOR_LINE_WIDTH);
+    FirstSeparatorView.frame  = CGRectMake(SEPARATOR_END_MARGIN, FIRST_SEPARATOR_TOP_OFFSET , width - 2 * SEPARATOR_END_MARGIN, SEPARATOR_LINE_WIDTH);
+
+
+
+
+
     //  UpperEditor.frame         = CGRectMake(0, UpperEditorTop         , width, [UpperEditor sizeThatFits:self.frame.size].height);
     FirstSeparatorView.frame  = CGRectMake(SEPARATOR_END_MARGIN, FIRST_SEPARATOR_TOP_OFFSET , width - 2 * SEPARATOR_END_MARGIN, SEPARATOR_LINE_WIDTH);
     if (!self.hidden)
@@ -345,7 +372,7 @@ typedef enum
     CGFloat buttonHeight      = [LeftButton   sizeThatFits:self.frame.size].height;
     CGFloat leftButtonWidth   = [LeftButton   sizeThatFits:self.frame.size].width;
     CGFloat rightButtonWidth  = [RightButton  sizeThatFits:self.frame.size].width;
-    LeftButton.frame          = CGRectMake(BUTTON_MARGIN                           , KeyboardTop - BUTTON_BOTTOM_MARGIN - buttonHeight, leftButtonWidth , buttonHeight);
+    LeftButton.frame          = CGRectMake(BUTTON_MARGIN, KeyboardTop - BUTTON_BOTTOM_MARGIN - buttonHeight, leftButtonWidth , buttonHeight);
     RightButton.frame         = CGRectMake(width - BUTTON_MARGIN - rightButtonWidth, KeyboardTop - BUTTON_BOTTOM_MARGIN - buttonHeight, rightButtonWidth, buttonHeight);
     LeftButton.titleLabel.textAlignment   = NSTextAlignmentLeft;
     RightButton.titleLabel.textAlignment  = NSTextAlignmentRight;
@@ -480,15 +507,50 @@ typedef enum
             pickerAlpha = 1.0;
             UpperEditor.textAlignment = NSTextAlignmentCenter;
             LowerEditor.textAlignment = NSTextAlignmentCenter;
+
             RightButton.tintColor = TypePink;
             LeftButton.tintColor = TypePink;
-            FirstLabel.text     = @"Welcome to Typeface!";
-            SecondLabel.text = @"We'll text you a verification \n code to log you in.";
+
+            FirstLabel.text     = @"Quickly sign in with \n your mobile number";
+            FirstLabel.numberOfLines = 2;
+
+            SecondLabel.text = @"";
             SecondLabel.numberOfLines = 2;
+
+
+            OneLabel.text = @"1";
+            OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
+            OneLabel.numberOfLines = 1;
+            OneLabel.textAlignment  = NSTextAlignmentLeft;
+            OneLabel.textColor = Black;
+
+            TwoLabel.text = @"2";
+            TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
+            TwoLabel.numberOfLines = 1;
+            TwoLabel.textAlignment  = NSTextAlignmentCenter;
+            TwoLabel.textColor = [Black colorWithAlphaComponent:0.3];
+            ThreeLabel.text = @"3";
+            ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
+            ThreeLabel.numberOfLines = 1;
+            ThreeLabel.textAlignment  = NSTextAlignmentRight;
+            ThreeLabel.textColor = [Black colorWithAlphaComponent:0.3];
+
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
-            [RightButton setTitle:@"Next" forState:UIControlStateNormal];
+            ProgressDark.hidden = NO;
+            ProgressLight.hidden = NO;
+
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - PROGRESS_LIGHT_BOTTOM_OFFSET , width / 3, 30);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop - PROGRESS_DARK_BOTTOM_OFFSET , width, 30);
+
+            ProgressLight.backgroundColor = Yellow;
+            ProgressDark.backgroundColor = Black;
+
+
+            [RightButton setTitle:@"NEXT" forState:UIControlStateNormal];
             [RightButton setTitleColor:[TypePink colorWithAlphaComponent: 0.25] forState:UIControlStateDisabled];
+
+
             break;
         case E_LoginState_VerificationCode:
             UpperEditor.hidden  = YES;
