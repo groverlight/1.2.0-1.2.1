@@ -1105,6 +1105,7 @@ void ParseSetBadge(NSInteger badgeNumber)
     { // Use the block version of the saveInBackground call is a workaround for a Parse bug.
     }];
     NSLog(@"Old badge bumber: %ld", (long)badgeNumber);
+    NSLog(@"New badge bumber: %ld", (long)currentInstallation.badge);
  /* if (currentInstallation.badge != badgeNumber)
   {
 //    NSLog(@"2 ParseSetBadge: %d, %d", (int)currentInstallation.badge, (int)badgeNumber);
