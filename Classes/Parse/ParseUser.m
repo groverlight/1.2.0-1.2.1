@@ -84,6 +84,8 @@ NSMutableArray* GetSharedFriendsList(void)
         {
 //          NSLog(@"2 findUserWithObjectId: friendObjectId: %@", friendObjectId);
           [friends addObject:user];
+            if ([contactsNotUsers count] != 0)
+            {
         FriendRecord *record = [FriendRecord new];
             record.fullName = user.fullName;
             record.phoneNumber = user.phoneNumber;
@@ -112,6 +114,7 @@ NSMutableArray* GetSharedFriendsList(void)
              }];
 
             //NSLog(@"contactsNotUsers2: %@", contactsNotUsers);
+            }
         }
         --fetchCount;
         if (fetchCount == 0)

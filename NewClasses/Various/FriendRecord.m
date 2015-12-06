@@ -178,7 +178,7 @@
 
 - (void)sortTimeList
 {
-    NSLog(@"TIME SORT");
+    //NSLog(@"TIME SORT");
     if (TimeSortedList.count == 0)
     {
         [TimeSortedList removeAllObjects];
@@ -235,7 +235,7 @@
 
 - (void)sortNameList
 {
-
+    NSLog(@"NAME SORT");
     [NameSortedList sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
      {
          FriendRecord* record1 = (FriendRecord*)obj1;
@@ -243,7 +243,18 @@
    
          return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
      }];
-    
+    NSMutableArray *uniqueArray = [NSMutableArray array];
+    NSMutableSet *names = [NSMutableSet set];
+    for (FriendRecord* record in NameSortedList) {
+        NSLog(@"phoneNumber: %@", record.phoneNumber);
+                NSString *destinationName = record.phoneNumber;
+        if (![names containsObject:destinationName]) {
+            [uniqueArray addObject:record];
+            [names addObject:destinationName];
+        }
+    }
+    TimeSortedList = uniqueArray;
+
    // NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:NameSortedList];
     
    // NameSortedList = [[NSMutableArray alloc]initWithArray:[orderedSet array]];

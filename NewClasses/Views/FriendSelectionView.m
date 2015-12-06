@@ -914,7 +914,7 @@ NSMutableArray*      contactsNotUsers;
      }];
     NSMutableArray *fullName = [[NSMutableArray alloc]init];
     NSMutableArray *phoneNumber = [[NSMutableArray alloc]init];
-            if ([contactsNotUsers count] ==0)
+            if ([contactsNotUsers count] == 0)
                  {
             NSLog(@"INITIATING CONTACT SYNC"); // IMPORTANT
             
@@ -1091,7 +1091,7 @@ NSMutableArray*      contactsNotUsers;
                                  
                                  [query whereKey:@"phoneNumber" containedIn:phoneNumber];
                                  // NSLog(@" this %@ ", [query findObjects]);
-                                 NSLog(@"%@, %@",fullName, phoneNumber);
+                                 //NSLog(@"%@, %@",fullName, phoneNumber);
                                 NSInteger index = 0;
                                 if(contactsNotUsers == nil)
                                 {
@@ -1124,12 +1124,13 @@ NSMutableArray*      contactsNotUsers;
                                      if (!error) {
                                          if(objects)
                                          {NSLog(@"The find succeeded");
-                                             NSLog(@"%@", objects);}
+                                            // NSLog(@"%@", objects);
+                                         }
                                          
                                    
                                          for (PFUser* object in objects)
                                          {
-                                             NSLog(@"%@", object.username);
+                                             //NSLog(@"%@", object.username);
                                              PFQuery *pushQuery = [PFInstallation query];
                                              [pushQuery whereKey:@"user" equalTo:object];
                                              NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
