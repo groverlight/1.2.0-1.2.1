@@ -107,7 +107,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
     {
     NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:listIndex];
    //self->FriendsList->indexForList = indexView.currentIndex;
-  [self->FriendsList scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+  [self->FriendsList scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
 }
 @end
