@@ -163,7 +163,7 @@
 
         get_myself;
 
-        NSLog(@"Kylie");
+       // NSLog(@"Kylie");
 
         if (myself->TextView.totalNumCharacters == 0) {
             FaceButton.backgroundColor = TypePink;

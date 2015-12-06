@@ -153,7 +153,7 @@ BOOL ParseInitialization
              return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
          }];
         
-      NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
+      //NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
     }
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
   NSString* parseUserToken = [defaults stringForKey:PARSE_USER_TOKEN_DEFAULTS_KEY];
@@ -1100,7 +1100,13 @@ void ParseSetBadge(NSInteger badgeNumber)
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
     PFInstallation* currentInstallation = [PFInstallation currentInstallation];
+    if (badgeNumber != 0 )
+    {
     currentInstallation.badge++;
+    }
+    else{
+        currentInstallation.badge = 0;
+    }
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     { // Use the block version of the saveInBackground call is a workaround for a Parse bug.
     }];

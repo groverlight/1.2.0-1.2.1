@@ -45,8 +45,8 @@
 
     self.recentFriends  = GetTimeSortedFriendRecords();
     [FriendsList setRecentFriends:self.recentFriends];
-    NSLog(@"this updated%lu", [FriendsList maxNumRecentFriends]);
- //NSLog(@"INITIATING OTHER SORT");
+   // NSLog(@"this updated%lu", [FriendsList maxNumRecentFriends]);
+   //NSLog(@"INITIATING OTHER SORT");
     //self.allFriends     = GetNameSortedFriendRecords(); // this makes all of the friends in the alphabetized
   
   [FriendsList ReloadTableData];

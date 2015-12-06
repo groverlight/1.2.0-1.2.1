@@ -64,7 +64,7 @@
     indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,60,28,self.window.height-60) indexTitles:nil];
     self->indexView = [self->indexView initWithFrame:CGRectMake(self.window.width-28,self.window.height,28,self.window.height) indexTitles: indexTitles];
-    NSLog(@"INDEX VIEW FRAME2: %@", NSStringFromCGRect(self->indexView.frame));
+   // NSLog(@"INDEX VIEW FRAME2: %@", NSStringFromCGRect(self->indexView.frame));
     self->indexView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self->indexView];
     //[self bringSubviewToFront:self->indexView];
@@ -101,7 +101,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
 //__________________________________________________________________________________________________
 - (void)indexViewValueChanged:(BDKCollectionIndexView *)sender {
    // NSLog(@"indexView.currentIndex %lu", [self->FriendsList getIndex:indexView.currentIndex and:0]);
-    NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
+   // NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
     NSInteger listIndex =[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]];
     if (listIndex < 100)
     {

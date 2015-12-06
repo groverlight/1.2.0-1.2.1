@@ -94,7 +94,7 @@ static AppViewController* MainViewController = nil;
 {
     ParseUser* currentUser = GetCurrentParseUser();
     LoggedIn = YES;
-    NSLog(@"LOGIN DONE %@",currentUser[@"phoneNumber"]);
+    ///NSLog(@"LOGIN DONE %@",currentUser[@"phoneNumber"]);
 
   set_myself;
 #if BE_YOUR_BEST_FRIEND

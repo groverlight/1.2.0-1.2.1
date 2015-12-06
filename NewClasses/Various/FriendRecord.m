@@ -54,7 +54,7 @@
         [coder encodeObject:self.user.objectId forKey:@"UserId"];
     }
     [coder encodeObject:self.fullName                                     forKey:@"FullName"];
-    [coder encodeObject:self.fullName                                     forKey:@"phoneNumber"];
+    [coder encodeObject:self.phoneNumber                                     forKey:@"phoneNumber"];
     [coder encodeObject:[NSNumber numberWithDouble:self.lastActivityTime] forKey:@"LastActivityTime"];
 }
 //__________________________________________________________________________________________________
@@ -186,6 +186,10 @@
 
     else
     {
+        for (FriendRecord *record in TimeSortedList)
+        {
+            NSLog(@"Record phone: %@", record.phoneNumber);
+        }
         NSMutableArray *uniqueArray = [NSMutableArray array];
         NSMutableSet *names = [NSMutableSet set];
         for (FriendRecord* record in TimeSortedList) {
@@ -245,7 +249,7 @@
    // NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:NameSortedList];
     
    // NameSortedList = [[NSMutableArray alloc]initWithArray:[orderedSet array]];
-    NSLog(@"NameSortedList%@", NameSortedList);
+    //NSLog(@"NameSortedList%@", NameSortedList);
    
 
 #if 0
@@ -450,17 +454,17 @@ NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
 
 switch (myStatus) {
     case NotReachable:
-        NSLog(@"There's no internet connection at all. Display error message now.");
+      //  NSLog(@"There's no internet connection at all. Display error message now.");
         return NO;
         break;
         
     case ReachableViaWWAN:
-        NSLog(@"We have a 3G connection");
+        //NSLog(@"We have a 3G connection");
         return YES;
         break;
         
     case ReachableViaWiFi:
-        NSLog(@"We have WiFi.");
+       // NSLog(@"We have WiFi.");
         return YES;
         break;
         

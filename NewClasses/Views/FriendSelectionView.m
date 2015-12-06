@@ -890,7 +890,7 @@ NSMutableArray*      contactsNotUsers;
 - (BOOL)textFieldShouldReturn:(UITextField*)textField
 {
 
-    NSLog(@"Kylie");
+   // NSLog(@"Kylie");
 
   UseHideKeyboard = YES;
   self.editorIsOnTop = NO;
