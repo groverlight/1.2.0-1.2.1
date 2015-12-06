@@ -253,7 +253,7 @@
             [names addObject:destinationName];
         }
     }
-    TimeSortedList = uniqueArray;
+    NameSortedList = uniqueArray;
 
    // NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:NameSortedList];
     
