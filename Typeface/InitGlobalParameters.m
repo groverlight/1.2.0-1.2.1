@@ -29,7 +29,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.selectCountryMessage           = NSLocalizedString(@"Select your country", @"");
   parameters.fullNamePlaceholder            = NSLocalizedString(@"Full Name", @"");
   parameters.usernamePlaceholder            = NSLocalizedString(@"Username", @"");
-  parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"Phone #", @"");
+  parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"(561)-843-2088", @"");
   parameters.verificationCodePlaceholder  	= NSLocalizedString(@"Enter Code", @"");
   parameters.termsAndPrivacyPolicyMessage 	= NSLocalizedString(@"By continuing, you agree to our <a href=\"1\">Terms</a> and\n <a href=\"2\">Privacy Policy</a>", @"");
   parameters.loginLeftButtonLabel         	= NSLocalizedString(@"Back", @"");
@@ -204,7 +204,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.friendsListSeparatorBorderMargin       = 16;
   parameters.friendsListRecentSectionHeaderTitle    = NSLocalizedString(@"RECENT", @"");
   parameters.friendsListAllSectionHeaderTitle       = NSLocalizedString(@"ALL", @"");
-    parameters.friendsListHeaderBackgroundColor       = Transparent;
+  parameters.friendsListHeaderBackgroundColor       = Transparent;
   parameters.friendsListHeaderTextColor             = TypePink;
   parameters.friendsListHeaderTextFont              = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:17];
   parameters.friendsListHeaderTextLeftMargin        = 132;

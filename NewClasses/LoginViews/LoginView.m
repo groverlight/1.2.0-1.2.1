@@ -23,7 +23,7 @@
 #define LOGIN_FULL_NAME_DEFAULTS_KEY          @"LoginFullName"          //!< The key to retrieve the user's full name in the user defaults.
 //__________________________________________________________________________________________________
 
-#define FIRST_LABEL_TOP_OFFSET        30  //!< Position of the top of the first label.
+#define FIRST_LABEL_TOP_OFFSET        44  //!< Position of the top of the first label.
 #define SECOND_LABEL_TOP_OFFSET       FIRST_LABEL_TOP_OFFSET + 34  //!< Position of the top of the second label.
 #define SEPARATOR_END_MARGIN          20  //!< Right margin of the separator lines.
 #define SEPARATOR_LINE_WIDTH          0.40   //!< Width of the separator lines.
@@ -46,11 +46,12 @@
 #define PREFIX_LABEL_TAP_MARGIN       10  //!< Margin to make easier to tap on the country code label.
 #define THIRD_SEPARATOR_TOP_OFFSET    90
 
+
 // NEW SHIT
 
-#define ONE_LABEL_TOP_OFFSET          10
-#define TWO_LABEL_TOP_OFFSET          10
-#define THREE_LABEL_TOP_OFFSET        10
+#define ONE_LABEL_TOP_OFFSET          14
+#define TWO_LABEL_TOP_OFFSET          14
+#define THREE_LABEL_TOP_OFFSET        14
 
 #define PROGRESS_LIGHT_BOTTOM_OFFSET  20
 #define PROGRESS_DARK_BOTTOM_OFFSET   20
@@ -178,32 +179,32 @@ typedef enum
 
     //Define all properties that ONLY stay the same
 
-    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:16];
+    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:21];
     FirstLabel.numberOfLines = 2;
     FirstLabel.textAlignment  = NSTextAlignmentCenter;
 
     
-    SecondLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:14];
+    SecondLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:13];
     SecondLabel.numberOfLines = 1;
     SecondLabel.textAlignment = NSTextAlignmentCenter;
     SecondLabel.textColor = [WarmGrey colorWithAlphaComponent:0.4];
     
-    PrefixLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:26];
+    PrefixLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:21];
     PrefixLabel.hidden    = NO;
     PrefixLabel.textColor = WarmGrey;
 
 
-    OneLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14];
+    OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
     OneLabel.numberOfLines = 1;
     OneLabel.textAlignment  = NSTextAlignmentCenter;
     OneLabel.textColor = WarmGrey;
 
-    TwoLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14];
+    TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
     TwoLabel.numberOfLines = 1;
     TwoLabel.textAlignment  = NSTextAlignmentCenter;
     TwoLabel.textColor = WarmGrey;
 
-    ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14];
+    ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
     ThreeLabel.numberOfLines = 1;
     ThreeLabel.textAlignment  = NSTextAlignmentCenter;
     ThreeLabel.textColor = WarmGrey;
@@ -218,7 +219,7 @@ typedef enum
     UpperEditor.spellCheckingType  = UITextSpellCheckingTypeNo;
     
     [UpperEditor addTarget:self action:@selector(editorTextChanged:) forControlEvents:UIControlEventEditingChanged];
-    [UpperEditor setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:26]];
+    [UpperEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:22]];
     [UpperEditor setAdjustsFontSizeToFitWidth:NO];
     [UpperEditor setTextColor:WarmGrey];
     
@@ -233,12 +234,12 @@ typedef enum
     
     
     [LowerEditor addTarget:self action:@selector(editorTextChanged:) forControlEvents:UIControlEventEditingChanged];
-    [LowerEditor setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:26]];
+    [LowerEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:22]];
     [LowerEditor setAdjustsFontSizeToFitWidth:NO];
     [LowerEditor setTextColor:WarmGrey];
     
-    RightButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:24];
-    LeftButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold"  size:24];
+    RightButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:20];
+    LeftButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-Bold"  size:20];
     
     LowerEditor.delegate            = self;
     LowerEditor.placeholder         = GlobalParams.phoneNumberPlaceholder;
@@ -255,9 +256,9 @@ typedef enum
     PolicyText.scrollView.scrollEnabled = NO;
     [self InitializeTermsAndPrivacyPolicyMessage];
     
-    FirstSeparatorView.backgroundColor  = [UIColor lightGrayColor];
-    SecondSeparatorView.backgroundColor = [UIColor lightGrayColor];
-    ThirdSeparatorView.backgroundColor = [UIColor lightGrayColor];
+    FirstSeparatorView.backgroundColor  = [UIColor clearColor];
+    SecondSeparatorView.backgroundColor = [UIColor clearColor];
+    //ThirdSeparatorView.backgroundColor = [UIColor clearColor];
 
 
     
@@ -336,14 +337,14 @@ typedef enum
     CGFloat width             = self.frame.size.width;
     CGFloat height            = self.frame.size.height;
     EditorHeight              = [UpperEditor sizeThatFits:self.frame.size].height;
-    UpperEditorTop            = SECOND_LABEL_TOP_OFFSET + 20;
+    UpperEditorTop            = FIRST_SEPARATOR_TOP_OFFSET + 20;
     LowerEditorTop            = EDITOR_VERTICAL_CENTER - EditorHeight / 2;
     KeyboardTop               = height - KeyboardHeight;
     RollDownErrorView.frame   = CGRectMake(0, 0, width, [RollDownErrorView sizeThatFits:self.frame.size].height);
     FirstLabel.frame          = CGRectMake(0, FIRST_LABEL_TOP_OFFSET , width, [FirstLabel  sizeThatFits:self.frame.size].height);
     SecondLabel.frame         = CGRectMake(0, SECOND_LABEL_TOP_OFFSET, width, [SecondLabel sizeThatFits:self.frame.size].height);
 
-    OneLabel.frame            = CGRectMake(30, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
+    //OneLabel.frame            = CGRectMake(30, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
     TwoLabel.frame            = CGRectMake(0, TWO_LABEL_TOP_OFFSET, width, [TwoLabel sizeThatFits:self.frame.size].height);
     ThreeLabel.frame          = CGRectMake(-30, THREE_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
 
@@ -519,32 +520,43 @@ typedef enum
 
 
             OneLabel.text = @"1";
-            OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
+            OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             OneLabel.numberOfLines = 1;
             OneLabel.textAlignment  = NSTextAlignmentLeft;
             OneLabel.textColor = Black;
 
+            OneLabel.frame = CGRectMake((width/3)/2, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
+            ThreeLabel.frame = CGRectMake(-(width/3)/2, TWO_LABEL_TOP_OFFSET, width, [TwoLabel sizeThatFits:self.frame.size].height);
+
             TwoLabel.text = @"2";
-            TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
+            TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             TwoLabel.numberOfLines = 1;
             TwoLabel.textAlignment  = NSTextAlignmentCenter;
-            TwoLabel.textColor = [Black colorWithAlphaComponent:0.3];
+            TwoLabel.textColor = [Black colorWithAlphaComponent:0.2];
             ThreeLabel.text = @"3";
-            ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:12];
+            ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             ThreeLabel.numberOfLines = 1;
             ThreeLabel.textAlignment  = NSTextAlignmentRight;
-            ThreeLabel.textColor = [Black colorWithAlphaComponent:0.3];
+            ThreeLabel.textColor = [Black colorWithAlphaComponent:0.2];
 
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
-            ProgressDark.hidden = NO;
+
             ProgressLight.hidden = NO;
+            ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, KeyboardTop - PROGRESS_LIGHT_BOTTOM_OFFSET , width / 3, 30);
-            ProgressDark.frame =        CGRectMake(0, KeyboardTop - PROGRESS_DARK_BOTTOM_OFFSET , width, 30);
+            ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
+            ProgressDark.frame =        CGRectMake(0, 0 , width/3, 8);
 
-            ProgressLight.backgroundColor = Yellow;
-            ProgressDark.backgroundColor = Black;
+            ProgressLight.backgroundColor = [Black colorWithAlphaComponent:0.2];
+            ProgressDark.backgroundColor = TypePink;
+
+            PrefixLabel.backgroundColor = [LightGrey colorWithAlphaComponent:0.4];
+            PrefixLabel.textAlignment = NSTextAlignmentCenter;
+            PrefixLabel.layer.borderWidth = 1;
+            PrefixLabel.layer.cornerRadius = 14;
+            PrefixLabel.layer.borderColor = Transparent.CGColor;
+            [PrefixLabel.layer setMasksToBounds:YES];
 
 
             [RightButton setTitle:@"NEXT" forState:UIControlStateNormal];
@@ -572,7 +584,7 @@ typedef enum
             LeftButton.tintColor = TypePink;
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
-            [RightButton setTitle:@"Next" forState:UIControlStateNormal];
+            [RightButton setTitle:@"NEXT" forState:UIControlStateNormal];
             [RightButton setTitleColor:[TypePink colorWithAlphaComponent: 0.25] forState:UIControlStateDisabled];
             break;
         case E_LoginState_Username:
@@ -596,7 +608,7 @@ typedef enum
             UpperEditor.autocapitalizationType = UITextAutocapitalizationTypeWords;
             LowerEditor.autocapitalizationType = UITextAutocapitalizationTypeNone;
             RightButton.tintColor = TypePink;
-            [RightButton setTitle:@"Next" forState:UIControlStateNormal];
+            [RightButton setTitle:@"NEXT" forState:UIControlStateNormal];
             [RightButton setTitleColor:[TypePink colorWithAlphaComponent: 0.25] forState:UIControlStateDisabled];
             break;
         case E_LoginState_LoggedIn:
