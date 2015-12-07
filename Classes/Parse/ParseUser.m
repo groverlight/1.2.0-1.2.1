@@ -113,7 +113,7 @@ NSMutableArray* GetSharedFriendsList(void)
                  return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
              }];
 
-            //NSLog(@"contactsNotUsers2: %@", contactsNotUsers);
+            
             }
         }
         --fetchCount;

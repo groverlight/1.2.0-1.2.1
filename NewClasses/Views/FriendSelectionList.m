@@ -174,9 +174,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //NSLog(@"SECTIONS CALLFRIENDSLIST %lu",[AllFriendsList count]);
-    //NSLog(@"SECTIONS contacts %lu",[contactsNotUsers count]);
-    if(AllFriendsList == contactsNotUsers)
+   // NSLog(@"SECTIONS CALLFRIENDSLIST %lu",[AllFriendsList count]);
+    //4NSLog(@"SECTIONS contacts %lu",[contactsNotUsers count]);
+    if([AllFriendsList count] == [contactsNotUsers count])
         {
             return [arrayOfSectionTitles count];
         }
@@ -189,7 +189,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //HERE
 {
-    if(AllFriendsList == contactsNotUsers)
+    if([AllFriendsList count] == [contactsNotUsers count])
         {
             if (section == 0)
             {
@@ -398,7 +398,7 @@
 - (void)InitCell:(TableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
 
-        if(AllFriendsList == contactsNotUsers)
+        if([AllFriendsList count] == [contactsNotUsers count])
         {
             FriendRecord* record;
             if (cell.tableSection == 0)
@@ -532,7 +532,7 @@
     for (FriendRecord* record in records) {
         if (record.fullName.length > 0) {
             NSString *letter = [record.fullName substringToIndex:1];
-            if (![letter isEqualToString:currentLetter]) {
+            if ([letter caseInsensitiveCompare:currentLetter] != NSOrderedSame) {
                 [letters addObject:letter];
                 currentLetter = letter;
             }
@@ -555,7 +555,9 @@
                 if([letter isEqualToString: [record.fullName substringToIndex:1]])
                 {
                     [sectionPeople addObject:record];
+                    continue;
                 }
+                
                 
             }
             [arrayOfPeopleInSection addObject:sectionPeople];
@@ -639,8 +641,8 @@
 //__________________________________________________________________________________________________
 -(NSInteger) getIndex:(NSInteger)tableSection and:(NSInteger)tableRow
 {
-    NSLog(@"%@", arrayOfSectionTitles);
-    NSLog(@"%lu", tableSection);
+   // NSLog(@"%@", arrayOfSectionTitles);
+   // NSLog(@"%lu", tableSection);
     NSInteger indexCounter = 0;
     for ( int i = 0; i < tableSection; i++)
     {

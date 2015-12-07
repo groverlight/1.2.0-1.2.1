@@ -133,16 +133,18 @@ BOOL ParseInitialization
     }
     if ([contactsNotUsers count] == 0)
     {
-        for (NSDictionary *person in temp[@"FriendsList"])
+        for (NSMutableDictionary *person in temp[@"FriendsList"])
         {
+   
+                
+                NSLog(@"ddd %@", person);
+                FriendRecord* tempRecord    = [FriendRecord new];
+                tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
+                tempRecord.fullName = [person objectForKey:@"fullName"];
+                tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
+               // NSLog(@"tempRecord: %@", tempRecord);
+                [contactsNotUsers addObject:tempRecord];
             
-          //  NSLog(@"%@", person);
-            FriendRecord* tempRecord    = [FriendRecord new];
-            tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
-            tempRecord.fullName = [person objectForKey:@"fullName"];
-            tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
-           // NSLog(@"tempRecord: %@", tempRecord);
-            [contactsNotUsers addObject:tempRecord];
         }
         
         [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
@@ -153,7 +155,7 @@ BOOL ParseInitialization
              return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
          }];
         
-      //NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
+      NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
     }
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
   NSString* parseUserToken = [defaults stringForKey:PARSE_USER_TOKEN_DEFAULTS_KEY];

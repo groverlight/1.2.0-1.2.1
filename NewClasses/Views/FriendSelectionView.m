@@ -99,7 +99,7 @@ NSMutableArray*      contactsNotUsers;
   NSInteger             SelectedFriend;
   NSArray*              BlockedUsers;
   NSArray*              BlockingUsers;
-  SystemSoundID           soundEffect;
+  SystemSoundID         soundEffect;
   BDKCollectionIndexView *indexView;
 }
 
@@ -545,9 +545,8 @@ NSMutableArray*      contactsNotUsers;
   {
     [Editor resignFirstResponder];
   }
-    [self performSelectorOnMainThread:@selector(contactsync) withObject:@"" waitUntilDone:YES];
-      //[self contactsync];
     
+    [self contactsync];
 }
 //__________________________________________________________________________________________________
 
@@ -988,12 +987,11 @@ NSMutableArray*      contactsNotUsers;
                                          
                                          
                                      }];
-                                     dispatch_sync(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
-                                                   {
+
                                                        [self updateTable:fullName phone:phoneNumber];
                                                        
                                                        
-                                                   });
+                                     
                                      
                                                    
                                       
@@ -1082,13 +1080,11 @@ NSMutableArray*      contactsNotUsers;
                     
                 }
                 
-                
-                dispatch_sync(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
-                              {
+
                                   [self updateTable:fullName phone:phoneNumber];
                                   
                                   
-                              });
+                
                 
             }
                 [[PFUser currentUser] setObject:@YES forKey:@"didContactSync"];
@@ -1100,7 +1096,8 @@ NSMutableArray*      contactsNotUsers;
 }
 -(void)updateTable:(NSArray*)fullName phone:(NSArray*)phoneNumber 
                     {
-                                
+                            NSMutableArray *contacts = [[NSMutableArray alloc] init];
+                        
                                  PFQuery *query = [PFUser query];
                                  
                                  [query whereKey:@"phoneNumber" containedIn:phoneNumber];
@@ -1148,7 +1145,7 @@ NSMutableArray*      contactsNotUsers;
                                              PFQuery *pushQuery = [PFInstallation query];
                                              [pushQuery whereKey:@"user" equalTo:object];
                                              NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
-                                             NSString * Username = [[PFUser currentUser] objectForKey:@"username"];
+                                             //NSString * Username = [[PFUser currentUser] objectForKey:@"username"];
                                              
                                              // Send push notification to query
                                              NSDictionary *data = @{
@@ -1167,7 +1164,8 @@ NSMutableArray*      contactsNotUsers;
                                               }];*/
                                              
                                              [[PFUser currentUser] addUniqueObject:object.objectId forKey:@"friends"];
-                                             [[PFUser currentUser] saveInBackground];
+                                             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror) {
+                                             }];
                                              
                                          }
                                          
@@ -1177,16 +1175,12 @@ NSMutableArray*      contactsNotUsers;
 
                                               UpdateFriendRecordListForFriends(friends);
 
-                                              [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
-                                               {
-                                                   FriendRecord* record1 = (FriendRecord*)obj1;
-                                                   FriendRecord* record2 = (FriendRecord*)obj2;
-                                                   
-                                                   return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
-                                               }];
-                                              NSLog(@"%@", GetNameSortedFriendRecords());
+
+                                              NSLog(@"GetNAMEList%@", GetNameSortedFriendRecords());
+                                              NSLog(@"%lu", (unsigned long)[contactsNotUsers count]);
                                               for (NSInteger i=0; i < [contactsNotUsers count]; i++)
                                               {
+                                                  NSLog(@"%lu", i);
                                                   FriendRecord *temprecord = [contactsNotUsers objectAtIndex:i];
                                                   for (FriendRecord *record in GetNameSortedFriendRecords())
                                                   {
@@ -1205,12 +1199,29 @@ NSMutableArray*      contactsNotUsers;
                                                   
                                                   
                                                  
+                                                  [contacts addObject:contact];
                                                   
-                                                  [localDatastore addUniqueObject:contact forKey:@"FriendsList"];
-                                                  [localDatastore pinInBackground];
-                                                  [[PFUser currentUser] saveInBackground];
 
+                                                }
+                                              [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+                                               {
+                                                   FriendRecord* record1 = (FriendRecord*)obj1;
+                                                   FriendRecord* record2 = (FriendRecord*)obj2;
+                                                   
+                                                   return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
+                                               }];
+                                              for (FriendRecord *record in contactsNotUsers)
+                                              {
+                                                  NSLog(@"Name: ", record.fullName);
                                               }
+                                              [localDatastore addUniqueObject:contacts forKey:@"FriendsList"];
+
+                                              [localDatastore pinInBackgroundWithBlock:^(BOOL succeeded, NSError *pinError) {
+                                                  NSLog(@"pinned");
+                                              }];
+                                              [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror2) {
+                                              }];
+                                              NSLog(@"contacts");
                                               [self updateFriendsLists];
                                         }];
                                      }
@@ -1221,7 +1232,7 @@ NSMutableArray*      contactsNotUsers;
                                          NSLog(@"Did not find anyone");
                                          
                                      }
-
+                                     [self updateFriendsLists];
                                      
                                  }];
 

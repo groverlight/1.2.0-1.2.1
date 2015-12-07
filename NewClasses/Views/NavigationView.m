@@ -200,27 +200,28 @@ SystemSoundID           soundEffect;
 
             
 
-                      
+                      dispatch_async(dispatch_get_main_queue(), ^{
                 [myself->AzFriendsListView activate];
-        
+                      });
                       
-              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                  NSLog(@"hiiii");
+              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                  
                   [myself->SendToListView updateFriendsLists];
               });
    
           }
           else
           {
-              
+              dispatch_async(dispatch_get_main_queue(), ^{
+
                   [myself->SendToListView activate];
             
-
+              });
               
               
               
-              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-              NSLog(@"hiiii");    
+              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+               
               [myself->SendToListView updateFriendsLists];
               });
               }
