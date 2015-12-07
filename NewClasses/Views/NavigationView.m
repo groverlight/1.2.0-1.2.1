@@ -196,21 +196,35 @@ SystemSoundID           soundEffect;
           [[UIResponder currentFirstResponder] resignFirstResponder];
           if (myself->AzFriendsListView.alpha > 0.0)
           {
-            [myself->AzFriendsListView activate];
-              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
+
+            
+
+                      
+                [myself->AzFriendsListView activate];
+        
+                      
+              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                  NSLog(@"hiiii");
                   [myself->SendToListView updateFriendsLists];
-              }];
-        /*dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [myself->SendToListView updateFriendsLists];
-        });*/
+              });
+   
           }
           else
           {
-            [myself->SendToListView activate];
-              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                  [myself->SendToListView updateFriendsLists];
-              }];
-          }
+              
+                  [myself->SendToListView activate];
+            
+
+              
+              
+              
+              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+              NSLog(@"hiiii");    
+              [myself->SendToListView updateFriendsLists];
+              });
+              }
+          
         }];
       }
       myself->ScrolledToFriendsPage();

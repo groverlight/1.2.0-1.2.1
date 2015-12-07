@@ -65,7 +65,7 @@
     self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,self.window.height/6,28,self.window.height-self.window.height/6) indexTitles:nil]; // Roast Beef
     
     self->indexView = [self->indexView initWithFrame:CGRectMake(self.window.width-28,self.window.height,28,self.window.height) indexTitles: indexTitles];
-   // NSLog(@"INDEX VIEW FRAME2: %@", NSStringFromCGRect(self->indexView.frame));
+   NSLog(@"INDEX VIEW FRAME2: %@", NSStringFromCGRect(self->indexView.frame));
     self->indexView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self->indexView];
     //[self bringSubviewToFront:self->indexView];

@@ -546,9 +546,8 @@ NSMutableArray*      contactsNotUsers;
     [Editor resignFirstResponder];
   }
     [self performSelectorOnMainThread:@selector(contactsync) withObject:@"" waitUntilDone:YES];
-    /*dispatch_async(dispatch_get_main_queue(), ^{
-  [self contactsync];
-    });*/
+      //[self contactsync];
+    
 }
 //__________________________________________________________________________________________________
 
@@ -989,7 +988,15 @@ NSMutableArray*      contactsNotUsers;
                                          
                                          
                                      }];
-                                     [self updateTable:fullName phone:phoneNumber];
+                                     dispatch_sync(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
+                                                   {
+                                                       [self updateTable:fullName phone:phoneNumber];
+                                                       
+                                                       
+                                                   });
+                                     
+                                                   
+                                      
                                  }
                                  
                                  else
@@ -1075,7 +1082,13 @@ NSMutableArray*      contactsNotUsers;
                     
                 }
                 
-                [self updateTable:fullName phone:phoneNumber];
+                
+                dispatch_sync(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
+                              {
+                                  [self updateTable:fullName phone:phoneNumber];
+                                  
+                                  
+                              });
                 
             }
                 [[PFUser currentUser] setObject:@YES forKey:@"didContactSync"];
