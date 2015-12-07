@@ -27,13 +27,13 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
     // Login view parameters.
   parameters.customizableLoginLabel         = NSLocalizedString(@"Customizable Label", @"");
   parameters.selectCountryMessage           = NSLocalizedString(@"Select your country", @"");
-  parameters.fullNamePlaceholder            = NSLocalizedString(@"Full Name", @"");
-  parameters.usernamePlaceholder            = NSLocalizedString(@"Username", @"");
+  parameters.fullNamePlaceholder            = NSLocalizedString(@"John Doe", @"");
+  parameters.usernamePlaceholder            = NSLocalizedString(@"john", @"");
   parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"(561)-843-2088", @"");
-  parameters.verificationCodePlaceholder  	= NSLocalizedString(@"Enter Code", @"");
+  parameters.verificationCodePlaceholder  	= NSLocalizedString(@"•   •   •   •   •", @"");
   parameters.termsAndPrivacyPolicyMessage 	= NSLocalizedString(@"By continuing, you agree to our <a href=\"1\">Terms</a> and\n <a href=\"2\">Privacy Policy</a>", @"");
-  parameters.loginLeftButtonLabel         	= NSLocalizedString(@"Back", @"");
-  parameters.loginRightButtonLabel          = NSLocalizedString(@"Next", @"");
+  parameters.loginLeftButtonLabel         	= NSLocalizedString(@"BACK", @"");
+  parameters.loginRightButtonLabel          = NSLocalizedString(@"NEXT", @"");
   parameters.initialCountry                 = @"United States";
   parameters.termsAndPolicyLinkAction       = ^(id obj)
   {

@@ -211,6 +211,10 @@ typedef enum
 
     
     UpperEditor.placeholder        = GlobalParams.fullNamePlaceholder;
+
+    UIColor *color = [LightGrey colorWithAlphaComponent:0.8];
+    UpperEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.phoneNumberPlaceholder
+                                                                        attributes:@{NSForegroundColorAttributeName: color}];
     UpperEditor.delegate           = self;
     UpperEditor.keyboardType       = UIKeyboardTypeASCIICapable;
     //UpperEditor.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -222,7 +226,12 @@ typedef enum
     [UpperEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:22]];
     [UpperEditor setAdjustsFontSizeToFitWidth:NO];
     [UpperEditor setTextColor:WarmGrey];
-    
+
+
+
+    UIColor *color2 = [LightGrey colorWithAlphaComponent:0.8];
+    LowerEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.phoneNumberPlaceholder
+                                                                        attributes:@{NSForegroundColorAttributeName: color2}];
     LowerEditor.delegate            = self;
     LowerEditor.placeholder         = GlobalParams.phoneNumberPlaceholder;
     LowerEditor.keyboardType        = UIKeyboardTypePhonePad;
@@ -272,7 +281,7 @@ typedef enum
     LeftButton.hidden   = YES;
     RightButton.enabled = NO;
     
-    [PickerView setBackgroundColor:LightGrey];
+    [PickerView setBackgroundColor:White];
     
     [self addSubview:FirstLabel];
     [self addSubview:SecondLabel];
@@ -337,8 +346,8 @@ typedef enum
     CGFloat width             = self.frame.size.width;
     CGFloat height            = self.frame.size.height;
     EditorHeight              = [UpperEditor sizeThatFits:self.frame.size].height;
-    UpperEditorTop            = FIRST_SEPARATOR_TOP_OFFSET + 20;
-    LowerEditorTop            = EDITOR_VERTICAL_CENTER - EditorHeight / 2;
+    UpperEditorTop            = SECOND_LABEL_TOP_OFFSET+ 40;
+    LowerEditorTop            = UpperEditorTop + 30;
     KeyboardTop               = height - KeyboardHeight;
     RollDownErrorView.frame   = CGRectMake(0, 0, width, [RollDownErrorView sizeThatFits:self.frame.size].height);
     FirstLabel.frame          = CGRectMake(0, FIRST_LABEL_TOP_OFFSET , width, [FirstLabel  sizeThatFits:self.frame.size].height);
@@ -532,12 +541,12 @@ typedef enum
             TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             TwoLabel.numberOfLines = 1;
             TwoLabel.textAlignment  = NSTextAlignmentCenter;
-            TwoLabel.textColor = [Black colorWithAlphaComponent:0.2];
+            TwoLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
             ThreeLabel.text = @"3";
             ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             ThreeLabel.numberOfLines = 1;
             ThreeLabel.textAlignment  = NSTextAlignmentRight;
-            ThreeLabel.textColor = [Black colorWithAlphaComponent:0.2];
+            ThreeLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
 
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
@@ -548,7 +557,7 @@ typedef enum
             ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
             ProgressDark.frame =        CGRectMake(0, 0 , width/3, 8);
 
-            ProgressLight.backgroundColor = [Black colorWithAlphaComponent:0.2];
+            ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
             ProgressDark.backgroundColor = TypePink;
 
             PrefixLabel.backgroundColor = [LightGrey colorWithAlphaComponent:0.4];
@@ -566,7 +575,6 @@ typedef enum
             break;
         case E_LoginState_VerificationCode:
             UpperEditor.hidden  = YES;
-            SecondLabel.hidden  = NO;
             editorWidth         = width - PREFIX_LEFT_MARGIN - EDITOR_RIGHT_MARGIN;
             prefixFrame         = PrefixLabel.frame;
             upperEditorFrame    = CGRectMake(PREFIX_LEFT_MARGIN, UpperEditorTop, editorWidth, EditorHeight);
@@ -576,12 +584,49 @@ typedef enum
             pickerAlpha         = 0.0;
             UpperEditor.textAlignment = NSTextAlignmentCenter;
             LowerEditor.textAlignment = NSTextAlignmentCenter;
-            FirstLabel.text = @"Perfect, thanks!";
+            FirstLabel.text = @"Enter the verification \n code we texted you";
+            FirstLabel.numberOfLines = 2;
             SecondLabel.text = @"We sent the verification code. \n";
-            SecondLabel.numberOfLines = 2;
+            SecondLabel.hidden = YES;
+            SecondLabel.numberOfLines = 0;
             LeftButton.hidden = NO;
             RightButton.tintColor = TypePink;
             LeftButton.tintColor = TypePink;
+
+            OneLabel.text = @"1";
+            OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
+            OneLabel.numberOfLines = 1;
+            OneLabel.textAlignment  = NSTextAlignmentLeft;
+            OneLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
+
+            OneLabel.frame = CGRectMake((width/3)/2, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
+            ThreeLabel.frame = CGRectMake(-(width/3)/2, TWO_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
+
+            TwoLabel.text = @"2";
+            TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
+            TwoLabel.numberOfLines = 1;
+            TwoLabel.textAlignment  = NSTextAlignmentCenter;
+            TwoLabel.textColor = Black;
+            ThreeLabel.text = @"3";
+            ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
+            ThreeLabel.numberOfLines = 1;
+            ThreeLabel.textAlignment  = NSTextAlignmentRight;
+            ThreeLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
+
+            FirstSeparatorView.hidden = YES;
+            ThirdSeparatorView.hidden = YES;
+
+            ProgressLight.hidden = NO;
+            ProgressDark.hidden = NO;
+
+            ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
+            ProgressDark.frame =        CGRectMake(0, 0 , width/2, 8);
+
+            ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
+            ProgressDark.backgroundColor = TypePink;
+
+
+
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
             [RightButton setTitle:@"NEXT" forState:UIControlStateNormal];
@@ -601,7 +646,40 @@ typedef enum
             LeftButton.hidden = YES;
             UpperEditor.textAlignment = NSTextAlignmentCenter;
             LowerEditor.textAlignment = NSTextAlignmentCenter;
-            FirstLabel.text = @"Write your Full Name";
+            FirstLabel.text = @"Type your full name \n and short username";
+
+            OneLabel.text = @"1";
+            OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
+            OneLabel.numberOfLines = 1;
+            OneLabel.textAlignment  = NSTextAlignmentLeft;
+            OneLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
+
+            OneLabel.frame = CGRectMake((width/3)/2, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
+            ThreeLabel.frame = CGRectMake(-(width/3)/2, TWO_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
+
+            TwoLabel.text = @"2";
+            TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
+            TwoLabel.numberOfLines = 1;
+            TwoLabel.textAlignment  = NSTextAlignmentCenter;
+            TwoLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
+            ThreeLabel.text = @"3";
+            ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
+            ThreeLabel.numberOfLines = 1;
+            ThreeLabel.textAlignment  = NSTextAlignmentRight;
+            ThreeLabel.textColor = Black;
+
+            FirstSeparatorView.hidden = YES;
+            ThirdSeparatorView.hidden = YES;
+
+            ProgressLight.hidden = NO;
+            ProgressDark.hidden = NO;
+
+            ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
+            ProgressDark.frame =        CGRectMake(0, 0 , width, 8);
+
+            ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
+            ProgressDark.backgroundColor = TypePink;
+
             ThirdSeparatorView.hidden = YES;
             SecondSeparatorView.hidden = YES;
             FirstSeparatorView.hidden = NO;
@@ -625,7 +703,7 @@ typedef enum
     }
     if (Animated)
     {
-        [UIView animateWithDuration:0.5 animations:^
+        [UIView animateWithDuration:0.0 animations:^
          {
              PrefixLabel.frame = prefixFrame;
              UpperEditor.frame = upperEditorFrame;
@@ -688,7 +766,8 @@ typedef enum
                                    
                                    [mixpanel.people increment:@"twillio sent" by:[NSNumber numberWithInt:1]];
                                    
-                                   
+                                   FirstLabel.text = @"YOOOO";
+
                                    LeftButton.hidden       = NO;
                                    RightButton.enabled     = NO;
                                    LowerEditor.placeholder = GlobalParams.verificationCodePlaceholder;
