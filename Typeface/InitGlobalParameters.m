@@ -27,13 +27,13 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
     // Login view parameters.
   parameters.customizableLoginLabel         = NSLocalizedString(@"Customizable Label", @"");
   parameters.selectCountryMessage           = NSLocalizedString(@"Select your country", @"");
-  parameters.fullNamePlaceholder            = NSLocalizedString(@"Full Name", @"");
-  parameters.usernamePlaceholder            = NSLocalizedString(@"Username", @"");
-  parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"Phone #", @"");
-  parameters.verificationCodePlaceholder  	= NSLocalizedString(@"Enter Code", @"");
+  parameters.fullNamePlaceholder            = NSLocalizedString(@"Jane Doe", @"");
+  parameters.usernamePlaceholder            = NSLocalizedString(@"jane", @"");
+  parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"", @"");
+  parameters.verificationCodePlaceholder  	= NSLocalizedString(@"•   •   •   •   •", @"");
   parameters.termsAndPrivacyPolicyMessage 	= NSLocalizedString(@"By continuing, you agree to our <a href=\"1\">Terms</a> and\n <a href=\"2\">Privacy Policy</a>", @"");
-  parameters.loginLeftButtonLabel         	= NSLocalizedString(@"Back", @"");
-  parameters.loginRightButtonLabel          = NSLocalizedString(@"Next", @"");
+  parameters.loginLeftButtonLabel         	= NSLocalizedString(@"BACK", @"");
+  parameters.loginRightButtonLabel          = NSLocalizedString(@"NEXT", @"");
   parameters.initialCountry                 = @"United States";
   parameters.termsAndPolicyLinkAction       = ^(id obj)
   {
