@@ -539,6 +539,7 @@
         }
     }
     arrayOfSectionTitles = (NSMutableArray*)[NSArray arrayWithArray:letters];
+   // NSLog(@"Array of Section Titles: %@", arrayOfSectionTitles);
     [self getArrayofPeopleinSection:arrayOfSectionTitles];
     return [NSArray arrayWithArray:letters];
 }
