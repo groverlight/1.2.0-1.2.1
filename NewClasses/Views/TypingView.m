@@ -35,13 +35,14 @@
   SystemSoundID         soundEffect;
   BOOL permission;
 
+
+
 }
 @synthesize snapshots;
 //____________________
 
 - (void)reset
 {
-
   GlobalParameters* parameters  = GetGlobalParameters();
   [snapshots  removeAllObjects];
   FaceCount                    = 0;
@@ -50,7 +51,10 @@
   TextView.disableTextEdition = NO;
 
   [self updateUI];
+
 }
+
+
 //____________________
 
 //! Initialize the object however it has been created.

@@ -23,7 +23,7 @@
 #define LOGIN_FULL_NAME_DEFAULTS_KEY          @"LoginFullName"          //!< The key to retrieve the user's full name in the user defaults.
 //__________________________________________________________________________________________________
 
-#define FIRST_LABEL_TOP_OFFSET        44  //!< Position of the top of the first label.
+#define FIRST_LABEL_TOP_OFFSET        40  //!< Position of the top of the first label.
 #define SECOND_LABEL_TOP_OFFSET       FIRST_LABEL_TOP_OFFSET + 34  //!< Position of the top of the second label.
 #define SEPARATOR_END_MARGIN          20  //!< Right margin of the separator lines.
 #define SEPARATOR_LINE_WIDTH          0.40   //!< Width of the separator lines.
@@ -34,7 +34,7 @@
 #define PREFIX_WIDTH                  60  //!< Phone number prefix label width.
 #define EDITOR_GAP                    8   //!< Gap between the prefix label and the phone number editor.
 #define EDITOR_RIGHT_MARGIN           40  //!< Phone number editor right margin.
-#define BUTTON_BOTTOM_MARGIN          10  //!< Distance from the keyboard top position for the left and right buttons.
+#define BUTTON_BOTTOM_MARGIN          45  //!< Distance from the keyboard top position for the left and right buttons.
 #define BUTTON_MARGIN                 20  //!< Distance from the border for the left and right buttons.
 #define BUTTON_WIDTH                  100 //!< Width of the left and right buttons.
 #define POLICY_TEXT_TOP_MARGIN        180 //!< Vertical position of the policy text.
@@ -53,8 +53,8 @@
 #define TWO_LABEL_TOP_OFFSET          14
 #define THREE_LABEL_TOP_OFFSET        14
 
-#define PROGRESS_LIGHT_BOTTOM_OFFSET  20
-#define PROGRESS_DARK_BOTTOM_OFFSET   20
+#define PROGRESS_LIGHT_BOTTOM_OFFSET  30
+#define PROGRESS_DARK_BOTTOM_OFFSET   30
 
 
 
@@ -135,14 +135,6 @@ typedef enum
 }
 
 //_______________________________
-
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
-//____________________
 
 //! Initialize the object however it has been created.
 -(void)Initialize
@@ -363,8 +355,8 @@ typedef enum
     SecondLabel.frame         = CGRectMake(0, SECOND_LABEL_TOP_OFFSET, width, [SecondLabel sizeThatFits:self.frame.size].height);
 
     //OneLabel.frame            = CGRectMake(30, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
-    TwoLabel.frame            = CGRectMake(0, TWO_LABEL_TOP_OFFSET, width, [TwoLabel sizeThatFits:self.frame.size].height);
-    ThreeLabel.frame          = CGRectMake(-30, THREE_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
+    //TwoLabel.frame            = CGRectMake(0, TWO_LABEL_TOP_OFFSET, width, [TwoLabel sizeThatFits:self.frame.size].height);
+    //ThreeLabel.frame          = CGRectMake(-30, THREE_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
 
     FirstSeparatorView.frame  = CGRectMake(SEPARATOR_END_MARGIN, FIRST_SEPARATOR_TOP_OFFSET , width - 2 * SEPARATOR_END_MARGIN, SEPARATOR_LINE_WIDTH);
     FirstSeparatorView.frame  = CGRectMake(SEPARATOR_END_MARGIN, FIRST_SEPARATOR_TOP_OFFSET , width - 2 * SEPARATOR_END_MARGIN, SEPARATOR_LINE_WIDTH);
@@ -543,19 +535,21 @@ typedef enum
             OneLabel.textAlignment  = NSTextAlignmentLeft;
             OneLabel.textColor = Black;
 
-            OneLabel.frame = CGRectMake((width/3)/2, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
-            ThreeLabel.frame = CGRectMake(-(width/3)/2, TWO_LABEL_TOP_OFFSET, width, [TwoLabel sizeThatFits:self.frame.size].height);
+            OneLabel.frame = CGRectMake((width/3)/2, KeyboardTop - 30, width, [OneLabel sizeThatFits:self.frame.size].height);
+            TwoLabel.frame = CGRectMake(0, KeyboardTop - 30, width, [TwoLabel sizeThatFits:self.frame.size].height);
+
+            ThreeLabel.frame = CGRectMake(-(width/3)/2, KeyboardTop - 30, width, [ThreeLabel sizeThatFits:self.frame.size].height);
 
             TwoLabel.text = @"2";
             TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             TwoLabel.numberOfLines = 1;
             TwoLabel.textAlignment  = NSTextAlignmentCenter;
-            TwoLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
+            TwoLabel.textColor = [Grey colorWithAlphaComponent:0.4];
             ThreeLabel.text = @"3";
             ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             ThreeLabel.numberOfLines = 1;
             ThreeLabel.textAlignment  = NSTextAlignmentRight;
-            ThreeLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
+            ThreeLabel.textColor = [Grey colorWithAlphaComponent:0.4];
 
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
@@ -563,8 +557,8 @@ typedef enum
             ProgressLight.hidden = NO;
             ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
-            ProgressDark.frame =        CGRectMake(0, 0 , width/3, 8);
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width/3, 8);
 
             ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
             ProgressDark.backgroundColor = TypePink;
