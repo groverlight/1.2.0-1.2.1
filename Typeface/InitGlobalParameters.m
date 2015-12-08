@@ -29,7 +29,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.selectCountryMessage           = NSLocalizedString(@"Select your country", @"");
   parameters.fullNamePlaceholder            = NSLocalizedString(@"Jane Doe", @"");
   parameters.usernamePlaceholder            = NSLocalizedString(@"jane", @"");
-  parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"(310)-867-5309", @"");
+  parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"(310)-589-3655", @"");
   parameters.verificationCodePlaceholder  	= NSLocalizedString(@"•   •   •   •   •", @"");
   parameters.termsAndPrivacyPolicyMessage 	= NSLocalizedString(@"By continuing, you agree to our <a href=\"1\">Terms</a> and\n <a href=\"2\">Privacy Policy</a>", @"");
   parameters.loginLeftButtonLabel         	= NSLocalizedString(@"BACK", @"");

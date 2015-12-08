@@ -537,7 +537,6 @@ typedef enum
 
             OneLabel.frame = CGRectMake((width/3)/2, KeyboardTop - 30, width, [OneLabel sizeThatFits:self.frame.size].height);
             TwoLabel.frame = CGRectMake(0, KeyboardTop - 30, width, [TwoLabel sizeThatFits:self.frame.size].height);
-
             ThreeLabel.frame = CGRectMake(-(width/3)/2, KeyboardTop - 30, width, [ThreeLabel sizeThatFits:self.frame.size].height);
 
             TwoLabel.text = @"2";
@@ -602,8 +601,9 @@ typedef enum
             OneLabel.textAlignment  = NSTextAlignmentLeft;
             OneLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
 
-            OneLabel.frame = CGRectMake((width/3)/2, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
-            ThreeLabel.frame = CGRectMake(-(width/3)/2, TWO_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
+            OneLabel.frame = CGRectMake((width/3)/2, KeyboardTop - 30, width, [OneLabel sizeThatFits:self.frame.size].height);
+            TwoLabel.frame = CGRectMake(0, KeyboardTop - 30, width, [TwoLabel sizeThatFits:self.frame.size].height);
+            ThreeLabel.frame = CGRectMake(-(width/3)/2, KeyboardTop - 30, width, [ThreeLabel sizeThatFits:self.frame.size].height);
 
             TwoLabel.text = @"2";
             TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
@@ -622,8 +622,9 @@ typedef enum
             ProgressLight.hidden = NO;
             ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
-            ProgressDark.frame =        CGRectMake(0, 0 , width/2, 8);
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width/2, 8);
+
 
             ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
             ProgressDark.backgroundColor = TypePink;
@@ -657,8 +658,9 @@ typedef enum
             OneLabel.textAlignment  = NSTextAlignmentLeft;
             OneLabel.textColor = [LightGrey colorWithAlphaComponent:0.9];
 
-            OneLabel.frame = CGRectMake((width/3)/2, ONE_LABEL_TOP_OFFSET, width, [OneLabel sizeThatFits:self.frame.size].height);
-            ThreeLabel.frame = CGRectMake(-(width/3)/2, TWO_LABEL_TOP_OFFSET, width, [ThreeLabel sizeThatFits:self.frame.size].height);
+            OneLabel.frame = CGRectMake((width/3)/2, KeyboardTop - 30, width, [OneLabel sizeThatFits:self.frame.size].height);
+            TwoLabel.frame = CGRectMake(0, KeyboardTop - 30, width, [TwoLabel sizeThatFits:self.frame.size].height);
+            ThreeLabel.frame = CGRectMake(-(width/3)/2, KeyboardTop - 30, width, [ThreeLabel sizeThatFits:self.frame.size].height);
 
             TwoLabel.text = @"2";
             TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
@@ -677,8 +679,8 @@ typedef enum
             ProgressLight.hidden = NO;
             ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, 0 , width, 8);
-            ProgressDark.frame =        CGRectMake(0, 0 , width, 8);
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width, 8);
 
             ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
             ProgressDark.backgroundColor = TypePink;
