@@ -17,7 +17,7 @@ GlobalParameters* InitGlobalParameters(AppViewController* viewController)
   GlobalParameters* parameters = GetGlobalParameters();
 
   // Parse parameters.
-  parameters.parseNotificationFormatString = NSLocalizedString(@"%@: %@", @"");
+  parameters.parseNotificationFormatString = NSLocalizedString(@"%@: %@ Reply Now", @"");
   //parameters.parseRemoveFriendNotificationFormatString  = NSLocalizedString(@"%@ removed you from his/her friend list", @"");
 
   //! Blocked users parameters.

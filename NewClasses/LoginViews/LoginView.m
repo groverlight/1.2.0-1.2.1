@@ -133,6 +133,15 @@ typedef enum
 
 
 }
+
+//_______________________________
+
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 //____________________
 
 //! Initialize the object however it has been created.
@@ -140,7 +149,7 @@ typedef enum
 {
     [super Initialize];
 
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     KeyboardHeight  = DEFAULT_KEYBOARD_HEIGHT;
     GlobalParams    = GetGlobalParameters();

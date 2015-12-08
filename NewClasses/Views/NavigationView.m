@@ -604,7 +604,7 @@ SystemSoundID           soundEffect;
           NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
           
           NSDictionary *data = @{
-                                 @"alert" : [NSString stringWithFormat:@"%@ has read your message." ,Name],
+                                 @"alert" : [NSString stringWithFormat:@"%@ read your message 👀" ,Name],
                                  @"p" :[PFUser currentUser].objectId,
                                  @"t" :[PFUser currentUser][@"phoneNumber"]
                                  };

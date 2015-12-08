@@ -1145,11 +1145,11 @@ NSMutableArray*      contactsNotUsers;
                                              PFQuery *pushQuery = [PFInstallation query];
                                              [pushQuery whereKey:@"user" equalTo:object];
                                              NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
-                                             //NSString * Username = [[PFUser currentUser] objectForKey:@"username"];
+                                             NSString * Username = [[PFUser currentUser] objectForKey:@"username"];
                                              
                                              // Send push notification to query
                                              NSDictionary *data = @{
-                                                                    @"alert" : [NSString stringWithFormat:@"Uh-oh! %@ is now on Typeface! 🙈" ,Name],
+                                                                    @"alert" : [NSString stringWithFormat:@"Uh-oh! %@ is now on Typeface! 🙈. Add: %@" ,Name, Username],
                                                                     @"p" :[PFUser currentUser].objectId,
                                                                     @"t" :[PFUser currentUser][@"phoneNumber"]
                                                                     };
@@ -1158,11 +1158,11 @@ NSMutableArray*      contactsNotUsers;
                                              [push setQuery:pushQuery];
                                              [push setMessage:@"this works"];
                                              [push setData:data];
-                                          /*   [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
+                                             [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
                                               {
                                                   NSLog(@"Sending Push");
-                                              }];*/
-                                             
+                                              }];
+
                                              [[PFUser currentUser] addUniqueObject:object.objectId forKey:@"friends"];
                                              [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror) {
                                              }];
