@@ -557,7 +557,7 @@ typedef enum
             ProgressDark.hidden = NO;
 
             ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
-            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width/3, 8);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width/4, 8);
 
             ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
             ProgressDark.backgroundColor = TypePink;
@@ -680,7 +680,7 @@ typedef enum
             ProgressDark.hidden = NO;
 
             ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
-            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width, 8);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width- (width)/4, 8);
 
             ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
             ProgressDark.backgroundColor = TypePink;
