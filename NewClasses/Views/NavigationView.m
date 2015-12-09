@@ -605,7 +605,7 @@ SystemSoundID           soundEffect;
           
           NSDictionary *data = @{
                                  @"alert" : [NSString stringWithFormat:@"%@ just read your message 👀" ,Name],
-                                 @"sound" : @"chime_blip_on.aif",
+                                 @"sound" : @"beep_space_up.aif",
                                  @"p" :[PFUser currentUser].objectId,
                                  @"t" :[PFUser currentUser][@"phoneNumber"]
                                  };
