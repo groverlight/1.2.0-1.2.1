@@ -1133,7 +1133,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
 				PRODUCT_NAME = Typeface;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc4ecb4f-0bde-4a51-9957-96122474669c";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1168,7 +1168,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
 				PRODUCT_NAME = Typeface;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc4ecb4f-0bde-4a51-9957-96122474669c";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1239,7 +1239,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
 				PRODUCT_NAME = Typeface;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc4ecb4f-0bde-4a51-9957-96122474669c";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

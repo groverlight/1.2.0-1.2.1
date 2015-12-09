@@ -604,10 +604,13 @@ SystemSoundID           soundEffect;
           NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
           
           NSDictionary *data = @{
-                                 @"alert" : [NSString stringWithFormat:@"%@ read your message 👀" ,Name],
+                                 @"alert" : [NSString stringWithFormat:@"%@ just read your message 👀" ,Name],
+                                 @"sound" : @"chime_blip_on.aif",
                                  @"p" :[PFUser currentUser].objectId,
                                  @"t" :[PFUser currentUser][@"phoneNumber"]
                                  };
+
+
           
           PFPush *push = [[PFPush alloc] init];
           [push setQuery:pushQuery];

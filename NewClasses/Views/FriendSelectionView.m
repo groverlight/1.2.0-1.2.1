@@ -1149,7 +1149,8 @@ NSMutableArray*      contactsNotUsers;
                                              
                                              // Send push notification to query
                                              NSDictionary *data = @{
-                                                                    @"alert" : [NSString stringWithFormat:@"Uh-oh! %@ is now on Typeface! 🙈. Add: %@" ,Name, Username],
+                                                                    @"alert" : [NSString stringWithFormat:@"Uh-oh! %@ (%@) is now on Typeface! 🙈" ,Name, Username],
+                                                                    @"sound" : @"zap_shake.aif",
                                                                     @"p" :[PFUser currentUser].objectId,
                                                                     @"t" :[PFUser currentUser][@"phoneNumber"]
                                                                     };
