@@ -989,10 +989,6 @@ NSMutableArray*      contactsNotUsers;
                                      }];
 
                                                        [self updateTable:fullName phone:phoneNumber];
-                                                       
-                                                       
-                                     
-                                     
                                                    
                                       
                                  }

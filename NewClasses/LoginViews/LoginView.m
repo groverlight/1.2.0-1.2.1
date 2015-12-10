@@ -190,7 +190,7 @@ typedef enum
     SecondLabel.textAlignment = NSTextAlignmentCenter;
     SecondLabel.textColor = [WarmGrey colorWithAlphaComponent:0.4];
     
-    PrefixLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:21];
+    PrefixLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:19];
     PrefixLabel.hidden    = NO;
     PrefixLabel.textColor = WarmGrey;
 
@@ -224,7 +224,7 @@ typedef enum
     UpperEditor.spellCheckingType  = UITextSpellCheckingTypeNo;
     
     [UpperEditor addTarget:self action:@selector(editorTextChanged:) forControlEvents:UIControlEventEditingChanged];
-    [UpperEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:22]];
+    [UpperEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:19]];
     [UpperEditor setAdjustsFontSizeToFitWidth:NO];
     [UpperEditor setTextColor:WarmGrey];
 
@@ -244,7 +244,7 @@ typedef enum
     
     
     [LowerEditor addTarget:self action:@selector(editorTextChanged:) forControlEvents:UIControlEventEditingChanged];
-    [LowerEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:22]];
+    [LowerEditor setFont:[UIFont fontWithName:@"AvenirNext-Bold" size:19]];
     [LowerEditor setAdjustsFontSizeToFitWidth:NO];
     [LowerEditor setTextColor:WarmGrey];
     
@@ -535,6 +535,7 @@ typedef enum
             OneLabel.textAlignment  = NSTextAlignmentLeft;
             OneLabel.textColor = Black;
 
+
             OneLabel.frame = CGRectMake((width/3)/2, KeyboardTop - 30, width, [OneLabel sizeThatFits:self.frame.size].height);
             TwoLabel.frame = CGRectMake(0, KeyboardTop - 30, width, [TwoLabel sizeThatFits:self.frame.size].height);
             ThreeLabel.frame = CGRectMake(-(width/3)/2, KeyboardTop - 30, width, [ThreeLabel sizeThatFits:self.frame.size].height);
@@ -556,10 +557,10 @@ typedef enum
             ProgressLight.hidden = NO;
             ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
-            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width/4, 8);
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 5, width, 2);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -9, width/4, 9);
 
-            ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
+            ProgressLight.backgroundColor = [Grey colorWithAlphaComponent:0.4];
             ProgressDark.backgroundColor = TypePink;
 
             PrefixLabel.backgroundColor = [LightGrey colorWithAlphaComponent:0.4];
@@ -622,11 +623,11 @@ typedef enum
             ProgressLight.hidden = NO;
             ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
-            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width/2, 8);
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 5, width, 2);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -9, width/2, 9);
 
 
-            ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
+            ProgressLight.backgroundColor = [Grey colorWithAlphaComponent:0.4];
             ProgressDark.backgroundColor = TypePink;
 
 
@@ -679,10 +680,10 @@ typedef enum
             ProgressLight.hidden = NO;
             ProgressDark.hidden = NO;
 
-            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 8, width, 8);
-            ProgressDark.frame =        CGRectMake(0, KeyboardTop -8, width- (width)/4, 8);
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 5, width, 2);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -9, width- (width)/4, 9);
 
-            ProgressLight.backgroundColor = [TypePink colorWithAlphaComponent:0.3];
+            ProgressLight.backgroundColor = [Grey colorWithAlphaComponent:0.4];
             ProgressDark.backgroundColor = TypePink;
 
             ThirdSeparatorView.hidden = YES;
@@ -702,6 +703,12 @@ typedef enum
             prefixAlpha       = 0.0;
             policyAlpha       = 0.0;
             pickerAlpha       = 0.0;
+
+            ProgressLight.frame =       CGRectMake(0, KeyboardTop - 5, width, 2);
+            ProgressDark.frame =        CGRectMake(0, KeyboardTop -9, width, 9);
+
+            ProgressLight.backgroundColor = [Grey colorWithAlphaComponent:0.4];
+            ProgressDark.backgroundColor = TypePink;
             break;
         case E_LoginState_LoggedOut:
             break;
