@@ -247,10 +247,13 @@
     NSMutableSet *names = [NSMutableSet set];
     for (FriendRecord* record in NameSortedList) {
         NSLog(@"phoneNumber: %@", record.phoneNumber);
-                NSString *destinationName = record.phoneNumber;
+            NSString *destinationName = record.phoneNumber;
         if (![names containsObject:destinationName]) {
+            if (destinationName != nil)
+            {
             [uniqueArray addObject:record];
             [names addObject:destinationName];
+            }
         }
     }
     NameSortedList = uniqueArray;

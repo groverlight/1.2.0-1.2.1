@@ -1023,7 +1023,7 @@ NSMutableArray*      contactsNotUsers;
                              }
 
                     
-                    /*else
+                    else
                     {
                     
                         __block NSString *firstName;
@@ -1087,7 +1087,7 @@ NSMutableArray*      contactsNotUsers;
                                           
                         
                         
-                    }*/
+                    }
                      
                         [[PFUser currentUser] setObject:@YES forKey:@"didContactSync"];
                         [[PFUser currentUser]saveInBackground];
@@ -1143,7 +1143,7 @@ NSMutableArray*      contactsNotUsers;
                                    
                                          for (PFUser* object in objects)
                                          {
-                                             //NSLog(@"%@", object.username);
+                                             NSLog(@"%@", object.username);
                                              PFQuery *pushQuery = [PFInstallation query];
                                              [pushQuery whereKey:@"user" equalTo:object];
                                              NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
@@ -1179,11 +1179,9 @@ NSMutableArray*      contactsNotUsers;
                                               UpdateFriendRecordListForFriends(friends);
 
 
-                                              NSLog(@"GetNAMEList%@", GetNameSortedFriendRecords());
-                                              NSLog(@"%lu", (unsigned long)[contactsNotUsers count]);
                                               for (NSInteger i=0; i < [contactsNotUsers count]; i++)
                                               {
-                                                  NSLog(@"%lu", i);
+
                                                   FriendRecord *temprecord = [contactsNotUsers objectAtIndex:i];
                                                   for (FriendRecord *record in GetNameSortedFriendRecords())
                                                   {

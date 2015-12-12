@@ -104,14 +104,11 @@ SystemSoundID           soundEffect;
   [ScrollView addPageView:FriendsBundleView];
   [FriendsBundleView  addSubview:AzFriendsListView];
   [FriendsBundleView  addSubview:SendToListView];
- set_myself;
+
   ScrolledToRecentActivityPage = ^
   { // Default action: do nothing!
-      get_myself;
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-          
-          [myself->ActivityListView updateFriendsLists];
-      });
+      
+
   };
   ScrolledToTypingPage = ^
   { // Default action: do nothing!
@@ -127,7 +124,7 @@ SystemSoundID           soundEffect;
   { // Default action: do nothing!
   };
 
- 
+    set_myself;
   HeaderBar->ItemSelectedAction = ^(NSInteger index)
   {
     get_myself;
@@ -155,12 +152,14 @@ SystemSoundID           soundEffect;
     switch (page)
     {
     case 0:
-      myself->ActivityListView.hidden = NO;
+        {
+            myself->ActivityListView.hidden = NO;
       
             [GetCurrentParseUser() loadFriendsListWithCompletion:^(NSArray* friends, NSError* loadError)
              {
                  
                  UpdateFriendRecordListForFriends(friends);
+                 [myself->ActivityListView updateFriendsLists];
                  NSLog(@"TimeSorteFriendRecords: %@", GetTimeSortedFriendRecords());
              }];
     
@@ -175,6 +174,7 @@ SystemSoundID           soundEffect;
       }
       myself->ScrolledToRecentActivityPage();
       break;
+        }
     case 1:
       {
         [UIView animateWithDuration:0.2 animations:^

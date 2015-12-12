@@ -76,7 +76,7 @@ NSMutableArray* GetSharedFriendsList(void)
     NSLog(@"0 findUserWithObjectId: num friends: %d (%d)", (int)self.friends.count, (int)friends.count);
     for (NSString* friendObjectId in self.friends)
     {
-//      NSLog(@"currentUser: %p, friendObjectId: %@", GetCurrentParseUser(), friendObjectId);
+         NSLog(@"currentUser: %p, friendObjectId: %@", GetCurrentParseUser(), friendObjectId);
       [ParseUser findUserWithObjectId:friendObjectId completion:^(ParseUser* user, NSError* error)
       {
 //        NSLog(@"1 findUserWithObjectId: index: %ld, NSNotFOund: %ld, friendObjectId: %@", (long)[friends indexOfObject:user], (long)NSNotFound, friendObjectId);
@@ -86,18 +86,18 @@ NSMutableArray* GetSharedFriendsList(void)
           [friends addObject:user];
             if ([contactsNotUsers count] != 0)
             {
-        FriendRecord *record = [FriendRecord new];
-            record.fullName = user.fullName;
-            record.phoneNumber = user.phoneNumber;
-            record.lastActivityTime = user.lastActivityTimestamp;
-          [contactsNotUsers addObject:record];
-           // NSLog(@"contactsNotUsers1: %@", contactsNotUsers);
-            NSMutableArray *uniqueArray = [NSMutableArray array];
-            NSMutableSet *names = [NSMutableSet set];
-            for (FriendRecord* record2 in contactsNotUsers) {
-               // NSLog(@"fullName: %@", record2.fullName);
+                FriendRecord *record = [FriendRecord new];
+                record.fullName = user.fullName;
+                record.phoneNumber = user.phoneNumber;
+                record.lastActivityTime = user.lastActivityTimestamp;
+                [contactsNotUsers addObject:record];
+                //NSLog(@"contactsNotUsers1: %@", contactsNotUsers);
+                NSMutableArray *uniqueArray = [NSMutableArray array];
+                NSMutableSet *names = [NSMutableSet set];
+                for (FriendRecord* record2 in contactsNotUsers) {
+                //NSLog(@"fullName: %@", record2.fullName);
                 //NSLog(@"Timestamp : %f", record2.lastActivityTime);
-                NSString *destinationName = record2.fullName;
+                 NSString *destinationName = record2.fullName;
                 if (![names containsObject:destinationName]) {
                     [uniqueArray addObject:record2];
                     [names addObject:destinationName];
@@ -325,7 +325,8 @@ NSMutableArray* GetSharedFriendsList(void)
 + (void)findUserWithObjectId:(NSString*)objectId completion:(BlockUserErrorAction)completion
 {
   PFQuery* query = [ParseUser query];
-//  NSLog(@"findUserWithObjectId: %@", objectId);
+   NSLog(@"findUserWithObjectId: %@", objectId);
+    
   [query getObjectInBackgroundWithId:objectId block:^(PFObject* foundUser, NSError *error)
   {
     ParseUser* user = (ParseUser*)foundUser;

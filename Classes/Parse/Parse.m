@@ -125,7 +125,7 @@ BOOL ParseInitialization
 
     [query fromLocalDatastore];
     PFObject *temp = [query getFirstObject];
-   // NSLog(@"temp %@", temp);
+    NSLog(@"temp %@", temp);
 
     if( contactsNotUsers == nil)
     {
@@ -733,7 +733,7 @@ void ParseLoadMessageArray
               NSLog(@"friends: %@", friends);
               if (![friends containsObject:parseMsg.fromUser])
               {
-                  [[PFUser currentUser] addUniqueObject:parseMsg.fromUser forKey:@"friends"];
+                  [[PFUser currentUser] addUniqueObject:parseMsg.fromUser.objectId forKey:@"friends"];
               }
              
             if (![parseMsg.action isEqualToString:@""])
