@@ -727,7 +727,15 @@ void ParseLoadMessageArray
           NSMutableArray* removedFriendIds = [NSMutableArray arrayWithCapacity:1];
           for (NSInteger i = objects.count - 1; i >= 0; --i)
           {
+              // being add friend
             ParseMessage* parseMsg = objects[i];
+              NSArray *friends = [PFUser currentUser][@"friends"];
+              NSLog(@"friends: %@", friends);
+              if (![friends containsObject:parseMsg.fromUser])
+              {
+                  [[PFUser currentUser] addUniqueObject:parseMsg.fromUser forKey:@"friends"];
+              }
+             
             if (![parseMsg.action isEqualToString:@""])
             {
               if ([parseMsg.action isEqualToString:PARSE_REMOVE_FRIEND_ACTION])

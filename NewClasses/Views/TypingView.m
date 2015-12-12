@@ -120,9 +120,9 @@
         {
             NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"beep_prompt_2x"ofType:@"aif"];
             NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
-            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &soundEffect);
+            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &(myself->soundEffect));
 
-            AudioServicesPlaySystemSound(soundEffect);
+            AudioServicesPlaySystemSound(myself->soundEffect);
 
             NSLog(@"Calls the selfie alert!");
             Alert(parameters.typingLeftButtonAlertTitle   , parameters.typingLeftButtonAlertMessage,
@@ -170,10 +170,10 @@
        // NSLog(@"Kylie");
 
         if (myself->TextView.totalNumCharacters == 0) {
-            FaceButton.backgroundColor = TypePink;
-            CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
-            FaceButton.title = @"START TYPING";
-            FaceButton.enabled = NO;
+            myself->FaceButton.backgroundColor = TypePink;
+            myself->CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
+            myself->FaceButton.title = @"START TYPING";
+            myself->FaceButton.enabled = NO;
 
         }
 
@@ -195,20 +195,20 @@
 
 
         if (myself->TextView.totalNumCharacters == 0) {
-            FaceButton.backgroundColor = TypePink;
-            CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
-            FaceButton.title = @"START TYPING";
-            FaceButton.enabled = NO;
+            myself->FaceButton.backgroundColor = TypePink;
+            myself->CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
+            myself->FaceButton.title = @"START TYPING";
+            myself->FaceButton.enabled = NO;
 
         }
 
         else {
-            FaceButton.backgroundColor = [UIColor clearColor];
-            FaceButton.layer.borderWidth = 2;
-            FaceButton.layer.borderColor = TypePink.CGColor;
-            CharactersLeftLabel.textColor = TypePink;
-            FaceButton.title = @"TAKE SELFIE";
-            FaceButton.enabled = YES;
+            myself->FaceButton.backgroundColor = [UIColor clearColor];
+            myself->FaceButton.layer.borderWidth = 2;
+            myself->FaceButton.layer.borderColor = TypePink.CGColor;
+            myself->CharactersLeftLabel.textColor = TypePink;
+            myself->FaceButton.title = @"TAKE SELFIE";
+            myself->FaceButton.enabled = YES;
         }
 
 
@@ -262,9 +262,9 @@
 
             NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"beep_prompt_2x"ofType:@"aif"];
             NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
-            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &soundEffect);
+            AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &(myself->soundEffect));
 
-            AudioServicesPlaySystemSound(soundEffect);
+            AudioServicesPlaySystemSound(myself->soundEffect);
 
             Alert(parameters.typingRightButtonAlertTitle   , parameters.typingRightButtonAlertMessage,
                   parameters.typingRightButtonAlertOkString, parameters.typingRightButtonAlertCancelString,

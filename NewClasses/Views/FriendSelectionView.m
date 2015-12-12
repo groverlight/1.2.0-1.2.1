@@ -307,11 +307,11 @@ NSMutableArray*      contactsNotUsers;
   {
     get_myself;
     myself->AddButtonPressed();
-      AddButton.backgroundColor = TypePink;
-      AddButton.enabled = NO;
-      AddButton.title = @"ex. gigi";
+      myself->AddButton.backgroundColor = TypePink;
+      myself->AddButton.enabled = NO;
+      myself->AddButton.title = @"ex. gigi";
     
-      [self updateUI];
+      [myself updateUI];
 
   };
 }
@@ -1023,9 +1023,9 @@ NSMutableArray*      contactsNotUsers;
                              }
 
                     
-                    else
+                    /*else
                     {
-                      
+                    
                         __block NSString *firstName;
                         __block NSString *lastName;
                         ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -1087,7 +1087,8 @@ NSMutableArray*      contactsNotUsers;
                                           
                         
                         
-                    }
+                    }*/
+                     
                         [[PFUser currentUser] setObject:@YES forKey:@"didContactSync"];
                         [[PFUser currentUser]saveInBackground];
                  }
@@ -1212,10 +1213,7 @@ NSMutableArray*      contactsNotUsers;
                                                    
                                                    return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
                                                }];
-                                              for (FriendRecord *record in contactsNotUsers)
-                                              {
-                                                  NSLog(@"Name: ", record.fullName);
-                                              }
+
                                               [localDatastore addUniqueObject:contacts forKey:@"FriendsList"];
 
                                               [localDatastore pinInBackgroundWithBlock:^(BOOL succeeded, NSError *pinError) {

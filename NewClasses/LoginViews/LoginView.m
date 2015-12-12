@@ -1081,9 +1081,9 @@ typedef enum
                                               LeftButton.enabled  = YES;
                                               RightButton.enabled = NO;
                                               [RollDownErrorView showWithTitle:GlobalParams.loginRollDownViewTitle andMessage:GlobalParams.loginRollDownVerificationCodeErrorMessage];
-                                              NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"rolldown10"ofType:@"aiff"];
-                                              NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
-                                              AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL), &soundEffect);
+                                              NSString *soundPath2 = [[NSBundle mainBundle] pathForResource:@"rolldown10"ofType:@"aiff"];
+                                              NSURL *soundURL2 = [NSURL fileURLWithPath:soundPath2];
+                                              AudioServicesCreateSystemSoundID(CFBridgingRetain(soundURL2), &soundEffect);
                                               
                                               AudioServicesPlaySystemSound(soundEffect);
                                               
