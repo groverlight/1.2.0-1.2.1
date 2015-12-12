@@ -103,6 +103,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
 - (void)indexViewValueChanged:(BDKCollectionIndexView *)sender {
    // NSLog(@"indexView.currentIndex %lu", [self->FriendsList getIndex:indexView.currentIndex and:0]);
    // NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
+    [self->FriendsList reloadData];
     NSInteger listIndex =[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]];
     if (listIndex < 100)
     {

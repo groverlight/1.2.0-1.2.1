@@ -144,7 +144,7 @@ NSMutableArray* GetSharedFriendsList(void)
   {
     if ([user.objectId isEqualToString:friendObjectId])
     {
-      NSLog(@"getFriend: Found: %@", user.objectId);
+      NSLog(@"getFriend1: Found: %@", user.objectId);
       return user;
     }
   }
@@ -230,7 +230,7 @@ NSMutableArray* GetSharedFriendsList(void)
       ParseUser* friendUser = friends[i];
       if ([friendUser.objectId isEqualToString:friend.objectId])
       {
-        NSLog(@"getFriend: Found: %@", user.objectId);
+        NSLog(@"getFriend2: Found: %@", user.objectId);
         [friends removeObject:friendUser];
       }
     }
@@ -264,25 +264,30 @@ NSMutableArray* GetSharedFriendsList(void)
     user.friends = array;
     [user saveInBackgroundWithBlock:^(BOOL success, NSError *error)
     {
-//      NSLog(@"7 removeFriendFromUser");
+      
       completion(success, error);
     }];
     NSMutableArray* friends = GetSharedFriendsList();
+    NSLog(@"%@", friends);
     for (NSInteger i = friends.count -1; i >= 0; --i)
     {
+        NSLog(@"%li",(long)i);
       ParseUser* friendUser = friends[i];
       if ([friendUser.objectId isEqualToString:friend.objectId])
       {
-        NSLog(@"getFriend: Found: %@", user.objectId);
+        NSLog(@"getFriend3: Found: %@", user.objectId);
         [friends removeObject:friendUser];
       }
+     
     }
+     
   }
   else
   {
 //    NSLog(@"8 removeFriendFromUser");
     completion(NO, nil);
   }
+  
 }
 //__________________________________________________________________________________________________
 

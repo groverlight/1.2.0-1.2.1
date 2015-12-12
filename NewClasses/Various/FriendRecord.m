@@ -527,10 +527,7 @@ switch (myStatus) {
     {
         TimeSortedList = [NSMutableArray arrayWithCapacity:10];
     }
-    for (FriendRecord *record in TimeSortedList)
-    {
-        NSLog(@"phone Number", record.phoneNumber);
-    }
+
     NameSortedList = [NSMutableArray arrayWithArray:TimeSortedList];
 }
 //__________________________________________________________________________________________________

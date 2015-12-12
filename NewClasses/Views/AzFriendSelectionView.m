@@ -438,6 +438,7 @@
 
 - (void)removeFriend:(ParseUser*)friend
 {
+   
   [GetCurrentParseUser() removeFriend:friend completion:^(BOOL result, NSError *error)
   {
     LoadUnreadMessages(^(UnreadMessages* unreadMsgs)
@@ -457,14 +458,19 @@
       });
     });
   }];
+    NSMutableArray * contactsTemp = [[NSMutableArray alloc] init];
     NSString *fullName = friend.fullName;
-    for (FriendRecord *record in contactsNotUsers)
+    for (int i = 0; i < [contactsNotUsers count]; i++)
     {
-        if ([record.fullName isEqualToString:fullName])
+        FriendRecord* contact = contactsNotUsers[i];
+    
+        if (![contact.fullName isEqualToString:fullName])
         {
-            [contactsNotUsers removeObject:record ];
+            [contactsTemp addObject:contact];
         }
     }
+   // NSLog(@"contactsTemp: ", contactsTemp);
+    contactsNotUsers = contactsTemp;
 }
 //__________________________________________________________________________________________________
 
