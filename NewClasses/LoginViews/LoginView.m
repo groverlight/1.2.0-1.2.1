@@ -1067,7 +1067,7 @@ typedef enum
                                                                                  LowerEditor.placeholder   = GlobalParams.usernamePlaceholder;
                                                                                  LowerEditor.text          = @"";
                                                                                  LowerEditor.keyboardType  = UIKeyboardTypeASCIICapable;
-                                                                                 [LowerEditor becomeFirstResponder];  // Becomes first responder with the new keyboard type.
+                                                                                 [UpperEditor becomeFirstResponder];  // Becomes first responder with the new keyboard type.
                                                                              }
                                                                              State = E_LoginState_Username;
                                                                              [[NSUserDefaults standardUserDefaults] setInteger:State forKey:LOGIN_STATE_DEFAULTS_KEY];

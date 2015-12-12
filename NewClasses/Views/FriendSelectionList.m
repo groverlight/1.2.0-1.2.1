@@ -44,6 +44,7 @@
 -(void)Initialize
 {
     [super Initialize];
+    self.delegate = self;
     indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     // this stuff
     self.sectionIndexColor = Grey;
@@ -213,10 +214,11 @@
         switch (section)
             {
                     case 0:
-                        //          NSLog(@"%p, numberOfRowsInSection 0: %d", self, (int)RecentFriendsList.count);
+                    //NSLog(@"%@", RecentFriendsList);
+                    //NSLog(@"%p, numberOfRowsInSection 0: %d", self, (int)RecentFriendsList.count);
                     return RecentFriendsList.count;
                     case 1:
-            //    NSLog(@"%p, numberOfRowsInSection 1: %d", self, (int)AllFriendsList.count);
+                    //NSLog(@"%p, numberOfRowsInSection 1: %d", self, (int)AllFriendsList.count);
                         return AllFriendsList.count;
                     default:
                         break;
@@ -572,6 +574,7 @@
 - (void)setRecentFriends:(NSArray *)recentFriends
 {
     RecentFriendsList = recentFriends;
+    
     [self ReloadTableData];
 }
 //__________________________________________________________________________________________________

@@ -194,8 +194,13 @@
            // NSLog(@"Timestamp : %f", record.lastActivityTime);
             NSString *destinationName = record.phoneNumber;
             if (![names containsObject:destinationName]) {
+                if (destinationName != nil)
+                {
+                    
+                
                 [uniqueArray addObject:record];
                 [names addObject:destinationName];
+                }
             }
         }
         TimeSortedList = uniqueArray;
