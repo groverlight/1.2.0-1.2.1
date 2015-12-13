@@ -144,6 +144,7 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
             });
             NSLog(@"userInfo: %@", userInfo);
             NSString *objectid = [userInfo objectForKey:@"p"];
+            NSString *stop = [userInfo objectForKey:@"stop"];
             //NSString *phoneNumber = [userInfo objectForKey:@"t"];
             NSLog(@"objectid: %@", objectid);
             if ([objectid length] != 0)
@@ -152,25 +153,30 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
             [[PFUser currentUser] saveInBackground];
             }
             
-            PFQuery *pushQuery = [PFInstallation query];
-            PFUser * user = [PFQuery getUserObjectWithId:objectid];
-            [pushQuery whereKey:@"user" equalTo:user];
-            
-            // Send push notification to query
-            NSDictionary *data = @{
+            if (stop == nil)
+            {
+                PFQuery *pushQuery = [PFInstallation query];
+                PFUser * user = [PFQuery getUserObjectWithId:objectid];
+                [pushQuery whereKey:@"user" equalTo:user];
+                
+                // Send push notification to query
+                NSDictionary *data = @{
 
-                                   @"p" :[PFUser currentUser].objectId,
-                                   @"t" :[PFUser currentUser][@"phoneNumber"]
-                                   };
-            
-            PFPush *push = [[PFPush alloc] init];
-            [push setQuery:pushQuery];
-            [push setMessage:@"this works"];
-            [push setData:data];
-            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
-             {
-                 NSLog(@"Sending Push");
-             }];
+                                       @"p" :[PFUser currentUser].objectId,
+                                       @"t" :[PFUser currentUser][@"phoneNumber"],
+                                       @"stop": @"1"
+                                       
+                                       };
+                
+                PFPush *push = [[PFPush alloc] init];
+                [push setQuery:pushQuery];
+                [push setMessage:@"this works"];
+                [push setData:data];
+                [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
+                 {
+                     NSLog(@"Sending Push");
+                 }];
+            }
 
         }
     

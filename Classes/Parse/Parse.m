@@ -121,14 +121,12 @@ BOOL ParseInitialization
 )
 {
     NSLog(@"ParseInitialization");
-    NSInteger hi = NO;
-    NSLog(@"something %d",hi);
-    NSLog(@"something %d",NSNotFound);
+
     PFQuery *query = [PFQuery queryWithClassName:@"localDatastore"];
 
     [query fromLocalDatastore];
     PFObject *temp = [query getFirstObject];
-    NSLog(@"temp %@", temp);
+    //NSLog(@"temp %@", temp);
     
     if( contactsNotUsers == nil)
     {
@@ -152,7 +150,7 @@ BOOL ParseInitialization
             {
                 [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
                  {
-                NSLog(@"%@", user);
+               // NSLog(@"%@", user);
                 FriendRecord *record = [FriendRecord new];
                 record.fullName = user.fullName;
                 record.phoneNumber = user.phoneNumber;

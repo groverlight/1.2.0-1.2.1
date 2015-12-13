@@ -337,7 +337,7 @@
     friendRecord.fullName = parseUser.fullName;
     friendRecord.phoneNumber = parseUser.phoneNumber;
     friendRecord.lastActivityTime = parseUser.lastActivityTimestamp;
-   /* NSInteger index = [TimeSortedList indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
+    NSInteger index = [TimeSortedList indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
                        {
                            FriendRecord* testActivity = (FriendRecord*)obj;
                            NSLog(@"testaactivity %@", testActivity.phoneNumber);
@@ -349,18 +349,10 @@
                            {
                            return NO;
                            }
-                       }];*/
+                       }];
     
-    NSInteger index = NO;
-    for (FriendRecord *record in TimeSortedList)
-    {
-        if ([friendRecord.phoneNumber isEqualToString:record.phoneNumber])
-        {
-            index = YES;
-            break;
-        }
-    }
-    if (index == 0) // changed this 
+    if (index == NSNotFound) // changed this
+        
     {
         NSLog(@"FriendRecord: %@", friendRecord);
         [NameSortedList addObject:friendRecord];

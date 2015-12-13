@@ -181,12 +181,13 @@
   }
   else
   {
-    //  NSLog(@"INITIATING SORT");
-    //self.recentFriends  = GetTimeSortedFriendRecords();
+      NSLog(@"INITIATING SORT");
+            self.recentFriends  = @[];
       
       //NSLog(@"friends: %@", [[PFUser currentUser] objectForKey:@"friends"]);
       
             self.allFriends     =  GetNameSortedFriendRecords();
+           NSLog(@"%@", GetNameSortedFriendRecords());
            // NSLog(@"current User:%@", [PFUser currentUser]);
            // NSLog(@"this is all friends: %@",self.allFriends);
       

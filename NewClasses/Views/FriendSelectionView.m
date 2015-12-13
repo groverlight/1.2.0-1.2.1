@@ -1204,7 +1204,7 @@ NSMutableArray*      contactsNotUsers;
                                                   
 
                                                 }
-                                              NSLog(@"contacts: %@", contacts);
+                                             // NSLog(@"contacts: %@", contacts);
                                               [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
                                                {
                                                    FriendRecord* record1 = (FriendRecord*)obj1;
