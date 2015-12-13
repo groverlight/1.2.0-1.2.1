@@ -518,7 +518,7 @@ SystemSoundID           soundEffect;
     else
     {
         UpdateFriendRecordListForUser(friend, myself->MessageToSend->Timestamp);
-    
+    }
     [myself->SendToListView clearSelection];
 
     [myself updateFriendsLists];
@@ -539,7 +539,7 @@ SystemSoundID           soundEffect;
         NSLog(@"Failed to save animation with error: %@", error);
       }
     });
-    }
+    
     [myself->TypingMessageView clearText];
     
     [myself->Player prepareForFirstChunkWithMessage:myself->MessageToSend];
@@ -610,6 +610,8 @@ SystemSoundID           soundEffect;
           NSString * Name = [[PFUser currentUser] objectForKey:@"fullName"];
           
           NSDictionary *data = @{
+                                 
+                                 @"content-available": @1,
                                  @"alert" : [NSString stringWithFormat:@"%@ just read your message 👀" ,Name],
                                  @"sound" : @"beep_space_up.aif",
                                  @"p" :[PFUser currentUser].objectId,
@@ -626,6 +628,7 @@ SystemSoundID           soundEffect;
            {
                NSLog(@"Sending Push");
            }];
+      
         [messages deleteMessage:myself->MessageToPlay];
         ParseSetBadge(messages->Messages.count);  // Update the icon badge number with the number of unread messages.
         if (messages->Messages.count == 0)
@@ -829,6 +832,39 @@ SystemSoundID           soundEffect;
 - (void)loadReceivedMessages:(BlockBoolAction)completion
 {
  // NSLog(@"-- loadReceivedMessages");
+    NSArray* friends = [PFUser currentUser][@"friends"];
+    for (NSString * objectId in friends)
+    {
+        [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
+         {
+             
+             NSLog(@"%@", user);
+             FriendRecord *record = [FriendRecord new];
+             record.fullName = user.fullName;
+             record.phoneNumber = user.phoneNumber;
+             record.user = user;
+             
+             for (NSInteger i = 0; i < [contactsNotUsers count]; i++)
+             {
+                 FriendRecord *friend =  contactsNotUsers[i];
+                 NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
+                 if ([friend.phoneNumber isEqualToString: record.phoneNumber])
+                 {
+                     NSLog(@"found");
+                     record.lastActivityTime = friend.lastActivityTime;
+                     contactsNotUsers[i] = record;
+                     //NSLog(@"record:%@",record.user);
+                     
+                 }
+             }
+             
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                 
+                 [self updateFriendsLists];
+             });
+         }];
+    }
+
   ParseLoadMessageArray(^
   {
    // NSLog(@"-0 loadReceivedMessages");

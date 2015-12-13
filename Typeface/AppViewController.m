@@ -304,7 +304,7 @@ static AppViewController* MainViewController = nil;
 {
 
     NSLog(@"app launched from background");
-
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"dd MMM YYYY HH:mm:ss";
     NSString *string = [formatter stringFromDate:[NSDate date]];

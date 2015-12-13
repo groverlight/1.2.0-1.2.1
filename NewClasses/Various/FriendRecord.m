@@ -99,9 +99,25 @@
 - (void)setUser:(ParseUser*)user
 {
     User = user;
-    if (user == nil)
+    NSLog(@"user: %@", user);
+    if (user == NULL)
     {
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"phoneNumber" equalTo:self.phoneNumber];
+        [query findObjectsInBackgroundWithBlock:^(NSArray * objects, NSError * error) {
+            if (objects != nil)
+            {
+                NSLog(@"%@", objects);
+                for (PFUser* object in objects)
+                {
+                NSLog(@"found it");
+                    self.user = (ParseUser*)object ;
+                }
+            }
         NSLog(@"3 User == nil! -> full name: '%@'", self.fullName);
+            
+        }];
+        
     }
     else
     {
@@ -189,6 +205,7 @@
 
         NSMutableArray *uniqueArray = [NSMutableArray array];
         NSMutableSet *names = [NSMutableSet set];
+        
         for (FriendRecord* record in TimeSortedList) {
             NSLog(@"phoneNumber: %@", record.phoneNumber);
            // NSLog(@"Timestamp : %f", record.lastActivityTime);
@@ -216,8 +233,28 @@
                     }
                 }
             }
+
         }
         TimeSortedList = uniqueArray;
+        
+        for (NSInteger i = 0; i < [TimeSortedList count]; i ++)
+        {
+            FriendRecord *timesortRecord = TimeSortedList[i];
+            for (NSInteger j=0; j < [NameSortedList count]; j++)
+            {
+                FriendRecord *namesortRecord = NameSortedList[j];
+                if ([timesortRecord.phoneNumber isEqualToString:namesortRecord.phoneNumber])
+                {
+
+                    if (timesortRecord.user == nil)
+                    {
+                    NSLog(@" changed the list");
+                    TimeSortedList[i] = NameSortedList[j];
+                        
+                    }
+                }
+            }
+        }
         
     [TimeSortedList sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
      {
@@ -264,7 +301,7 @@
      }];
     NSMutableArray *uniqueArray = [NSMutableArray array];
     NSMutableSet *names = [NSMutableSet set];
-    for (FriendRecord* record in TimeSortedList) {
+    for (FriendRecord* record in NameSortedList) {
         NSLog(@"phoneNumber: %@", record.phoneNumber);
         // NSLog(@"Timestamp : %f", record.lastActivityTime);
         NSString *destinationName = record.phoneNumber;
@@ -292,7 +329,7 @@
             }
         }
     }
-    TimeSortedList = uniqueArray;
+    NameSortedList = uniqueArray;
 
    // NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:NameSortedList];
     
@@ -331,30 +368,20 @@
 - (BOOL)updateForUser:(ParseUser*)parseUser atTime:(NSTimeInterval)time updateOnly:(BOOL)updateOnly
 {
     BOOL changed = NO;
-   // NSlog(@"%@", parseUser)
-    FriendRecord* friendRecord = [FriendRecord new];//[[FriendRecord alloc] initWithUser:parseUser andTime:time];
-    friendRecord.user = parseUser;
-    friendRecord.fullName = parseUser.fullName;
-    friendRecord.phoneNumber = parseUser.phoneNumber;
-    friendRecord.lastActivityTime = parseUser.lastActivityTimestamp;
+    NSLog(@"parseUser %@", parseUser);
+    FriendRecord* friendRecord = [[FriendRecord alloc] initWithUser:parseUser andTime:time];
     NSInteger index = [TimeSortedList indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
                        {
                            FriendRecord* testActivity = (FriendRecord*)obj;
-                           NSLog(@"testaactivity %@", testActivity.phoneNumber);
-                           if ([friendRecord.phoneNumber isEqualToString:testActivity.phoneNumber])
+                           if ([parseUser.phoneNumber isEqualToString:testActivity.phoneNumber])
                            {
                                return YES;
                            }
-                           else
-                           {
                            return NO;
-                           }
                        }];
-    
-    if (index == NSNotFound) // changed this
-        
+    if (index == NSNotFound)
     {
-        NSLog(@"FriendRecord: %@", friendRecord);
+        NSLog(@"not found");
         [NameSortedList addObject:friendRecord];
         [TimeSortedList addObject:friendRecord];
         [self sortNameList];
@@ -362,6 +389,7 @@
     }
     else
     {
+        NSLog(@"found");
         FriendRecord* foundActivity = [TimeSortedList objectAtIndex:index];
         changed = foundActivity.lastActivityTime < time;
         if (changed)

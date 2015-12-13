@@ -45,7 +45,10 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 
   // Parse initialization.
   ParseAppDelegateInitialization(launchOptions);
+    NSDictionary *remoteNotifiInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
 
+
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"dd MMM YYYY HH:mm:ss";
     NSString *string = [formatter stringFromDate:[NSDate date]];
@@ -161,7 +164,10 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
                 
                 // Send push notification to query
                 NSDictionary *data = @{
-
+                                       
+                                       
+                                       @"content-available": @1,
+                                       @"sound": @"",   
                                        @"p" :[PFUser currentUser].objectId,
                                        @"t" :[PFUser currentUser][@"phoneNumber"],
                                        @"stop": @"1"

@@ -135,7 +135,7 @@ BOOL ParseInitialization
     if ([contactsNotUsers count] == 0)
     {
        NSArray* friends = [PFUser currentUser][@"friends"];
-
+        NSLog(@"friends: %@", friends);
             for (NSMutableDictionary *person in temp[@"FriendsList"])
             {
               //  NSLog(@"%@", person);
@@ -143,6 +143,7 @@ BOOL ParseInitialization
                 tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
                 tempRecord.fullName = [person objectForKey:@"fullName"];
                 tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
+                tempRecord.user = [person objectForKey:@"user"];
                // NSLog(@"tempRecord: %@", tempRecord);
                 [contactsNotUsers addObject:tempRecord];
             }
@@ -150,24 +151,30 @@ BOOL ParseInitialization
             {
                 [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
                  {
-               // NSLog(@"%@", user);
+                
+                NSLog(@"%@", user);
                 FriendRecord *record = [FriendRecord new];
                 record.fullName = user.fullName;
                 record.phoneNumber = user.phoneNumber;
                 record.user = user;
+                
                 for (NSInteger i = 0; i < [contactsNotUsers count]; i++)
                 {
                     FriendRecord *friend =  contactsNotUsers[i];
                     NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
                     if ([friend.phoneNumber isEqualToString: record.phoneNumber])
                     {
+                        NSLog(@"found");
                         record.lastActivityTime = friend.lastActivityTime;
                         contactsNotUsers[i] = record;
+                        NSLog(@"record:%@",record.user);
+                        
                     }
                 }
                      
                  }];
             }
+        
         
         
 

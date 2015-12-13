@@ -182,7 +182,7 @@
   else
   {
       NSLog(@"INITIATING SORT");
-            self.recentFriends  = @[];
+           // self.recentFriends  = @[];
       
       //NSLog(@"friends: %@", [[PFUser currentUser] objectForKey:@"friends"]);
       

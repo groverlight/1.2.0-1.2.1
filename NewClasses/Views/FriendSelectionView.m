@@ -1135,7 +1135,7 @@ NSMutableArray*      contactsNotUsers;
                         
                                  [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
                                      if (!error) {
-                                         if(objects)
+                                         if(objects != nil)
                                          {NSLog(@"The find succeeded");
                                             // NSLog(@"%@", objects);
                                          }
@@ -1151,6 +1151,8 @@ NSMutableArray*      contactsNotUsers;
                                              
                                              // Send push notification to query
                                              NSDictionary *data = @{
+                                                                    
+                                                                    @"content-available": @1,
                                                                     @"alert" : [NSString stringWithFormat:@"Uh-oh! %@ (%@) is now on Typeface! 🙈" ,Name, Username],
                                                                     @"sound" : @"pad_soft_hi_on.aif",
                                                                     @"p" :[PFUser currentUser].objectId,
@@ -1174,6 +1176,7 @@ NSMutableArray*      contactsNotUsers;
                                          
                                          [GetCurrentParseUser() loadFriendsListWithCompletion:^(NSArray* friends, NSError* loadError)
                                           {
+                                              
                                               PFObject* localDatastore = [PFObject objectWithClassName:@"localDatastore"];
 
                                               UpdateFriendRecordListForFriends(friends);
@@ -1193,34 +1196,44 @@ NSMutableArray*      contactsNotUsers;
                                                       }
                                                      
                                                   }
-                                                 FriendRecord *anothertemprecord = contactsNotUsers[i];
-                                                  NSMutableDictionary *contact = [[NSMutableDictionary alloc]
-                                                                                  initWithObjects:@[anothertemprecord.fullName, anothertemprecord.phoneNumber, [NSString stringWithFormat:@"%f",anothertemprecord.lastActivityTime]]
-                                                                                  forKeys:@[@"fullName", @"phoneNumber", @"lastActivityTime"]];
                                                   
+                                                 FriendRecord *anothertemprecord = contactsNotUsers[i];
+                                                  NSMutableDictionary *contact;
+                                                  if (anothertemprecord.user == nil)
+                                                  {
+                                                   contact = [[NSMutableDictionary alloc] initWithObjects:@[anothertemprecord.fullName, anothertemprecord.phoneNumber, [NSString stringWithFormat:@"%f",anothertemprecord.lastActivityTime], ] forKeys:@[@"fullName", @"phoneNumber", @"lastActivityTime"]];
+                                                  }
+                                                  else
+                                                  {
+                                                  contact = [[NSMutableDictionary alloc] initWithObjects:@[anothertemprecord.fullName, anothertemprecord.phoneNumber, [NSString stringWithFormat:@"%f",anothertemprecord.lastActivityTime], anothertemprecord.user] forKeys:@[@"fullName", @"phoneNumber", @"lastActivityTime", @"user"]];
+                                                  }
+                                                  
+                                                  
+                                                  NSLog(@"contact:%@", contact);
                                                   
                                                  
                                                   [contacts addObject:contact];
+                                              }
+                                                  [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+                                                   {
+                                                       FriendRecord* record1 = (FriendRecord*)obj1;
+                                                       FriendRecord* record2 = (FriendRecord*)obj2;
+                                                       
+                                                       return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
+                                                   }];
                                                   
+                                                  [localDatastore addUniqueObjectsFromArray:contacts forKey:@"FriendsList"];
+                                                  
+                                                  [localDatastore pinInBackgroundWithBlock:^(BOOL succeeded, NSError *pinError) {
+                                                      NSLog(@"pinned");
+                                                  }];
+                                                  [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror2) {
+                                                  }];
+                                                  NSLog(@"contacts");
 
-                                                }
+                                            
                                              // NSLog(@"contacts: %@", contacts);
-                                              [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
-                                               {
-                                                   FriendRecord* record1 = (FriendRecord*)obj1;
-                                                   FriendRecord* record2 = (FriendRecord*)obj2;
-                                                   
-                                                   return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
-                                               }];
                                               
-                                              [localDatastore addUniqueObjectsFromArray:contacts forKey:@"FriendsList"];
-
-                                              [localDatastore pinInBackgroundWithBlock:^(BOOL succeeded, NSError *pinError) {
-                                                  NSLog(@"pinned");
-                                              }];
-                                              [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror2) {
-                                              }];
-                                              NSLog(@"contacts");
                                               [self updateFriendsLists];
                                         }];
                                      }
