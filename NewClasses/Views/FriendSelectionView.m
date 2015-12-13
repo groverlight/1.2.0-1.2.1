@@ -1204,6 +1204,7 @@ NSMutableArray*      contactsNotUsers;
                                                   
 
                                                 }
+                                              NSLog(@"contacts: %@", contacts);
                                               [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
                                                {
                                                    FriendRecord* record1 = (FriendRecord*)obj1;
@@ -1211,8 +1212,8 @@ NSMutableArray*      contactsNotUsers;
                                                    
                                                    return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
                                                }];
-
-                                              [localDatastore addUniqueObject:contacts forKey:@"FriendsList"];
+                                              
+                                              [localDatastore addUniqueObjectsFromArray:contacts forKey:@"FriendsList"];
 
                                               [localDatastore pinInBackgroundWithBlock:^(BOOL succeeded, NSError *pinError) {
                                                   NSLog(@"pinned");

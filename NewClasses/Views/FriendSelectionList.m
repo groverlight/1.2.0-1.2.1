@@ -551,7 +551,7 @@
     for (NSString *letter in sections)
         {
         NSMutableArray *sectionPeople = [[NSMutableArray alloc]init];
-        for (FriendRecord *record in AllFriendsList)
+        for (FriendRecord *record in contactsNotUsers)
             {
                 
                 if([letter isEqualToString: [record.fullName substringToIndex:1]])

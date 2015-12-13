@@ -145,15 +145,35 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
             NSLog(@"userInfo: %@", userInfo);
             NSString *objectid = [userInfo objectForKey:@"p"];
             //NSString *phoneNumber = [userInfo objectForKey:@"t"];
-            NSLog(@"%@", objectid);
-            if (objectid)
+            NSLog(@"objectid: %@", objectid);
+            if ([objectid length] != 0)
             {
             [[PFUser currentUser] addUniqueObject:objectid forKey:@"friends"];
             [[PFUser currentUser] saveInBackground];
             }
+            
+            PFQuery *pushQuery = [PFInstallation query];
+            PFUser * user = [PFQuery getUserObjectWithId:objectid];
+            [pushQuery whereKey:@"user" equalTo:user];
+            
+            // Send push notification to query
+            NSDictionary *data = @{
+
+                                   @"p" :[PFUser currentUser].objectId,
+                                   @"t" :[PFUser currentUser][@"phoneNumber"]
+                                   };
+            
+            PFPush *push = [[PFPush alloc] init];
+            [push setQuery:pushQuery];
+            [push setMessage:@"this works"];
+            [push setData:data];
+            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
+             {
+                 NSLog(@"Sending Push");
+             }];
+
         }
-    else
-    {
+    
           NotificationCompletionHandler = handler;
           NSLog(@"\n\n");
           NSLog(@"didReceiveRemoteNotification Start: %p", NotificationCompletionHandler);
@@ -166,7 +186,7 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
               NotificationCompletionHandler = NULL;
             }
           });
-    }
+    
 }
 //__________________________________________________________________________________________________
 

@@ -202,6 +202,20 @@
                 [names addObject:destinationName];
                 }
             }
+            else
+            {
+                if (record.user != nil)
+                {
+                    for (NSInteger i = 0; i < [uniqueArray count]; i ++)
+                    {
+                        FriendRecord *record2 = uniqueArray[i];
+                        if ([record2.phoneNumber isEqualToString: record.phoneNumber])
+                        {
+                            uniqueArray[i] = record;
+                        }
+                    }
+                }
+            }
         }
         TimeSortedList = uniqueArray;
         
@@ -250,18 +264,35 @@
      }];
     NSMutableArray *uniqueArray = [NSMutableArray array];
     NSMutableSet *names = [NSMutableSet set];
-    for (FriendRecord* record in NameSortedList) {
+    for (FriendRecord* record in TimeSortedList) {
         NSLog(@"phoneNumber: %@", record.phoneNumber);
-            NSString *destinationName = record.phoneNumber;
+        // NSLog(@"Timestamp : %f", record.lastActivityTime);
+        NSString *destinationName = record.phoneNumber;
         if (![names containsObject:destinationName]) {
             if (destinationName != nil)
             {
-            [uniqueArray addObject:record];
-            [names addObject:destinationName];
+                
+                
+                [uniqueArray addObject:record];
+                [names addObject:destinationName];
+            }
+        }
+        else
+        {
+            if (record.user != nil)
+            {
+                for (NSInteger i = 0; i < [uniqueArray count]; i ++)
+                {
+                    FriendRecord *record2 = uniqueArray[i];
+                    if ([record2.phoneNumber isEqualToString: record.phoneNumber])
+                    {
+                        uniqueArray[i] = record;
+                    }
+                }
             }
         }
     }
-    NameSortedList = uniqueArray;
+    TimeSortedList = uniqueArray;
 
    // NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:NameSortedList];
     
@@ -301,18 +332,37 @@
 {
     BOOL changed = NO;
    // NSlog(@"%@", parseUser)
-    FriendRecord* friendRecord = [[FriendRecord alloc] initWithUser:parseUser andTime:time];
-    NSInteger index = [TimeSortedList indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
+    FriendRecord* friendRecord = [FriendRecord new];//[[FriendRecord alloc] initWithUser:parseUser andTime:time];
+    friendRecord.user = parseUser;
+    friendRecord.fullName = parseUser.fullName;
+    friendRecord.phoneNumber = parseUser.phoneNumber;
+    friendRecord.lastActivityTime = parseUser.lastActivityTimestamp;
+   /* NSInteger index = [TimeSortedList indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
                        {
                            FriendRecord* testActivity = (FriendRecord*)obj;
-                           if ([friendRecord.user.objectId isEqualToString:testActivity.user.objectId])
+                           NSLog(@"testaactivity %@", testActivity.phoneNumber);
+                           if ([friendRecord.phoneNumber isEqualToString:testActivity.phoneNumber])
                            {
                                return YES;
                            }
+                           else
+                           {
                            return NO;
-                       }];
-    if (index == NSNotFound)
+                           }
+                       }];*/
+    
+    NSInteger index = NO;
+    for (FriendRecord *record in TimeSortedList)
     {
+        if ([friendRecord.phoneNumber isEqualToString:record.phoneNumber])
+        {
+            index = YES;
+            break;
+        }
+    }
+    if (index == 0) // changed this 
+    {
+        NSLog(@"FriendRecord: %@", friendRecord);
         [NameSortedList addObject:friendRecord];
         [TimeSortedList addObject:friendRecord];
         [self sortNameList];

@@ -484,6 +484,7 @@ SystemSoundID           soundEffect;
    
     myself->MessageToSend->FromUser = GetCurrentParseUser();
     ParseUser* friend = [myself->SendToListView getFriendAtIndex:myself->PreviewingForFriend];
+      NSLog(@"friendsendmessage %@", friend);
     FriendRecord * record = [myself->SendToListView getRecordAtIndex:myself->PreviewingForFriend];
     myself->MessageToSend->ToUser   = friend;
     NSArray * Messagetexts = myself->MessageToSend->Texts;
@@ -517,7 +518,7 @@ SystemSoundID           soundEffect;
     else
     {
         UpdateFriendRecordListForUser(friend, myself->MessageToSend->Timestamp);
-    }
+    
     [myself->SendToListView clearSelection];
 
     [myself updateFriendsLists];
@@ -529,16 +530,18 @@ SystemSoundID           soundEffect;
          NSString * result = [[myself->MessageToSend->Texts valueForKey:@"description"] componentsJoinedByString:@""];
           NSString * shortresult = [[result substringToIndex: MIN(30, [result length])] stringByAppendingString:@"..."];
           NSLog(@"Here is the message: %@", [NSString stringWithFormat:GetGlobalParameters().parseNotificationFormatString, GetCurrentParseUser().fullName, shortresult]);
-          
-        ParseSendPushNotificationToUser(friend.objectId, [NSString stringWithFormat:GetGlobalParameters().parseNotificationFormatString, GetCurrentParseUser().fullName, shortresult]);
+          NSLog(@"friendobjectiD %@", friend.objectId);
+          ParseSendPushNotificationToUser(friend.objectId, shortresult);
+       /* ParseSendPushNotificationToUser(friend.objectId, [NSString stringWithFormat:GetGlobalParameters().parseNotificationFormatString, GetCurrentParseUser().fullName, shortresult]);*/
       }
       else
       {
         NSLog(@"Failed to save animation with error: %@", error);
       }
     });
+    }
     [myself->TypingMessageView clearText];
-
+    
     [myself->Player prepareForFirstChunkWithMessage:myself->MessageToSend];
       NSLog(@"first chunk");
 

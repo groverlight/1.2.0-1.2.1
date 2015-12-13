@@ -121,21 +121,24 @@ BOOL ParseInitialization
 )
 {
     NSLog(@"ParseInitialization");
+    NSInteger hi = NO;
+    NSLog(@"something %d",hi);
+    NSLog(@"something %d",NSNotFound);
     PFQuery *query = [PFQuery queryWithClassName:@"localDatastore"];
 
     [query fromLocalDatastore];
     PFObject *temp = [query getFirstObject];
     NSLog(@"temp %@", temp);
-
+    
     if( contactsNotUsers == nil)
     {
         contactsNotUsers = [[NSMutableArray alloc]init];
     }
     if ([contactsNotUsers count] == 0)
     {
-        for (NSMutableArray *contacts in temp[@"FriendsList"])
-        {
-            for (NSMutableDictionary *person in contacts)
+       NSArray* friends = [PFUser currentUser][@"friends"];
+
+            for (NSMutableDictionary *person in temp[@"FriendsList"])
             {
               //  NSLog(@"%@", person);
                 FriendRecord* tempRecord    = [FriendRecord new];
@@ -145,8 +148,31 @@ BOOL ParseInitialization
                // NSLog(@"tempRecord: %@", tempRecord);
                 [contactsNotUsers addObject:tempRecord];
             }
-        }
+            for (NSString * objectId in friends)
+            {
+                [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
+                 {
+                NSLog(@"%@", user);
+                FriendRecord *record = [FriendRecord new];
+                record.fullName = user.fullName;
+                record.phoneNumber = user.phoneNumber;
+                record.user = user;
+                for (NSInteger i = 0; i < [contactsNotUsers count]; i++)
+                {
+                    FriendRecord *friend =  contactsNotUsers[i];
+                    NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
+                    if ([friend.phoneNumber isEqualToString: record.phoneNumber])
+                    {
+                        record.lastActivityTime = friend.lastActivityTime;
+                        contactsNotUsers[i] = record;
+                    }
+                }
+                     
+                 }];
+            }
         
+        
+
         [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
          {
              FriendRecord* record1 = (FriendRecord*)obj1;
@@ -156,7 +182,12 @@ BOOL ParseInitialization
          }];
         
       NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
+        for (FriendRecord *record in contactsNotUsers)
+        {
+            NSLog(@"fullname:%@ phoneNumber %@",record.fullName, record.phoneNumber);
+        }
     }
+
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
   NSString* parseUserToken = [defaults stringForKey:PARSE_USER_TOKEN_DEFAULTS_KEY];
   FirstRun = (parseUserToken == nil);

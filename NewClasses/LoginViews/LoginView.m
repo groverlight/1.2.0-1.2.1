@@ -855,8 +855,6 @@ typedef enum
             
             if (textField == UpperEditor)
             {
-                [UpperEditor becomeFirstResponder];
-                [LowerEditor resignFirstResponder];
                 [UpperEditor setAutocapitalizationType:UITextAutocapitalizationTypeWords];
                 NSCharacterSet *invalidCharSet = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "] invertedSet];
                 NSString *text = [[UpperEditor.text componentsSeparatedByCharactersInSet:invalidCharSet] componentsJoinedByString:@""];
@@ -869,8 +867,7 @@ typedef enum
             }
             else if (textField == LowerEditor)
             {
-                [UpperEditor resignFirstResponder];
-                [LowerEditor becomeFirstResponder];
+
                 // take away upppercase and spaces
                 
                 NSCharacterSet *invalidCharSet2 = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyz1234567890"] invertedSet];
@@ -1067,7 +1064,7 @@ typedef enum
                                                                                  LowerEditor.placeholder   = GlobalParams.usernamePlaceholder;
                                                                                  LowerEditor.text          = @"";
                                                                                  LowerEditor.keyboardType  = UIKeyboardTypeASCIICapable;
-                                                                                 [UpperEditor becomeFirstResponder];  // Becomes first responder with the new keyboard type.
+                                                                                 [LowerEditor becomeFirstResponder];  // Becomes first responder with the new keyboard type.
                                                                              }
                                                                              State = E_LoginState_Username;
                                                                              [[NSUserDefaults standardUserDefaults] setInteger:State forKey:LOGIN_STATE_DEFAULTS_KEY];
