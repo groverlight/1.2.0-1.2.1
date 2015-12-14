@@ -1154,7 +1154,7 @@ NSMutableArray*      contactsNotUsers;
                                                                     
                                                                     @"content-available": @1,
                                                                     @"alert" : [NSString stringWithFormat:@"Uh-oh! %@ (%@) is now on Typeface! 🙈" ,Name, Username],
-                                                                    @"sound" : @"pad_soft_hi_on.aif",
+                                                                    @"sound" : @"digi_blip_hi_2x.aif",
                                                                     @"p" :[PFUser currentUser].objectId,
                                                                     @"t" :[PFUser currentUser][@"phoneNumber"]
                                                                     };

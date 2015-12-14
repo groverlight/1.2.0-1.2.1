@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:beep_space_up.aif">
+      location = "group:digi_alert.aif">
    </FileRef>
    <FileRef
-      location = "group:pad_soft_hi_on.aif">
+      location = "group:digi_blip_hi_2x.aif">
    </FileRef>
    <FileRef
       location = "group:logo_tut.png">

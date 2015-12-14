@@ -613,7 +613,7 @@ SystemSoundID           soundEffect;
                                  
                                  @"content-available": @1,
                                  @"alert" : [NSString stringWithFormat:@"%@ just read your message 👀" ,Name],
-                                 @"sound" : @"beep_space_up.aif",
+                                 @"sound" : @"digi_alert.aif",
                                  @"p" :[PFUser currentUser].objectId,
                                  @"t" :[PFUser currentUser][@"phoneNumber"]
                                  };

@@ -27,8 +27,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
     // Login view parameters.
   parameters.customizableLoginLabel         = NSLocalizedString(@"Customizable Label", @"");
   parameters.selectCountryMessage           = NSLocalizedString(@"Select your country", @"");
-  parameters.fullNamePlaceholder            = NSLocalizedString(@"Jane Doe", @"");
-  parameters.usernamePlaceholder            = NSLocalizedString(@"jane", @"");
+  parameters.fullNamePlaceholder            = NSLocalizedString(@"John Appleseed", @"");
+  parameters.usernamePlaceholder            = NSLocalizedString(@"johnny", @"");
   parameters.phoneNumberPlaceholder       	= NSLocalizedString(@"(310)-589-3655", @"");
   parameters.verificationCodePlaceholder  	= NSLocalizedString(@"•   •   •   •   •", @"");
   parameters.termsAndPrivacyPolicyMessage 	= NSLocalizedString(@"By continuing, you agree to our <a href=\"1\">Terms</a> and\n <a href=\"2\">Privacy Policy</a>", @"");
@@ -36,6 +36,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.loginRightButtonLabel          = NSLocalizedString(@"NEXT", @"");
   parameters.initialCountry                 = @"United States";
   parameters.termsAndPolicyLinkAction       = ^(id obj)
+
   {
     NSString* str = obj;
     if ([str isEqualToString:@"1"])
@@ -307,12 +308,12 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.typingCharacterCountFontSize         = 12;
     parameters.typingCharacterCountColor            = [White colorWithAlphaComponent:0.5];;
   parameters.typingCharacterCountRightMargin      = 24;
-  parameters.typingLeftButtonAlertTitle           = NSLocalizedString(@"Ready for selfie?", @"");
-  parameters.typingLeftButtonAlertMessage         = NSLocalizedString(@"Tapping FACE attaches a selfie to your current text blurb", @"");
+  parameters.typingLeftButtonAlertTitle           = NSLocalizedString(@"Look up at the lens", @"");
+  parameters.typingLeftButtonAlertMessage         = NSLocalizedString(@"Add an expression to your text blurb", @"");
   parameters.typingLeftButtonAlertOkString        = NSLocalizedString(@"Take Selfie", @"");
   parameters.typingLeftButtonAlertCancelString    = NSLocalizedString(@"Not Ready", @"");
   parameters.typingRightButtonAlertTitle          = NSLocalizedString(@"You can type more blurbs!", @"");
-  parameters.typingRightButtonAlertMessage        = NSLocalizedString(@"Tapping GO means you're ready to pick the recipient of the message", @"");
+  parameters.typingRightButtonAlertMessage        = NSLocalizedString(@"More blurbs = better story", @"");
   parameters.typingRightButtonAlertOkString       = NSLocalizedString(@"Go", @"");
   parameters.typingRightButtonAlertCancelString   = NSLocalizedString(@"Type More", @"");
 

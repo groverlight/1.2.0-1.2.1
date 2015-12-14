@@ -43,7 +43,7 @@
 #define DEFAULT_KEYBOARD_HEIGHT       216 //!< Default keyboard height.
 #define ROLL_DOWN_VIEW_HEIGHT         60  //!< Roll down error message view height.
 #define PARSE_ERROR_CODE              141 //!< Error code specific to the Parse library.
-#define PREFIX_LABEL_TAP_MARGIN       10  //!< Margin to make easier to tap on the country code label.
+#define PREFIX_LABEL_TAP_MARGIN       6  //!< Margin to make easier to tap on the country code label.
 #define THIRD_SEPARATOR_TOP_OFFSET    90
 
 
@@ -180,9 +180,10 @@ typedef enum
 
     //Define all properties that ONLY stay the same
 
-    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:21];
+    FirstLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:21];
     FirstLabel.numberOfLines = 2;
     FirstLabel.textAlignment  = NSTextAlignmentCenter;
+    FirstLabel.textColor = WarmGrey;
 
     
     SecondLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:13];
@@ -213,9 +214,6 @@ typedef enum
     
     UpperEditor.placeholder        = GlobalParams.fullNamePlaceholder;
 
-    UIColor *color = [LightGrey colorWithAlphaComponent:0.8];
-    UpperEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.phoneNumberPlaceholder
-                                                                        attributes:@{NSForegroundColorAttributeName: color}];
     UpperEditor.delegate           = self;
     UpperEditor.keyboardType       = UIKeyboardTypeASCIICapable;
     //UpperEditor.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -228,11 +226,7 @@ typedef enum
     [UpperEditor setAdjustsFontSizeToFitWidth:NO];
     [UpperEditor setTextColor:WarmGrey];
 
-
-
-    UIColor *color2 = [LightGrey colorWithAlphaComponent:0.8];
-    LowerEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.phoneNumberPlaceholder
-                                                                        attributes:@{NSForegroundColorAttributeName: color2}];
+;
     LowerEditor.delegate            = self;
     LowerEditor.placeholder         = GlobalParams.phoneNumberPlaceholder;
     LowerEditor.keyboardType        = UIKeyboardTypePhonePad;
@@ -283,6 +277,7 @@ typedef enum
     RightButton.enabled = NO;
     
     [PickerView setBackgroundColor:White];
+
     
     [self addSubview:FirstLabel];
     [self addSubview:SecondLabel];
@@ -533,7 +528,7 @@ typedef enum
             OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             OneLabel.numberOfLines = 1;
             OneLabel.textAlignment  = NSTextAlignmentLeft;
-            OneLabel.textColor = Black;
+            OneLabel.textColor = WarmGrey;
 
 
             OneLabel.frame = CGRectMake((width/3)/2, KeyboardTop - 30, width, [OneLabel sizeThatFits:self.frame.size].height);
@@ -566,9 +561,12 @@ typedef enum
             PrefixLabel.backgroundColor = [LightGrey colorWithAlphaComponent:0.4];
             PrefixLabel.textAlignment = NSTextAlignmentCenter;
             PrefixLabel.layer.borderWidth = 1;
-            PrefixLabel.layer.cornerRadius = 14;
+            PrefixLabel.layer.cornerRadius = 10;
             PrefixLabel.layer.borderColor = Transparent.CGColor;
             [PrefixLabel.layer setMasksToBounds:YES];
+
+            LowerEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.phoneNumberPlaceholder
+                                                                                attributes:@{NSForegroundColorAttributeName: ColorWithAlpha( LightGrey, 0.8)}];
 
 
             [RightButton setTitle:@"NEXT" forState:UIControlStateNormal];
@@ -578,6 +576,7 @@ typedef enum
             break;
         case E_LoginState_VerificationCode:
             UpperEditor.hidden  = YES;
+            
             editorWidth         = width - PREFIX_LEFT_MARGIN - EDITOR_RIGHT_MARGIN;
             prefixFrame         = PrefixLabel.frame;
             upperEditorFrame    = CGRectMake(PREFIX_LEFT_MARGIN, UpperEditorTop, editorWidth, EditorHeight);
@@ -610,7 +609,7 @@ typedef enum
             TwoLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             TwoLabel.numberOfLines = 1;
             TwoLabel.textAlignment  = NSTextAlignmentCenter;
-            TwoLabel.textColor = Black;
+            TwoLabel.textColor = WarmGrey;
             ThreeLabel.text = @"3";
             ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             ThreeLabel.numberOfLines = 1;
@@ -630,6 +629,8 @@ typedef enum
             ProgressLight.backgroundColor = [Grey colorWithAlphaComponent:0.4];
             ProgressDark.backgroundColor = TypePink;
 
+            LowerEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.verificationCodePlaceholder
+                                                                                attributes:@{NSForegroundColorAttributeName: ColorWithAlpha( LightGrey, 0.8)}];
 
 
             FirstSeparatorView.hidden = YES;
@@ -651,7 +652,7 @@ typedef enum
             LeftButton.hidden = YES;
             UpperEditor.textAlignment = NSTextAlignmentCenter;
             LowerEditor.textAlignment = NSTextAlignmentCenter;
-            FirstLabel.text = @"Type your full name \n and short username";
+            FirstLabel.text = @"Enter your full name \n and short username";
 
             OneLabel.text = @"1";
             OneLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
@@ -672,7 +673,12 @@ typedef enum
             ThreeLabel.font = [UIFont fontWithName:@"AvenirNext-Bold" size:13];
             ThreeLabel.numberOfLines = 1;
             ThreeLabel.textAlignment  = NSTextAlignmentRight;
-            ThreeLabel.textColor = Black;
+            ThreeLabel.textColor = WarmGrey;
+
+            upperEditorFrame  = CGRectMake(PREFIX_LEFT_MARGIN, LowerEditorTop, editorWidth, EditorHeight);
+            lowerEditorFrame  = CGRectMake(PREFIX_LEFT_MARGIN, LowerEditorTop + 30, editorWidth, EditorHeight);
+
+
 
             FirstSeparatorView.hidden = YES;
             ThirdSeparatorView.hidden = YES;
@@ -685,6 +691,13 @@ typedef enum
 
             ProgressLight.backgroundColor = [Grey colorWithAlphaComponent:0.4];
             ProgressDark.backgroundColor = TypePink;
+
+            LowerEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.usernamePlaceholder
+                                                                                attributes:@{NSForegroundColorAttributeName: ColorWithAlpha( LightGrey, 0.8)}];
+
+
+            UpperEditor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:GlobalParams.fullNamePlaceholder
+                                                                                attributes:@{NSForegroundColorAttributeName: ColorWithAlpha( LightGrey, 0.8)}];
 
             ThirdSeparatorView.hidden = YES;
             SecondSeparatorView.hidden = YES;
