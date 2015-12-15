@@ -158,15 +158,15 @@ static AppViewController* MainViewController = nil;
 
         if (newUser)
         {
-          if (!ParseCheckPermissionForRemoteNotifications())
-          {
-            Alert(NSLocalizedString(@"Want Notifications?", @""), NSLocalizedString(@"To be alerted when your friends message you, please allow push notifications", @""), NSLocalizedString(@"OK", @""), nil, ^(NSInteger pressedButton)
-            {
-              ParseRegisterForRemoteNotifications(^(BOOL notificationsAreEnabled)
-              {
-              });
-            });
-          }
+//          if (!ParseCheckPermissionForRemoteNotifications())
+//          {
+//            Alert(NSLocalizedString(@"Want Notifications?", @""), NSLocalizedString(@"To be alerted when your friends message you, please allow push notifications", @""), NSLocalizedString(@"OK", @""), nil, ^(NSInteger pressedButton)
+//            {
+//              ParseRegisterForRemoteNotifications(^(BOOL notificationsAreEnabled)
+//              {
+//              });
+//            });
+//          }
         }
         else
         {

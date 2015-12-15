@@ -497,7 +497,7 @@ SystemSoundID           soundEffect;
             theMessage = [NSString stringWithFormat:@"%@ %@", theMessage, text];
         }
        // NSLog(@"This is the message %@", theMessage);
-         NSString * shortMessage = [[theMessage substringToIndex: MIN(30, [theMessage length])] stringByAppendingString:@"..."];
+         NSString * shortMessage = [[theMessage substringToIndex: MIN(25, [theMessage length])] stringByAppendingString:@"..."];
         NSLog(@"This is the message %@", shortMessage);
         myself->MessageToSend->placeHolder = record.phoneNumber;
         UpdateFriendRecordListForRecord(record, myself->MessageToSend->Timestamp);
