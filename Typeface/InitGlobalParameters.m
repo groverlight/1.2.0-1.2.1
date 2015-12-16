@@ -312,8 +312,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.typingLeftButtonAlertMessage         = NSLocalizedString(@"Add a facial expression to your blurb, so you won't be misunderstood", @"");
   parameters.typingLeftButtonAlertOkString        = NSLocalizedString(@"Take Selfie", @"");
   parameters.typingLeftButtonAlertCancelString    = NSLocalizedString(@"Not Ready", @"");
-  parameters.typingRightButtonAlertTitle          = NSLocalizedString(@"Type more blurbs!", @"");
-  parameters.typingRightButtonAlertMessage        = NSLocalizedString(@"Break up multiple texts. It's how you talk without making a sound", @"");
+  parameters.typingRightButtonAlertTitle          = NSLocalizedString(@"You can type more blurbs", @"");
+  parameters.typingRightButtonAlertMessage        = NSLocalizedString(@"Break up the texts with selfies to talk without making a sound", @"");
   parameters.typingRightButtonAlertOkString       = NSLocalizedString(@"Go", @"");
   parameters.typingRightButtonAlertCancelString   = NSLocalizedString(@"Type More", @"");
 

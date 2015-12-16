@@ -197,7 +197,7 @@
         if (myself->TextView.totalNumCharacters == 0) {
             myself->FaceButton.backgroundColor = TypePink;
             myself->CharactersLeftLabel.textColor = [Black colorWithAlphaComponent:0.2];
-            myself->FaceButton.title = @"START TYPING";
+            myself->FaceButton.title = @"START WITH A THO";
             myself->FaceButton.enabled = NO;
 
         }

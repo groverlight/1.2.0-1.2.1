@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:digi_alert.aif">
-   </FileRef>
-   <FileRef
-      location = "group:digi_blip_hi_2x.aif">
-   </FileRef>
-   <FileRef
       location = "group:logo_tut.png">
    </FileRef>
    <FileRef
