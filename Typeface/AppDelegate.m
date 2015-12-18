@@ -30,7 +30,17 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     [Parse enableLocalDatastore];
-    #define MIXPANEL_TOKEN @"bfcb77fdbcaaa747ac994c1bdba999aa"
+
+    //test
+
+    #define MIXPANEL_TOKEN @"b3152c0c9f9d07b8b65bfcfe849194c0"
+
+    //live
+
+    //#define MIXPANEL_TOKEN @" bfcb77fdbcaaa747ac994c1bdba999aa"
+
+
+
 
     // Initialize the library with your
     // Mixpanel project token, MIXPANEL_TOKEN
