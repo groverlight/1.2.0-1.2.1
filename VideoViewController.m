@@ -34,15 +34,10 @@
 
 @implementation VideoViewController
 {
-    AppViewController *appview;
-    UIButton *camera;
-    UIButton *contacts;
-    UIButton *notifications;
-    NSInteger buttonIndicate;
+
     UIAlertController * alertController;
-    POPSpringAnimation *spring;
-    CGFloat center;
     BOOL didLogin;
+    BOOL didLogin2;
 
 
 }
@@ -61,6 +56,7 @@
     [super viewDidLoad];
     _label2.hidden = YES;
     didLogin = NO;
+    didLogin2 = NO;
     self.view.frame = [[UIScreen mainScreen] bounds];
     /*-----------------------------------------------------------------------------------------*/
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
@@ -72,25 +68,18 @@
     [self.view addGestureRecognizer:swipeRight];
     
 
-    
-    /*-----------------------------------------------------------------------------------------*/
-    spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    spring.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
-    spring.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-    spring.springBounciness = 20.f;
-
-    /*----------------------------------------------------------------------------------------*/
 
     
     
     _button.hidden = YES;
-    _button.layer.borderWidth = 2.0f;
+    _button.layer.borderWidth = 4.0f;
     _button.layer.borderColor = [UIColor grayColor].CGColor;
-    _button.layer.cornerRadius = 4.0f;
+    _button.layer.cornerRadius = 20.0f;
+    
     _button2.hidden = YES;
-    _button2.layer.borderWidth = 2.0f;
+    _button2.layer.borderWidth = 4.0f;
     _button2.layer.borderColor = [UIColor grayColor].CGColor;
-    _button2.layer.cornerRadius = 4.0f;
+    _button2.layer.cornerRadius = 20.0f;
     
 
     
@@ -162,10 +151,14 @@
     }
     else
     {
+        _logo.hidden = NO;
+        _firstLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        _firstLabel.text = @" We need these allowed";
         
-        _firstLabel.hidden = YES;
+        _firstLabel.hidden = NO;
+        _label2.hidden = YES;
         _button.hidden = NO;
-        _button.titleLabel.text = @"Find Friends >";
+        [_button setTitle:@"Find Friends >" forState:UIControlStateNormal];
         _button2.hidden = NO;
         NSString *string = @"This is how you practice safe text";
         NSString *string2 = @"Ready to typeface?";
@@ -218,10 +211,8 @@
     
 }
 
--(IBAction)contactPermission:(id)sender
+-(void)contactPermission
 {
-
-    [contacts pop_addAnimation:spring forKey:@"springAnimation"];
     
     CNContactStore* addressBook = [[CNContactStore alloc]init];
     CNAuthorizationStatus permissions = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
@@ -231,12 +222,6 @@
             
             if (granted)
             {
-                contacts.backgroundColor = [UIColor greenColor];
-                buttonIndicate++;
-                if (buttonIndicate == 3)
-                {
-
-                }
             }
             else
             {}
@@ -246,21 +231,15 @@
     
 }
 
--(IBAction)notificationPermission:(id)sender
+-(void)notificationPermission
 {
  
-    [notifications pop_addAnimation:spring forKey:@"springAnimation"];
     if (!ParseCheckPermissionForRemoteNotifications())
     {
 
                   ParseRegisterForRemoteNotifications(^(BOOL notificationsAreEnabled)
                                                       {
-                                                          notifications.backgroundColor = [UIColor greenColor];
-                                                          buttonIndicate++;
-                                                          if (buttonIndicate == 3)
-                                                          {
 
-                                                          }
                                                       });
             
     }
@@ -378,6 +357,7 @@
             break;
         case 3:
             _label2.text = @"Press and hold the sender's name to read the message";
+            _button.hidden = YES;
             break;
         case 4:
             string = @"This is how you practice safe text";
@@ -417,24 +397,56 @@
 
 - (IBAction)button:(id)sender {
     NSLog(@"%lu", _button.state);
-    [_button pop_addAnimation:spring forKey:@"bouncy"];
-    if (_button.state == 1)
+
+    
+    POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    spring.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+    spring.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+    spring.springBounciness = 20.f;
+    
+    [spring setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        if (finished)
+        {
+            POPBasicAnimation* scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+            scaleAnimation.duration = 0.1;
+            scaleAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+            [_button pop_addAnimation:scaleAnimation forKey:@"scale"];
+        }
+    }];
+    [_button pop_addAnimation:spring forKey:@"springy"];
+    /*if (_button.state == 1)
     {
     _button.backgroundColor = [UIColor darkGrayColor];
     _button.titleLabel.textColor = [UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0];
-    }
+    }*/
     if ([_button.titleLabel.text isEqualToString:@"Allow Camera >"])
     {
         NSLog(@"this is allow camera");
         [self cameraPermission];
     }
-    else if ([_button.titleLabel.text isEqualToString:@"Find Friends >" ])
-         {
-             
-         }
+    else
+    {
+        [self contactPermission];
+    }
 }
 
 - (IBAction)button2:(id)sender {
-    [_button2 pop_addAnimation:spring forKey:@"bouncy"];
+    POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    spring.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+    spring.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+    spring.springBounciness = 20.f;
+
+    [spring setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        if (finished)
+        {
+            POPBasicAnimation* scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+            scaleAnimation.duration = 0.1;
+            scaleAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+            [_button2 pop_addAnimation:scaleAnimation forKey:@"scale"];
+        }
+    }];
+        [_button2 pop_addAnimation:spring forKey:@"springy"];
+    
+    [self notificationPermission];
 }
 @end
