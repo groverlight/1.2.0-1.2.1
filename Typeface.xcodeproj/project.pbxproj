@@ -1134,7 +1134,7 @@
 					.,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Typeface/Typeface-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -1169,7 +1169,7 @@
 					.,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Typeface/Typeface-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -1240,7 +1240,7 @@
 					.,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Typeface/Typeface-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",

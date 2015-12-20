@@ -39,6 +39,7 @@
 {
 
     UIAlertController * alertController;
+    UIAlertController * alertController2;
     BOOL didLogin;
     BOOL contactBOOL;
     BOOL notificationBOOL;
@@ -120,6 +121,11 @@
                       alertControllerWithTitle:@"Camera access is required"
                       message:@" To continue, you must enable camera access in the Settings app."
                       preferredStyle:UIAlertControllerStyleAlert];
+    
+    alertController2 =[ UIAlertController
+                      alertControllerWithTitle:@"Please enable notifications"
+                      message:@"To be alerted when friends message you, please enable notifications in the Settings app."
+                      preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction
                                    actionWithTitle:@"Cancel"
                                    style:UIAlertActionStyleCancel
@@ -134,12 +140,17 @@
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction *action)
                                {
-                                   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+
+                                       NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                                       [[UIApplication sharedApplication] openURL:appSettings];
+                                   
                                    _label2.text = @" Ready to continue?";
                                }];
     
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
+    [alertController2 addAction:cancelAction];
+    [alertController2 addAction:okAction];
     
     
 }
@@ -210,6 +221,8 @@
             [self presentViewController:alertController animated:YES completion:nil];
             });
         }
+        _button.backgroundColor = [UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0];
+        [_button setTitleColor:[UIColor darkGrayColor] forState: UIControlStateNormal];
     }];
     
     
@@ -234,7 +247,8 @@
         }];
     }
 
-
+    _button.backgroundColor = [UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0];
+    [_button setTitleColor:[UIColor darkGrayColor] forState: UIControlStateNormal];
     
 }
 
@@ -627,13 +641,20 @@
                                                                   });
                                                               }
                                                           }
+                                                          else
+                                                          {
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  [self presentViewController:alertController2 animated:YES completion:nil];
+                                                              });
+                                                          }
 
                                                       });
         
     }
     
 
-
+    _button2.backgroundColor = [UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0];
+    [_button2 setTitleColor:[UIColor darkGrayColor] forState: UIControlStateNormal];
 }
 
 -(void)setUpVideo:(NSString*)fileName :(NSString*)extension
@@ -777,7 +798,7 @@
 
 - (IBAction)button:(id)sender {
     NSLog(@"%lu", _button.state);
-
+    
     
     POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
     spring.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
@@ -794,11 +815,14 @@
         }
     }];
     [_button pop_addAnimation:spring forKey:@"springy"];
-    /*if (_button.state == 1)
+
+    
+    if (_button.state == 1)
     {
-    _button.backgroundColor = [UIColor darkGrayColor];
-    _button.titleLabel.textColor = [UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0];
-    }*/
+        _button.backgroundColor = [UIColor darkGrayColor];
+            [_button setTitleColor:[UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0] forState: UIControlStateNormal];
+   
+    }
     if ([_button.titleLabel.text isEqualToString:@"Allow Camera >"])
     {
         NSLog(@"this is allow camera");
@@ -812,7 +836,12 @@
 }
 
 - (IBAction)button2:(id)sender {
-
+    if (_button2.state == 1)
+    {
+        _button2.backgroundColor = [UIColor darkGrayColor];
+        [_button2 setTitleColor:[UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0] forState: UIControlStateNormal];
+        
+    }
     POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
     spring.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
     spring.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
