@@ -20,6 +20,12 @@
 @property (strong, nonatomic) IBOutlet UIView *movieView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
+- (IBAction)button:(id)sender;
+- (IBAction)button2:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
+
 @property (strong, nonatomic) IBOutlet UIImageView *logo;
 @property (strong, nonatomic) IBOutlet UILabel *firstLabel;
 @property (weak, nonatomic) IBOutlet UILabel *label2;
@@ -68,8 +74,8 @@
 
     
     /*-----------------------------------------------------------------------------------------*/
-    spring = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
-    //spring.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+    spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+    spring.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
     spring.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
     spring.springBounciness = 20.f;
 
@@ -77,46 +83,21 @@
 
     
     
-    center = self.view.center.x;
+    _button.hidden = YES;
+    _button.layer.borderWidth = 2.0f;
+    _button.layer.borderColor = [UIColor grayColor].CGColor;
+    _button.layer.cornerRadius = 4.0f;
+    _button2.hidden = YES;
+    _button2.layer.borderWidth = 2.0f;
+    _button2.layer.borderColor = [UIColor grayColor].CGColor;
+    _button2.layer.cornerRadius = 4.0f;
+    
 
     
     
-    camera =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
-    camera.backgroundColor = [UIColor purpleColor];
-    camera.layer.cornerRadius = 10;
-    camera.clipsToBounds = YES;
-    [camera addTarget:self
-                action:@selector(cameraPermission:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [camera setTitle:@"Allow Camera" forState:UIControlStateNormal];
-    camera.frame = CGRectMake(90, 300, 200, 40.0);
-    [self.view addSubview:camera
-     ];
-    camera.hidden = YES;
+
  
-    contacts =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
-    contacts.backgroundColor = [UIColor purpleColor];
-    contacts.layer.cornerRadius = 10;
-    contacts.clipsToBounds = YES;
-    [contacts addTarget:self
-                action:@selector(contactPermission:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [contacts setTitle:@"Allow Contacts" forState:UIControlStateNormal];
-    contacts.frame = CGRectMake(90, 350, 200, 40.0);
-    [self.view addSubview:contacts];
-    contacts.hidden = YES;
- 
-    notifications =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
-    notifications.backgroundColor = [UIColor purpleColor];
-    notifications.layer.cornerRadius = 10;
-    notifications.clipsToBounds = YES;
-    [notifications addTarget:self
-                action:@selector(notificationPermission:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [notifications setTitle:@"Allow Notifications" forState:UIControlStateNormal];
-    notifications.frame = CGRectMake(90, 400, 200, 40.0);
-    notifications.hidden = YES;
-    [self.view addSubview:notifications];
+
     
 
     NSError *sessionError = nil;
@@ -181,6 +162,14 @@
     }
     else
     {
+        
+        _firstLabel.hidden = YES;
+        _button.hidden = NO;
+        _button.titleLabel.text = @"Find Friends >";
+        _button2.hidden = NO;
+        NSString *string = @"This is how you practice safe text";
+        NSString *string2 = @"Ready to typeface?";
+        _label2.text = [NSString stringWithFormat:@"%@\r%@", string,string2];
         self.pageControl.currentPage = 5;
     }
     [self.avplayer play];
@@ -215,6 +204,7 @@
             // Permission has been granted. Use dispatch_async for any UI updating
             // code because this block may be executed in a thread.
             dispatch_async(dispatch_get_main_queue(), ^{
+            didLogin = YES;
             [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
@@ -346,20 +336,24 @@
             
         }
         
-
-    if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionLeft)
+    if (self.pageControl.currentPage != 5)
     {
+        if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionLeft)
+        {
+     
+            self.pageControl.currentPage -=1;
+            
 
-        self.pageControl.currentPage -=1;
+        }
+        else if  ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionRight)
+        {
+         if (self.pageControl.currentPage != 4)
+             {
+                self.pageControl.currentPage +=1;
+             }
 
+        }
     }
-    else if  ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionRight)
-    {
-
-        self.pageControl.currentPage +=1;
-
-    }
-    
 
     
     NSLog(@" page Control : %lu", (long)self.pageControl.currentPage);
@@ -389,10 +383,13 @@
             string = @"This is how you practice safe text";
             string2 = @"Ready to typeface?";
             _label2.text = [NSString stringWithFormat:@"%@\r%@", string,string2];
-           
-            [self cameraPermission];
+            _button.hidden = NO;
+            [_button setTitle:@"Allow Camera >"forState:UIControlStateNormal];
+            
+            
             
             break;
+            
         default:
             break;
     }
@@ -410,12 +407,7 @@
 
 }
 
--(void)waitUntilDone:(void(^)(void))waitBlock {
-    //use your statement or call method here
-    if(waitBlock){
-        waitBlock();
-    }
-}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -423,4 +415,26 @@
 }
 
 
+- (IBAction)button:(id)sender {
+    NSLog(@"%lu", _button.state);
+    [_button pop_addAnimation:spring forKey:@"bouncy"];
+    if (_button.state == 1)
+    {
+    _button.backgroundColor = [UIColor darkGrayColor];
+    _button.titleLabel.textColor = [UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:1.0];
+    }
+    if ([_button.titleLabel.text isEqualToString:@"Allow Camera >"])
+    {
+        NSLog(@"this is allow camera");
+        [self cameraPermission];
+    }
+    else if ([_button.titleLabel.text isEqualToString:@"Find Friends >" ])
+         {
+             
+         }
+}
+
+- (IBAction)button2:(id)sender {
+    [_button2 pop_addAnimation:spring forKey:@"bouncy"];
+}
 @end

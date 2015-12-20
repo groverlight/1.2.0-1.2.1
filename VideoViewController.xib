@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoViewController" propertyAccessControl="none">
             <connections>
+                <outlet property="button" destination="ul0-3J-dl7" id="SMi-9Z-Y2K"/>
+                <outlet property="button2" destination="fGw-Bh-Nb5" id="4hV-09-JbQ"/>
                 <outlet property="firstLabel" destination="Hm2-qI-aVS" id="wCk-qf-c1A"/>
                 <outlet property="label2" destination="Z2I-Cx-6wW" id="mNK-8J-hGZ"/>
                 <outlet property="logo" destination="5Qr-kA-fS4" id="gah-Fm-kLH"/>
@@ -31,7 +33,7 @@
                         <constraint firstAttribute="width" constant="82" id="ejV-eD-Xaq"/>
                     </constraints>
                     <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="currentPageIndicatorTintColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </pageControl>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spelled_out.png" translatesAutoresizingMaskIntoConstraints="NO" id="kby-tV-9bV">
                     <rect key="frame" x="123" y="510" width="73" height="17"/>
@@ -55,6 +57,34 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ul0-3J-dl7">
+                    <rect key="frame" x="48" y="370" width="225" height="22"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="Axy-ex-z3g"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="button:" destination="-1" eventType="touchUpInside" id="CSL-Tg-Leo"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGw-Bh-Nb5" userLabel="Button2">
+                    <rect key="frame" x="47" y="329" width="225" height="22"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="SQi-nF-Q21"/>
+                        <constraint firstAttribute="height" constant="22" id="mCn-dl-NZ7"/>
+                    </constraints>
+                    <state key="normal" title="Get Notified &gt;">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="button2:" destination="-1" eventType="touchUpInside" id="MpB-kG-AGA"/>
+                        <action selector="button:" destination="-1" eventType="touchUpInside" id="Fv4-TZ-WoW"/>
+                    </connections>
+                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_tut.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Qr-kA-fS4">
                     <rect key="frame" x="124" y="42" width="71" height="71"/>
                     <constraints>
@@ -63,11 +93,13 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="CSI-H6-xac" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="20S-oW-gip"/>
                 <constraint firstItem="Z2I-Cx-6wW" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="3Qw-1D-y0l"/>
                 <constraint firstItem="3LA-yt-ABh" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="3U8-s1-0Oy"/>
+                <constraint firstItem="ul0-3J-dl7" firstAttribute="top" secondItem="fGw-Bh-Nb5" secondAttribute="bottom" constant="19" id="47B-M2-34I"/>
+                <constraint firstItem="fGw-Bh-Nb5" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="6Dq-bq-yaX"/>
                 <constraint firstItem="5Qr-kA-fS4" firstAttribute="top" secondItem="1" secondAttribute="top" constant="42" id="6Me-R7-3j1"/>
                 <constraint firstItem="Hm2-qI-aVS" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="7ws-lt-7gN"/>
                 <constraint firstAttribute="bottom" secondItem="CSI-H6-xac" secondAttribute="bottom" constant="51" id="8wM-UF-hzH"/>
@@ -76,8 +108,11 @@
                 <constraint firstItem="3LA-yt-ABh" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="aFc-pN-fr8"/>
                 <constraint firstItem="5Qr-kA-fS4" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="eaw-gx-x5K"/>
                 <constraint firstItem="kby-tV-9bV" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="hqI-bI-aBB"/>
+                <constraint firstItem="ul0-3J-dl7" firstAttribute="top" secondItem="Z2I-Cx-6wW" secondAttribute="bottom" constant="80" id="huK-so-pOt"/>
                 <constraint firstItem="Z2I-Cx-6wW" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="jy5-MA-KGO"/>
                 <constraint firstItem="Hm2-qI-aVS" firstAttribute="leading" secondItem="3LA-yt-ABh" secondAttribute="leading" id="k4E-mm-Seb"/>
+                <constraint firstItem="Hm2-qI-aVS" firstAttribute="top" secondItem="ul0-3J-dl7" secondAttribute="bottom" constant="2" id="mr4-PN-1ix"/>
+                <constraint firstItem="ul0-3J-dl7" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="oyA-Su-dkv"/>
                 <constraint firstItem="3LA-yt-ABh" firstAttribute="top" secondItem="1" secondAttribute="top" id="rGV-sj-IEJ"/>
                 <constraint firstItem="3LA-yt-ABh" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="ufK-1R-Pee"/>
                 <constraint firstAttribute="bottom" secondItem="kby-tV-9bV" secondAttribute="bottom" constant="41" id="xWr-bZ-mN5"/>

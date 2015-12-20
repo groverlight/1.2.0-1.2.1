@@ -92,9 +92,7 @@ static AppViewController* MainViewController = nil;
 
 - (void)loginDone:(BOOL)newUser
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    dispatch_async(dispatch_get_main_queue(), ^(void){
-        [self presentViewController:Intro animated:YES completion:nil];      });
+
     ParseUser* currentUser = GetCurrentParseUser();
     LoggedIn = YES;
     NSLog(@"LOGIN DONE %@",currentUser[@"phoneNumber"]);
@@ -161,6 +159,9 @@ static AppViewController* MainViewController = nil;
 
         if (newUser)
         {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self presentViewController:Intro animated:YES completion:nil];      });
 //          if (!ParseCheckPermissionForRemoteNotifications())
 //          {
 //            Alert(NSLocalizedString(@"Want Notifications?", @""), NSLocalizedString(@"To be alerted when your friends message you, please allow push notifications", @""), NSLocalizedString(@"OK", @""), nil, ^(NSInteger pressedButton)
@@ -237,7 +238,7 @@ static AppViewController* MainViewController = nil;
 //! The UI has been loaded, do whatever else is required.
 - (void)viewDidLoad
 {
-    
+    Intro = [[VideoViewController alloc]init];
 //  NSLog(@"1 viewDidLoad");
   [super viewDidLoad];
 //  NSLog(@"2 viewDidLoad");
@@ -253,7 +254,7 @@ static AppViewController* MainViewController = nil;
       if (newUser)
       {
           [self dismissViewControllerAnimated:YES completion:nil];
-          Intro = [[VideoViewController alloc]init];
+          
           dispatch_async(dispatch_get_main_queue(), ^(void){
               [self presentViewController:Intro animated:YES completion:nil];      });
 

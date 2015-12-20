@@ -55,7 +55,7 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 
   // Parse initialization.
   ParseAppDelegateInitialization(launchOptions);
-    NSDictionary *remoteNotifiInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+
 
 
     
