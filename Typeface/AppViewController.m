@@ -92,9 +92,12 @@ static AppViewController* MainViewController = nil;
 
 - (void)loginDone:(BOOL)newUser
 {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:Intro animated:YES completion:nil];      });
     ParseUser* currentUser = GetCurrentParseUser();
     LoggedIn = YES;
-    ///NSLog(@"LOGIN DONE %@",currentUser[@"phoneNumber"]);
+    NSLog(@"LOGIN DONE %@",currentUser[@"phoneNumber"]);
 
   set_myself;
 #if BE_YOUR_BEST_FRIEND
@@ -249,10 +252,10 @@ static AppViewController* MainViewController = nil;
     {
       if (newUser)
       {
-          /*[self dismissViewControllerAnimated:YES completion:nil];
+          [self dismissViewControllerAnimated:YES completion:nil];
           Intro = [[VideoViewController alloc]init];
           dispatch_async(dispatch_get_main_queue(), ^(void){
-              [self presentViewController:Intro animated:YES completion:nil];      });*/
+              [self presentViewController:Intro animated:YES completion:nil];      });
 
         [NavView showLoginFromStart:restart];
       }

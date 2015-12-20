@@ -18,11 +18,11 @@
 
 @property (nonatomic, strong) AVPlayer *avplayer;
 @property (strong, nonatomic) IBOutlet UIView *movieView;
-@property (strong, nonatomic) IBOutlet UIView *gradientView;
-@property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (weak, nonatomic) IBOutlet UILabel *firstLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *logo;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+
+@property (strong, nonatomic) IBOutlet UIImageView *logo;
+@property (strong, nonatomic) IBOutlet UILabel *firstLabel;
+@property (weak, nonatomic) IBOutlet UILabel *label2;
 
 @end
 
@@ -33,8 +33,12 @@
     UIButton *contacts;
     UIButton *notifications;
     NSInteger buttonIndicate;
+    UIAlertController * alertController;
     POPSpringAnimation *spring;
-    POPBasicAnimation *disappear;
+    CGFloat center;
+    BOOL didLogin;
+
+
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,9 +51,11 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     
-    self.view.frame = [UIScreen mainScreen].bounds;
+    [super viewDidLoad];
+    _label2.hidden = YES;
+    didLogin = NO;
+    self.view.frame = [[UIScreen mainScreen] bounds];
     /*-----------------------------------------------------------------------------------------*/
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -60,21 +66,21 @@
     [self.view addGestureRecognizer:swipeRight];
     
 
-    buttonIndicate = 0;
+    
     /*-----------------------------------------------------------------------------------------*/
-    spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    spring.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+    spring = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+    //spring.toValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
     spring.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
     spring.springBounciness = 20.f;
 
     /*----------------------------------------------------------------------------------------*/
-    disappear = [POPBasicAnimation animation];
-    disappear.property = [POPAnimatableProperty propertyWithName:kPOPViewAlpha];
-    disappear.toValue = @(0);
 
+    
+    
+    center = self.view.center.x;
 
-
-    /*-----------------------------------------------------------------------------------------*/
+    
+    
     camera =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
     camera.backgroundColor = [UIColor purpleColor];
     camera.layer.cornerRadius = 10;
@@ -87,7 +93,7 @@
     [self.view addSubview:camera
      ];
     camera.hidden = YES;
-    /*-----------------------------------------------------------------------------------------*/
+ 
     contacts =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
     contacts.backgroundColor = [UIColor purpleColor];
     contacts.layer.cornerRadius = 10;
@@ -99,7 +105,7 @@
     contacts.frame = CGRectMake(90, 350, 200, 40.0);
     [self.view addSubview:contacts];
     contacts.hidden = YES;
-     /*-----------------------------------------------------------------------------------------*/
+ 
     notifications =[[UIButton alloc]initWithFrame:CGRectMake(80,210,160,40)];
     notifications.backgroundColor = [UIColor purpleColor];
     notifications.layer.cornerRadius = 10;
@@ -111,7 +117,7 @@
     notifications.frame = CGRectMake(90, 400, 200, 40.0);
     notifications.hidden = YES;
     [self.view addSubview:notifications];
-    /*-----------------------------------------------------------------------------------------*/
+    
 
     NSError *sessionError = nil;
     
@@ -133,15 +139,35 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerStartPlaying)
                                                  name:UIApplicationDidBecomeActiveNotification object:nil];
- /*
-    //Config dark gradient view
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = [[UIScreen mainScreen] bounds];
-    gradient.colors = [NSArray arrayWithObjects:(id)[UIColorFromRGB(0x030303) CGColor], (id)[[UIColor clearColor] CGColor], (id)[UIColorFromRGB(0x030303) CGColor],nil];
-    [self.gradientView.layer insertSublayer:gradient atIndex:0];*/
-    UIView* backgroundColor = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    backgroundColor.backgroundColor =[UIColor colorWithRed:1.00 green:0.28 blue:0.44 alpha:.5];
-    [self.view addSubview:backgroundColor];
+ 
+
+    
+    alertController =[ UIAlertController
+                      alertControllerWithTitle:@"Camera access is required"
+                      message:@" To continue, you must enable camera access in the Settings app."
+                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                       _label2.text = @" Sorry but we cannot continue";
+                                   }];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"Launch Settings"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                   _label2.text = @" Ready to continue?";
+                               }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    
+    
 }
 
 
@@ -149,6 +175,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!didLogin)
+    {
+    self.pageControl.currentPage = 0;
+    }
+    else
+    {
+        self.pageControl.currentPage = 5;
+    }
     [self.avplayer play];
 }
 
@@ -169,9 +203,11 @@
 
 
 
--(IBAction)cameraPermission:(id)sender{
-
-    [camera pop_addAnimation:spring forKey:@"springAnimation"];
+-(void)cameraPermission
+{
+    
+    //[camera pop_addAnimation:spring forKey:@"springAnimation"];
+    
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         // Will get here on both iOS 7 & 8 even though camera permissions weren't required
         // until iOS 8. So for iOS 7 permission will always be granted.
@@ -179,19 +215,16 @@
             // Permission has been granted. Use dispatch_async for any UI updating
             // code because this block may be executed in a thread.
             dispatch_async(dispatch_get_main_queue(), ^{
-                camera.backgroundColor = [UIColor greenColor];
-                buttonIndicate++;
-                if (buttonIndicate == 3)
-                {
-
-
-                }
-               
+            [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
             // Permission has been denied.
+            dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alertController animated:YES completion:nil];
+            });
         }
     }];
+    
     
 }
 
@@ -256,41 +289,133 @@
     self.avplayer = [[AVPlayer alloc]initWithPlayerItem:avPlayerItem];
     AVPlayerLayer *avPlayerLayer =[AVPlayerLayer playerLayerWithPlayer:self.avplayer];
     [avPlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    [avPlayerLayer setFrame:[[UIScreen mainScreen] bounds]];
 
-    //[self.movieView.layer addSublayer:avPlayerLayer]; // this sets up Video
+    [avPlayerLayer setFrame:self.view.frame];
+    
+    self.movieView.alpha = 0.4;
+    [self.movieView.layer insertSublayer:avPlayerLayer atIndex:0]; // this sets up Video
         
 }
 
 - (void)swipe:(UISwipeGestureRecognizer *)swipeRecogniser
 {
+    POPBasicAnimation *disappear;
+    disappear = [POPBasicAnimation animation];
+    disappear.property = [POPAnimatableProperty propertyWithName:kPOPViewAlpha];
+    disappear.toValue = @(0);
+    
     if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionLeft)
     {
-        self.pageControl.currentPage -=1;
+        if (!(self.pageControl.currentPage == 0))
+        {
+            
+            [disappear setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+                if (finished)
+                {
+                    POPSpringAnimation *appear = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+                    appear.toValue = @(0.4);
+                    [self.movieView pop_addAnimation:appear forKey:@"appear"];
+                }
+            }];
+            
+            [self.movieView pop_addAnimation:disappear forKey:@"disappear"];
+            
+            
+            
+            
+            
+        }
     }
-    else if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionRight)
+        else if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionRight)
+        {
+            if (!(self.pageControl.currentPage == 4))
+            {
+                
+                [disappear setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+                    if (finished)
+                    {
+                        POPBasicAnimation *appear = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+                        appear.toValue = @(0.4);
+                        [self.movieView pop_addAnimation:appear forKey:@"appear"];
+                    }
+                }];
+                [self.movieView pop_addAnimation:disappear forKey:@"disappear"];
+                
+                
+            }
+            
+        }
+        
+
+    if ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionLeft)
     {
-        self.pageControl.currentPage +=1;
+
+        self.pageControl.currentPage -=1;
+
     }
+    else if  ([swipeRecogniser direction] == UISwipeGestureRecognizerDirectionRight)
+    {
+
+        self.pageControl.currentPage +=1;
+
+    }
+    
+
+    
     NSLog(@" page Control : %lu", (long)self.pageControl.currentPage);
     NSInteger page = self.pageControl.currentPage;
+    NSString *string;
+    NSString *string2;
     switch (page)
     {
         case 0:
             _logo.hidden = NO;
             _firstLabel.hidden = NO;
+            _label2.hidden = YES;
             break;
         case 1:
             _logo.hidden = YES;
             _firstLabel.hidden = YES;
+            _label2.hidden = NO;
+            _label2.text = @"Type something important then press face to attach a selfie";
             break;
         case 2:
+            _label2.text = @"Press and hold the recipients' name to send the message";
+            break;
+        case 3:
+            _label2.text = @"Press and hold the sender's name to read the message";
+            break;
+        case 4:
+            string = @"This is how you practice safe text";
+            string2 = @"Ready to typeface?";
+            _label2.text = [NSString stringWithFormat:@"%@\r%@", string,string2];
+           
+            [self cameraPermission];
+            
             break;
         default:
             break;
     }
+
+    
+
+    
+        
+
+    
+
+
+    
+    
+
 }
 
+-(void)waitUntilDone:(void(^)(void))waitBlock {
+    //use your statement or call method here
+    if(waitBlock){
+        waitBlock();
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
