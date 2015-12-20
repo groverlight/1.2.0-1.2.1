@@ -546,7 +546,7 @@ NSMutableArray*      contactsNotUsers;
     [Editor resignFirstResponder];
   }
     
-    [self contactsync];
+    //[self contactsync];
 }
 //__________________________________________________________________________________________________
 
