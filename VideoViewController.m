@@ -227,18 +227,14 @@
             if (granted)
             {
                 [self contactsync];
+
             }
             else
             {}
         }];
     }
 
-    if (contactBOOL && notificationBOOL)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        });
-    }
+
     
 }
 
@@ -578,7 +574,12 @@
         
     }];
 
-    
+    if (contactBOOL && notificationBOOL)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
+    }
     
     
     
@@ -617,17 +618,21 @@
 
                   ParseRegisterForRemoteNotifications(^(BOOL notificationsAreEnabled)
                                                       {
+                                                          if (notificationsAreEnabled)
+                                                          {
+                                                              if (contactBOOL && notificationBOOL)
+                                                              {
+                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                      [self dismissViewControllerAnimated:YES completion:nil];
+                                                                  });
+                                                              }
+                                                          }
 
                                                       });
         
     }
     
-    if (contactBOOL && notificationBOOL)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        });
-    }
+
 
 }
 
