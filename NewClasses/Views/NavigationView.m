@@ -855,7 +855,7 @@ SystemSoundID           soundEffect;
              for (NSInteger i = 0; i < [contactsNotUsers count]; i++)
              {
                  FriendRecord *friend =  contactsNotUsers[i];
-                 NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
+                 //NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
                  if ([friend.phoneNumber isEqualToString: record.phoneNumber])
                  {
                      NSLog(@"found");

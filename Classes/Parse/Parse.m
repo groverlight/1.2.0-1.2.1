@@ -135,7 +135,7 @@ BOOL ParseInitialization
     if ([contactsNotUsers count] == 0)
     {
        NSArray* friends = [PFUser currentUser][@"friends"];
-        NSLog(@"friends: %@", friends);
+       // NSLog(@"friends: %@", friends);
             for (NSMutableDictionary *person in temp[@"FriendsList"])
             {
               //  NSLog(@"%@", person);
@@ -143,7 +143,7 @@ BOOL ParseInitialization
                 tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
                 tempRecord.fullName = [person objectForKey:@"fullName"];
                 tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
-                tempRecord.user = [person objectForKey:@"user"];
+                //tempRecord.user = [person objectForKey:@"user"];
                // NSLog(@"tempRecord: %@", tempRecord);
                 [contactsNotUsers addObject:tempRecord];
             }
@@ -152,7 +152,7 @@ BOOL ParseInitialization
                 [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
                  {
                 
-                NSLog(@"%@", user);
+              //  NSLog(@"%@", user);
                 FriendRecord *record = [FriendRecord new];
                 record.fullName = user.fullName;
                 record.phoneNumber = user.phoneNumber;
@@ -161,13 +161,13 @@ BOOL ParseInitialization
                 for (NSInteger i = 0; i < [contactsNotUsers count]; i++)
                 {
                     FriendRecord *friend =  contactsNotUsers[i];
-                    NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
+                   // NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
                     if ([friend.phoneNumber isEqualToString: record.phoneNumber])
                     {
                         NSLog(@"found");
                         record.lastActivityTime = friend.lastActivityTime;
                         contactsNotUsers[i] = record;
-                        NSLog(@"record:%@",record.user);
+                       // NSLog(@"record:%@",record.user);
                         
                     }
                 }
@@ -186,11 +186,7 @@ BOOL ParseInitialization
              return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
          }];
         
-      NSLog(@"contactsNotUsers udpated: %@", contactsNotUsers);
-        for (FriendRecord *record in contactsNotUsers)
-        {
-            NSLog(@"fullname:%@ phoneNumber %@",record.fullName, record.phoneNumber);
-        }
+
     }
 
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
