@@ -176,12 +176,12 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
                 NSDictionary *data = @{
                                        
                                        
-                                       @"content-available": @1,
+                                       @"content-available": @"1",
                                        @"sound": @"",   
                                        @"p" :[PFUser currentUser].objectId,
                                        @"t" :[PFUser currentUser][@"phoneNumber"],
-                                       @"stop": @"1"
-                                       
+                                       @"stop": @"1",
+                                       @"priority" : @"10"
                                        };
                 
                 PFPush *push = [[PFPush alloc] init];
