@@ -75,7 +75,7 @@ void LoadUnreadMessages(BlockIdAction unreadMessages)
 //    NSLog(@"unread: %p", unread);
     for (int i = 0; i < unread->Messages.count; ++i)
     {
-      NSLog(@"  %2d: %p", i, [unread->Messages objectAtIndex:i]);
+//      NSLog(@"  %2d: %p", i, [unread->Messages objectAtIndex:i]);
     }
     unreadMessages(unread);
   }];

@@ -141,7 +141,7 @@
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(AllFriendsList == contactsNotUsers)
+    if(AllFriendsList == recentListUsers)
     {
         return [arrayOfSectionTitles objectAtIndex:section];
         
@@ -175,8 +175,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
    // NSLog(@"SECTIONS CALLFRIENDSLIST %lu",[AllFriendsList count]);
-    //4NSLog(@"SECTIONS contacts %lu",[contactsNotUsers count]);
-    if([AllFriendsList count] == [contactsNotUsers count])
+    //4NSLog(@"SECTIONS contacts %lu",[recentListUsers count]);
+    if([AllFriendsList count] == [recentListUsers count])
         {
             return [arrayOfSectionTitles count];
         }
@@ -189,7 +189,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //HERE
 {
-    if([AllFriendsList count] == [contactsNotUsers count])
+    if([AllFriendsList count] == [recentListUsers count])
         {
             if (section == 0)
             {
@@ -282,9 +282,10 @@
     
     pseudoButton->AnimationDone = ^
     {
+        NSLog(@"stateView->ProgressDone: %d, %d, %d", (int)mycell.tableSection, (int)mycell.tableRow, (int)index);
         Completed = YES;
-        NSInteger index = [self getIndex:cell.tableSection and:cell.tableRow];
-        //    NSLog(@"stateView->ProgressDone: %d, %d, %d", (int)mycell.tableSection, (int)mycell.tableRow, (int)index);
+        NSInteger index = [self getIndex:mycell.tableSection and:mycell.tableRow]; // vanessa
+
         ProgressCompleted([self calculatePoint:myPseudoButton.center fromIndexPath:indexPath], index);
     };
     cell->MainContentViewTapped = ^
@@ -399,7 +400,7 @@
 - (void)InitCell:(TableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
 
-        if([AllFriendsList count] == [contactsNotUsers count])
+        if([AllFriendsList count] == [recentListUsers count])
         {
             FriendRecord* record;
             if (cell.tableSection == 0)
@@ -507,7 +508,7 @@
 /*- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     NSArray* IndexTitles = @[@"√",@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
-    if (AllFriendsList == contactsNotUsers)
+    if (AllFriendsList == recentListUsers)
         {
             
 
@@ -551,7 +552,7 @@
     for (NSString *letter in sections)
         {
         NSMutableArray *sectionPeople = [[NSMutableArray alloc]init];
-        for (FriendRecord *record in contactsNotUsers)
+        for (FriendRecord *record in recentListUsers)
             {
                 
                 if([letter isEqualToString: [record.fullName substringToIndex:1]])
@@ -644,7 +645,7 @@
 //__________________________________________________________________________________________________
 -(NSInteger) getIndex:(NSInteger)tableSection and:(NSInteger)tableRow
 {
-   // NSLog(@"%@", arrayOfSectionTitles);
+     NSLog(@"pople %lu", [arrayOfPeopleInSection count]);
    // NSLog(@"%lu", tableSection);
     NSInteger indexCounter = 0;
     for ( int i = 0; i < tableSection; i++)
@@ -655,7 +656,6 @@
         NSLog(@"people count %lu", indexCounter);
         
     }
-    
     NSInteger index = 0;
     if (tableSection == 0 )
     {

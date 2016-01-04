@@ -121,64 +121,87 @@ BOOL ParseInitialization
 )
 {
     NSLog(@"ParseInitialization");
-
+    //look for friends you're not friends with
+        // load up sendlist
+    if ([PFUser currentUser] != nil)
+    {
+        PFQuery *friendquery = [PFUser query];
+        
+        [friendquery whereKey:@"friends" equalTo:[PFUser currentUser].objectId];
+        [friendquery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (objects != nil)
+                for (PFUser *user in objects)
+                {
+                    [[PFUser currentUser] addUniqueObject:user.objectId  forKey:@"friends"];
+                }
+        }];
+    }
     PFQuery *query = [PFQuery queryWithClassName:@"localDatastore"];
 
     [query fromLocalDatastore];
     PFObject *temp = [query getFirstObject];
     //NSLog(@"temp %@", temp);
     
-    if( contactsNotUsers == nil)
+    if( recentListUsers == nil)
     {
-        contactsNotUsers = [[NSMutableArray alloc]init];
+        recentListUsers = [[NSMutableArray alloc]init];
     }
-    if ([contactsNotUsers count] == 0)
+    if ([recentListUsers count] == 0)
     {
+
+
        NSArray* friends = [PFUser currentUser][@"friends"];
-       // NSLog(@"friends: %@", friends);
+        NSLog(@"friends: %@", friends);
             for (NSMutableDictionary *person in temp[@"FriendsList"])
             {
-              //  NSLog(@"%@", person);
+               
                 FriendRecord* tempRecord    = [FriendRecord new];
                 tempRecord.phoneNumber = [person objectForKey:@"phoneNumber"];
                 tempRecord.fullName = [person objectForKey:@"fullName"];
                 tempRecord.lastActivityTime = [[person objectForKey:@"lastActivityTime"] doubleValue];
                 //tempRecord.user = [person objectForKey:@"user"];
-               // NSLog(@"tempRecord: %@", tempRecord);
-                [contactsNotUsers addObject:tempRecord];
+                //NSLog(@"tempRecord: %@", tempRecord);
+                [recentListUsers addObject:tempRecord];
             }
-            for (NSString * objectId in friends)
+        for (NSString * objectId in friends)
             {
+                //NSLog(@"hi");
                 [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
                  {
                 
-              //  NSLog(@"%@", user);
+               // NSLog(@"%@", user);
                 FriendRecord *record = [FriendRecord new];
                 record.fullName = user.fullName;
                 record.phoneNumber = user.phoneNumber;
                 record.user = user;
-                
-                for (NSInteger i = 0; i < [contactsNotUsers count]; i++)
+                NSInteger flag = 0;
+                for (NSInteger i = 0; i < [recentListUsers count]; i++)
                 {
-                    FriendRecord *friend =  contactsNotUsers[i];
+                    FriendRecord *friend =  recentListUsers[i];
                    // NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
                     if ([friend.phoneNumber isEqualToString: record.phoneNumber])
                     {
-                        NSLog(@"found");
+                       // NSLog(@"found");
                         record.lastActivityTime = friend.lastActivityTime;
-                        contactsNotUsers[i] = record;
-                       // NSLog(@"record:%@",record.user);
-                        
+                        recentListUsers[i] = record;
+                        //NSLog(@"record:%@",record.user);
                     }
+                    else{
+                        flag++;
+                    }
+                    
                 }
-                     
+                     if (flag == [recentListUsers count])
+                     {
+                         [recentListUsers addObject:record];
+                     }
                  }];
             }
         
         
         
 
-        [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+        [recentListUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
          {
              FriendRecord* record1 = (FriendRecord*)obj1;
              FriendRecord* record2 = (FriendRecord*)obj2;
@@ -186,7 +209,11 @@ BOOL ParseInitialization
              return ([record1.fullName caseInsensitiveCompare:record2.fullName]);
          }];
         
-
+    //  NSLog(@"recentListUsers udpated: %@", recentListUsers);
+        for (FriendRecord *record in recentListUsers)
+        {
+            NSLog(@"fullname:%@ phoneNumber %@",record.fullName, record.phoneNumber);
+        }
     }
 
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];

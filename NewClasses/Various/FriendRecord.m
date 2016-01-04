@@ -99,7 +99,9 @@
 - (void)setUser:(ParseUser*)user
 {
     User = user;
-    NSLog(@"user: %@", user);
+    //NSLog(@"user: %@", user);
+    if (![User.objectId isEqualToString:@"UkMGxdNwfK"])
+    {
     if (user == NULL)
     {
         PFQuery *query = [PFUser query];
@@ -121,7 +123,16 @@
     }
     else
     {
+        
+        if([User.fullName isEqualToString: @""])
+        {
+            NSLog(@"error");
+        }
+        else
+        {
         self.fullName = User.fullName;
+        }
+    }
     }
     //  NSLog(@"FriendRecord setRecord: fullName: %@", self.fullName);
 }

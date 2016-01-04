@@ -283,6 +283,7 @@
       }
       if (!found)
       {
+          [recentListUsers addObject:potentialFriend];
         [PendingFriends addObject:potentialFriend];
       }
     }
@@ -461,9 +462,9 @@
   }];
     NSMutableArray * contactsTemp = [[NSMutableArray alloc] init];
     NSString *fullName = friend.fullName;
-    for (int i = 0; i < [contactsNotUsers count]; i++)
+    for (int i = 0; i < [recentListUsers count]; i++)
     {
-        FriendRecord* contact = contactsNotUsers[i];
+        FriendRecord* contact = recentListUsers[i];
     
         if (![contact.fullName isEqualToString:fullName])
         {
@@ -471,7 +472,7 @@
         }
     }
    // NSLog(@"contactsTemp: ", contactsTemp);
-    contactsNotUsers = contactsTemp;
+    recentListUsers = contactsTemp;
 }
 //__________________________________________________________________________________________________
 

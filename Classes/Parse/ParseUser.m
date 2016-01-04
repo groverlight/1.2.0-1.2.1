@@ -84,7 +84,7 @@ NSMutableArray* GetSharedFriendsList(void)
         {
 //          NSLog(@"2 findUserWithObjectId: friendObjectId: %@", friendObjectId);
           [friends addObject:user];
-            if ([contactsNotUsers count] != 0)
+            if ([recentListUsers count] != 0)
             {
                 FriendRecord *record = [FriendRecord new];
                 record.fullName = user.fullName;
@@ -92,10 +92,10 @@ NSMutableArray* GetSharedFriendsList(void)
                 record.lastActivityTime = user.lastActivityTimestamp;
                 record.objectId = user.objectId;
 
-                                //NSLog(@"contactsNotUsers1: %@", contactsNotUsers);
+                                //NSLog(@"recentListUsers1: %@", recentListUsers);
                 NSMutableArray *uniqueArray = [NSMutableArray array];
                 NSMutableSet *names = [NSMutableSet set];
-                for (FriendRecord* record2 in contactsNotUsers) {
+                for (FriendRecord* record2 in recentListUsers) {
                 //NSLog(@"fullName: %@", record2.fullName);
                 //NSLog(@"Timestamp : %f", record2.lastActivityTime);
                 
@@ -108,9 +108,9 @@ NSMutableArray* GetSharedFriendsList(void)
                     }
                 }
             }
-            contactsNotUsers = uniqueArray;
+            recentListUsers = uniqueArray;
             
-            [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+            [recentListUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
              {
                  FriendRecord* record1 = (FriendRecord*)obj1;
                  FriendRecord* record2 = (FriendRecord*)obj2;

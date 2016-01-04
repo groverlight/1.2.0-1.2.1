@@ -71,8 +71,8 @@
     //[self bringSubviewToFront:self->indexView];
 
   self.recentFriends  = GetTimeSortedFriendRecords();
-   // NSLog(@"contacts: %@", contactsNotUsers);
-    [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+   // NSLog(@"contacts: %@", recentListUsers);
+    [recentListUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
      {
          FriendRecord* record1 = (FriendRecord*)obj1;
          FriendRecord* record2 = (FriendRecord*)obj2;
@@ -81,15 +81,15 @@
      }];
     NSMutableArray *uniqueArray = [NSMutableArray array];
     NSMutableSet *names = [NSMutableSet set];
-    for (FriendRecord* record in contactsNotUsers) {
+    for (FriendRecord* record in recentListUsers) {
         NSString *destinationName = record.fullName;
         if (![names containsObject:destinationName]) {
             [uniqueArray addObject:record];
             [names addObject:destinationName];
         }
     }
-    contactsNotUsers = uniqueArray;
-    self.allFriends     = contactsNotUsers;
+    recentListUsers = uniqueArray;
+    self.allFriends     = recentListUsers;
   self->FriendsList.contentOffset = CGPointMake(0, 0- FriendsList.contentInset.top);
 dispatch_async(dispatch_get_main_queue(), ^{
   [self->FriendsList ReloadTableData];
@@ -101,13 +101,15 @@ dispatch_async(dispatch_get_main_queue(), ^{
 
 //__________________________________________________________________________________________________
 - (void)indexViewValueChanged:(BDKCollectionIndexView *)sender {
-   // NSLog(@"indexView.currentIndex %lu", [self->FriendsList getIndex:indexView.currentIndex and:0]);
-   // NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
+  // NSLog(@"indexView.currentIndex %lu", indexView.currentIndex);
+   //NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
     if (self->FriendsList->arrayOfSectionTitles != nil)
     {
         NSInteger listIndex =[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]];
+        NSLog(@"%lu", listIndex);
         if (listIndex < 100)
         {
+            
         NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:listIndex];
        //self->FriendsList->indexForList = indexView.currentIndex;
       [self->FriendsList scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];

@@ -30,17 +30,7 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     [Parse enableLocalDatastore];
-
-    //test
-
-    #define MIXPANEL_TOKEN @"b3152c0c9f9d07b8b65bfcfe849194c0"
-
-    //live
-
-    //#define MIXPANEL_TOKEN @" bfcb77fdbcaaa747ac994c1bdba999aa"
-
-
-
+    #define MIXPANEL_TOKEN @"bfcb77fdbcaaa747ac994c1bdba999aa"
 
     // Initialize the library with your
     // Mixpanel project token, MIXPANEL_TOKEN
@@ -55,7 +45,7 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 
   // Parse initialization.
   ParseAppDelegateInitialization(launchOptions);
-
+    NSDictionary *remoteNotifiInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
 
 
     
@@ -148,6 +138,20 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 {
+    NotificationCompletionHandler = handler;
+    NSLog(@"\n\n");
+    NSLog(@"didReceiveRemoteNotification Start: %p", NotificationCompletionHandler);
+    DidReceiveRemoteNotification(userInfo, ^(BOOL hasNewData)
+                                 {
+                                     NSLog(@"%@", userInfo);
+                                     NSLog(@"didReceiveRemoteNotification End: %p", NotificationCompletionHandler);
+                                     if (NotificationCompletionHandler != nil)
+                                     {
+                                         NotificationCompletionHandler(hasNewData? UIBackgroundFetchResultNewData: UIBackgroundFetchResultNoData);
+                                         NotificationCompletionHandler = NULL;
+                                     }
+                                 });
+    NSLog(@"hi");
     if ([userInfo objectForKey:@"p"] != nil)
         {
             ParseLoadMessageArray(^{
@@ -177,11 +181,13 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
                                        
                                        
                                        @"content-available": @"1",
-                                       @"sound": @"",   
+                                       @"sound": @"",
+                                       @"alert": @"",
                                        @"p" :[PFUser currentUser].objectId,
                                        @"t" :[PFUser currentUser][@"phoneNumber"],
                                        @"stop": @"1",
-                                       @"priority" : @"10"
+                                      
+                            
                                        };
                 
                 PFPush *push = [[PFPush alloc] init];
@@ -196,18 +202,7 @@ typedef void(^BlockBfrAction)(UIBackgroundFetchResult result);
 
         }
     
-          NotificationCompletionHandler = handler;
-          NSLog(@"\n\n");
-          NSLog(@"didReceiveRemoteNotification Start: %p", NotificationCompletionHandler);
-          DidReceiveRemoteNotification(userInfo, ^(BOOL hasNewData)
-          {
-            NSLog(@"didReceiveRemoteNotification End: %p", NotificationCompletionHandler);
-            if (NotificationCompletionHandler != nil)
-            {
-              NotificationCompletionHandler(hasNewData? UIBackgroundFetchResultNewData: UIBackgroundFetchResultNoData);
-              NotificationCompletionHandler = NULL;
-            }
-          });
+
     
 }
 //__________________________________________________________________________________________________

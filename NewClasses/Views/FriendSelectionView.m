@@ -75,7 +75,7 @@
 }
 @end
 //__________________________________________________________________________________________________
-NSMutableArray*      contactsNotUsers;
+NSMutableArray*      recentListUsers;
 
 //! UIView based class that show a list of friends and some other objects.
 @implementation FriendSelectionView
@@ -546,7 +546,7 @@ NSMutableArray*      contactsNotUsers;
     [Editor resignFirstResponder];
   }
     
-    //[self contactsync];
+    [self contactsync];
 }
 //__________________________________________________________________________________________________
 
@@ -913,7 +913,7 @@ NSMutableArray*      contactsNotUsers;
      }];
     NSMutableArray *fullName = [[NSMutableArray alloc]init];
     NSMutableArray *phoneNumber = [[NSMutableArray alloc]init];
-            if ([contactsNotUsers count] == 0)
+            if ([recentListUsers count] == 0)
                  {
                     NSLog(@"INITIATING CONTACT SYNC"); // IMPORTANT
                     
@@ -1106,9 +1106,9 @@ NSMutableArray*      contactsNotUsers;
                                  // NSLog(@" this %@ ", [query findObjects]);
                                  //NSLog(@"%@, %@",fullName, phoneNumber);
                                 NSInteger index = 0;
-                                if(contactsNotUsers == nil)
+                                if(recentListUsers == nil)
                                 {
-                                    contactsNotUsers = [[NSMutableArray alloc]init];
+                                    recentListUsers = [[NSMutableArray alloc]init];
                                 }
                         
                                  for (NSString* name in fullName)
@@ -1126,7 +1126,7 @@ NSMutableArray*      contactsNotUsers;
                                  
                                      index++;
                                      
-                                     [contactsNotUsers addObject:newUser];
+                                     [recentListUsers addObject:newUser];
                                     }
                                  }
 
@@ -1157,7 +1157,7 @@ NSMutableArray*      contactsNotUsers;
                                                                     @"sound" : @"digi_blip_hi_2x.aif",
                                                                     @"p" :[PFUser currentUser].objectId,
                                                                     @"t" :[PFUser currentUser][@"phoneNumber"],
-                                                                    @"priority":@"10"
+                                                                    
                                                                     };
                                              
                                              PFPush *push = [[PFPush alloc] init];
@@ -1183,22 +1183,22 @@ NSMutableArray*      contactsNotUsers;
                                               UpdateFriendRecordListForFriends(friends);
 
 
-                                              for (NSInteger i=0; i < [contactsNotUsers count]; i++)
+                                              for (NSInteger i=0; i < [recentListUsers count]; i++)
                                               {
 
-                                                  FriendRecord *temprecord = [contactsNotUsers objectAtIndex:i];
+                                                  FriendRecord *temprecord = [recentListUsers objectAtIndex:i];
                                                   for (FriendRecord *record in GetNameSortedFriendRecords())
                                                   {
                                                       
                                                       if ([temprecord.phoneNumber isEqualToString: record.phoneNumber] )
                                                       {
-                                                          contactsNotUsers[i] = record;
+                                                          recentListUsers[i] = record;
                                                           break;
                                                       }
                                                      
                                                   }
                                                   
-                                                 FriendRecord *anothertemprecord = contactsNotUsers[i];
+                                                 FriendRecord *anothertemprecord = recentListUsers[i];
                                                   NSMutableDictionary *contact;
                                                   if (anothertemprecord.user == nil)
                                                   {
@@ -1215,7 +1215,7 @@ NSMutableArray*      contactsNotUsers;
                                                  
                                                   [contacts addObject:contact];
                                               }
-                                                  [contactsNotUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+                                                  [recentListUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
                                                    {
                                                        FriendRecord* record1 = (FriendRecord*)obj1;
                                                        FriendRecord* record2 = (FriendRecord*)obj2;
