@@ -491,15 +491,13 @@ SystemSoundID           soundEffect;
         
         
         myself->MessageToSend->FromUser = GetCurrentParseUser();
-        __block ParseUser* friend = [myself->SendToListView getFriendAtIndex:myself->PreviewingForFriend];
+        ParseUser* friend = [myself->SendToListView getFriendAtIndex:myself->PreviewingForFriend];
         NSLog(@"friendsendmessage %@", friend);
         FriendRecord * record = [myself->SendToListView getRecordAtIndex:myself->PreviewingForFriend];
         myself->MessageToSend->ToUser   = friend;
         NSArray * Messagetexts = myself->MessageToSend->Texts;
         if (friend == nil)
         {
-            
-            
             NSString * theMessage = @"";
             NSString * senderName = [PFUser currentUser][@"fullName"];
             for (NSString *text in Messagetexts)
@@ -510,35 +508,20 @@ SystemSoundID           soundEffect;
             NSString * shortMessage = [[theMessage substringToIndex: MIN(25, [theMessage length])] stringByAppendingString:@"..."];
             NSLog(@"This is the message %@", shortMessage);
             myself->MessageToSend->placeHolder = record.phoneNumber;
-            /// query for phone number on database
-            PFQuery *query = [PFUser query];
-            [query whereKey:@"phoneNumber" equalTo:record.phoneNumber];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-                if (objects != nil) {
-                    for (ParseUser* user in objects)
-                    {
-                        friend = user;
-                    }
-                }
-                else{
-                    UpdateFriendRecordListForRecord(record, myself->MessageToSend->Timestamp);
-                    [PFCloud callFunctionInBackground:@"sendMessage"
-                                       withParameters:@{@"phoneNumber": record.phoneNumber, @"message": shortMessage, @"sender":senderName}
-                                                block:^(NSString* success, NSError* error2)
-                     {
-                         if (error2 != nil)
-                         {
-                             NSLog(@"The message was sent");
-                         }
-                         else
-                         {
-                             
-                         }
-                     }];
-                    
-                }
-                
-            }];
+            UpdateFriendRecordListForRecord(record, myself->MessageToSend->Timestamp);
+            [PFCloud callFunctionInBackground:@"sendMessage"
+                               withParameters:@{@"phoneNumber": record.phoneNumber, @"message": shortMessage, @"sender":senderName}
+                                        block:^(NSString* success, NSError* error)
+             {
+                 if (error != nil)
+                 {
+                     NSLog(@"The message was sent");
+                 }
+                 else
+                 {
+                     
+                 }
+             }];
         }
         else
         {
@@ -557,7 +540,7 @@ SystemSoundID           soundEffect;
                                  NSLog(@"Here is the message: %@", [NSString stringWithFormat:GetGlobalParameters().parseNotificationFormatString, GetCurrentParseUser().fullName, shortresult]);
                                  NSLog(@"friendobjectiD %@", friend.objectId);
                                  //ParseSendPushNotificationToUser(friend.objectId, shortresult);
-                                 ParseSendPushNotificationToUser(friend.objectId, [NSString stringWithFormat:GetGlobalParameters().parseNotificationFormatString, GetCurrentParseUser().fullName, shortresult]);
+                                  ParseSendPushNotificationToUser(friend.objectId, [NSString stringWithFormat:GetGlobalParameters().parseNotificationFormatString, GetCurrentParseUser().fullName, shortresult]);
                              }
                              else
                              {
