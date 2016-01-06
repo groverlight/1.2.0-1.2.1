@@ -1049,8 +1049,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Grover Light (4MBTY8L594)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Grover Light (4MBTY8L594)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Grover Light (4THJ5Z3YGF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Grover Light (4THJ5Z3YGF)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1070,7 +1070,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "827ddc3f-a0ce-4f44-a0bf-1991184fa7c4";
+				PROVISIONING_PROFILE = "c37a56a7-eaf5-4db4-856b-0740ede2df4e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1092,8 +1092,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Grover Light (4MBTY8L594)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Grover Light (4MBTY8L594)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Grover Light (4THJ5Z3YGF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Grover Light (4THJ5Z3YGF)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_TESTABILITY = YES;
@@ -1105,7 +1105,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
-				PROVISIONING_PROFILE = "827ddc3f-a0ce-4f44-a0bf-1991184fa7c4";
+				PROVISIONING_PROFILE = "c37a56a7-eaf5-4db4-856b-0740ede2df4e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1141,7 +1141,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
 				PRODUCT_NAME = Typeface;
-				PROVISIONING_PROFILE = "827ddc3f-a0ce-4f44-a0bf-1991184fa7c4";
+				PROVISIONING_PROFILE = "c37a56a7-eaf5-4db4-856b-0740ede2df4e";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1176,7 +1176,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
 				PRODUCT_NAME = Typeface;
-				PROVISIONING_PROFILE = "827ddc3f-a0ce-4f44-a0bf-1991184fa7c4";
+				PROVISIONING_PROFILE = "c37a56a7-eaf5-4db4-856b-0740ede2df4e";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1198,8 +1198,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Grover Light (4MBTY8L594)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Grover Light (4MBTY8L594)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Grover Light (4THJ5Z3YGF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Grover Light (4THJ5Z3YGF)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_TESTABILITY = YES;
@@ -1211,7 +1211,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
-				PROVISIONING_PROFILE = "827ddc3f-a0ce-4f44-a0bf-1991184fa7c4";
+				PROVISIONING_PROFILE = "c37a56a7-eaf5-4db4-856b-0740ede2df4e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1247,7 +1247,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
 				PRODUCT_NAME = Typeface;
-				PROVISIONING_PROFILE = "827ddc3f-a0ce-4f44-a0bf-1991184fa7c4";
+				PROVISIONING_PROFILE = "c37a56a7-eaf5-4db4-856b-0740ede2df4e";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
