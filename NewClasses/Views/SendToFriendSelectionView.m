@@ -103,17 +103,24 @@ dispatch_async(dispatch_get_main_queue(), ^{
 - (void)indexViewValueChanged:(BDKCollectionIndexView *)sender {
   // NSLog(@"indexView.currentIndex %lu", indexView.currentIndex);
    //NSLog(@"Array of Section Titles: %lu",[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]]);
+    [self->FriendsList reloadData];
+    [self->FriendsList layoutIfNeeded];
     if (self->FriendsList->arrayOfSectionTitles != nil)
     {
         NSInteger listIndex =[self->FriendsList->arrayOfSectionTitles indexOfObject:[indexTitles objectAtIndex:indexView.currentIndex]];
         NSLog(@"%lu", listIndex);
-        if (listIndex < 100)
-        {
-            
         NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:listIndex];
+        if (listIndex < 100)
+                if (([self->FriendsList numberOfSectionsInTableView:self->FriendsList] > path.section) &&
+                    ([self->FriendsList numberOfRowsInSection:listIndex] > path.row))
+                {
+
+                
        //self->FriendsList->indexForList = indexView.currentIndex;
-      [self->FriendsList scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        }
+            [self->FriendsList scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:NO];
+                }
     }
+
 }
+
 @end

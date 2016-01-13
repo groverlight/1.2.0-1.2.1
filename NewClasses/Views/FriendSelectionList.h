@@ -39,6 +39,7 @@ NSMutableArray* arrayOfSectionTitles;
 
 - (void)clearSelection;
 -(NSInteger) getIndex:(NSInteger)tableSection and:(NSInteger)tableRow;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 //____________________
 
 @end

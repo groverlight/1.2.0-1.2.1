@@ -50,7 +50,7 @@
     self.sectionIndexColor = Grey;
     self.sectionIndexBackgroundColor = [UIColor clearColor];
     self.sectionIndexTrackingBackgroundColor = [Grey colorWithAlphaComponent:0.25];
-
+    
     
     GlobalParameters* parameters  = GetGlobalParameters();
     self.separatorColor           = Transparent;
@@ -239,8 +239,13 @@
 
 - (void)updateCellSelection:(TableViewCell*)cell
 {
-    NSIndexPath* indexPath = [self indexPathForCell:cell];
-   
+    FriendListItemStateView* newStateView = [cell getCellItemAtIndex:1];
+    [newStateView animateToState:E_FriendProgressState_Selected completion:^
+     {
+     }];
+    
+  NSIndexPath* indexPath = [self indexPathForCell:cell];
+   NSLog(@"Section: %ld, Row: %ld", (long)indexPath.section, (long)indexPath.row);
     GlobalParameters* parameters = GetGlobalParameters();
     if ((SelectedItem != nil) && (![SelectedItem isEqual:indexPath]))
     {
@@ -294,28 +299,29 @@
         {
             Completed = NO;
             if (!TouchActive)
-            {//NSLog(@"I touched a button, and i liked it3");
+            {NSLog(@"I touched a button, and i liked it3");
                 if (!StateViewHidden)
                 {
                     if (SimulateButton)
                     {
-                        [pseudoButton animateToState:E_FriendProgressState_InProgress completion:^
+                        [myPseudoButton animateToState:E_FriendProgressState_InProgress completion:^
                          {
                          }];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
                                        {
-                                           [pseudoButton animateToState:E_FriendProgressState_Unselected completion:^
+                                           [myPseudoButton animateToState:E_FriendProgressState_Unselected completion:^
                                             {
                                             }];
                                        });
                     }
                     else
                     {
-                                   NSLog(@"Tappable Sound");
+                        NSLog(@"Tappable Sound");
                         [self updateCellSelection:mycell];
-                        [pseudoButton animateToState:E_FriendProgressState_Selected completion:^
+                        /*[myPseudoButton animateToState:E_FriendProgressState_Selected completion:^
                          {
-                         }];
+                             NSLog(@"pseudo button %u", myPseudoButton.state);
+                         }];*/
                     }
                    
                      NSInteger index = [self getIndex:mycell.tableSection and:mycell.tableRow];
@@ -330,7 +336,7 @@
         {
             Completed = NO;
             TouchActive = YES;
-                  //NSLog(@"MainContentViewPanTouchAction");
+            NSLog(@"MainContentViewPanTouchAction");
             [pseudoButton animateToState:E_FriendProgressState_InProgress completion:^
              {
 
@@ -374,7 +380,7 @@
             }
             else
             {
-                //        NSLog(@"MainContentViewPanEndAction");
+                NSLog(@"MainContentViewPanEndAction");
                 if (Completed)
                 {
                     NSLog(@"MainContentViewPanEndAction after progress completion");
@@ -472,7 +478,7 @@
     UIView*                   topSeparatorLine  = [cell getCellItemAtIndex:2];
     UIView*                   botSeparatorLine  = [cell getCellItemAtIndex:3];
     GlobalParameters*         parameters        = GetGlobalParameters();
-    //  BOOL isSelected         = (SelectedItem != nil) && (SelectedItem.section == cell.tableSection) && (SelectedItem.row == cell.tableRow);
+    BOOL isSelected         = (SelectedItem != nil) && (SelectedItem.section == cell.tableSection) && (SelectedItem.row == cell.tableRow);
     pseudoButton.size       = [pseudoButton sizeThatFits:self.size];
     fullName.width          = [fullName sizeThatFits:self.size].width;
     fullName.height         = fullName.font.lineHeight;
@@ -628,13 +634,26 @@
 //__________________________________________________________________________________________________
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+
+{for (int section = 0; section < [self numberOfSections]; section++) {
+    for (int row = 0; row < [self numberOfRowsInSection:section]; row++) {
+        NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
+        TableViewCell* cell = [self cellForRowAtIndexPath:cellPath];
+        //do stuff with 'cell'
+        FriendListItemStateView*  stateView = [cell getCellItemAtIndex:1];
+        [stateView animateToState:E_FriendProgressState_Unselected completion:^
+         {
+         }];
+
+        
+    }
+}
     if (!ParseRefreshActive && (scrollView.contentOffset.y < GetGlobalParameters().friendsListParseRefreshThresholdOffset))
     {
         ParseRefreshActive = YES;
         RefreshRequest();
     }
-    //  NSLog(@"scrollViewDidScroll: %6.2f, %6.2f", scrollView.contentOffset.x, scrollView.contentOffset.y);
+      NSLog(@"scrollViewDidScroll: %6.2f, %6.2f", scrollView.contentOffset.x, scrollView.contentOffset.y);
 }
 //__________________________________________________________________________________________________
 
@@ -645,7 +664,7 @@
 //__________________________________________________________________________________________________
 -(NSInteger) getIndex:(NSInteger)tableSection and:(NSInteger)tableRow
 {
-     NSLog(@"pople %lu", [arrayOfPeopleInSection count]);
+     //NSLog(@"pople %lu", [arrayOfPeopleInSection count]);
    // NSLog(@"%lu", tableSection);
     NSInteger indexCounter = 0;
     for ( int i = 0; i < tableSection; i++)
@@ -653,7 +672,7 @@
         
         
         indexCounter = indexCounter + [[arrayOfPeopleInSection objectAtIndex:i] count];
-        NSLog(@"people count %lu", indexCounter);
+       // NSLog(@"people count %lu", indexCounter);
         
     }
     NSInteger index = 0;

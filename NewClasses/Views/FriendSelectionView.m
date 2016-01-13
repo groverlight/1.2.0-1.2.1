@@ -1124,14 +1124,63 @@ NSMutableArray*      recentListUsers;
                                      newUser.lastActivityTime = [[NSDate date] timeIntervalSince1970];
 
                                  
-                                     index++;
+                                     
                                      
                                      [recentListUsers addObject:newUser];
                                     }
+                                    index++;
                                  }
-
-
-
+                        // clear duplicate contacts
+                        NSMutableArray *uniqueArray = [NSMutableArray array];
+                        NSMutableSet *names = [NSMutableSet set];
+                        
+                        for (FriendRecord* record in recentListUsers) {
+                           // NSLog(@"phoneNumber: %@ fullname: %@", record.phoneNumber, record.fullName);
+                            // NSLog(@"Timestamp : %f", record.lastActivityTime);
+                            NSString *destinationName = record.phoneNumber;
+                            if (![names containsObject:destinationName]) {
+                                if (destinationName != nil)
+                                {
+                                    
+                                    
+                                    [uniqueArray addObject:record];
+                                    [names addObject:destinationName];
+                                }
+                            }
+                            else
+                            {
+                                if (record.user != nil)
+                                {
+                                    for (NSInteger i = 0; i < [uniqueArray count]; i ++)
+                                    {
+                                        FriendRecord *record2 = uniqueArray[i];
+                                        if ([record2.phoneNumber isEqualToString: record.phoneNumber])
+                                        {
+                                            uniqueArray[i] = record;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        }
+                        recentListUsers = uniqueArray;
+                        // clear contacts with no phone numbers
+                        NSMutableArray *filterArray = [[NSMutableArray alloc]init];
+                        
+                        for (FriendRecord *record in recentListUsers)
+                        {
+                            if ([[self formatNumber:record.phoneNumber] length] == 10)
+                            {
+                                [filterArray addObject: record];
+                            }
+                        }
+                        for (FriendRecord *record in filterArray)
+                        {
+                           // NSLog(@"filterArrayphone: %@        fullname %@", record.phoneNumber, record.fullName);
+                        }
+                       // NSLog(@"filterArrray: %@", filterArray);
+                        
+                        recentListUsers = filterArray;
                         
                                  [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
                                      if (!error) {
@@ -1210,7 +1259,7 @@ NSMutableArray*      recentListUsers;
                                                   }
                                                   
                                                   
-                                                  NSLog(@"contact:%@", contact);
+                                                  //NSLog(@"contact:%@", contact);
                                                   
                                                  
                                                   [contacts addObject:contact];
@@ -1263,6 +1312,7 @@ NSMutableArray*      recentListUsers;
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"+" withString:@""];
+    mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"." withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"\u00a0" withString:@""];
     
     
