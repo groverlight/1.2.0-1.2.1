@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271E14E51C45E2E500CCE6F0 /* typeface.m4v.mov in Resources */ = {isa = PBXBuildFile; fileRef = 271E14E41C45E2E500CCE6F0 /* typeface.m4v.mov */; };
 		27AA8F3A1BE18147009B363A /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AA8F371BE18147009B363A /* VideoViewController.m */; };
 		27AA8F3B1BE18147009B363A /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27AA8F381BE18147009B363A /* VideoViewController.xib */; };
 		27AA8F3C1BE18147009B363A /* xx.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 27AA8F391BE18147009B363A /* xx.mp4 */; };
@@ -126,6 +127,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		271E14E41C45E2E500CCE6F0 /* typeface.m4v.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = typeface.m4v.mov; sourceTree = SOURCE_ROOT; };
 		27AA8F361BE18147009B363A /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = SOURCE_ROOT; };
 		27AA8F371BE18147009B363A /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = SOURCE_ROOT; };
 		27AA8F381BE18147009B363A /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -728,6 +730,7 @@
 				27AA8F361BE18147009B363A /* VideoViewController.h */,
 				27AA8F371BE18147009B363A /* VideoViewController.m */,
 				27AA8F381BE18147009B363A /* VideoViewController.xib */,
+				271E14E41C45E2E500CCE6F0 /* typeface.m4v.mov */,
 				27AA8F391BE18147009B363A /* xx.mp4 */,
 				F4F585441B82A9C80016D180 /* AppDelegate.h */,
 				F4F585451B82A9C80016D180 /* AppDelegate.m */,
@@ -897,6 +900,7 @@
 				F466BDD31BDF302100683986 /* remove15.aiff in Resources */,
 				27AA8F3B1BE18147009B363A /* VideoViewController.xib in Resources */,
 				F466BDDB1BDF319000683986 /* button20.aiff in Resources */,
+				271E14E51C45E2E500CCE6F0 /* typeface.m4v.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1139,7 +1143,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
+				PRODUCT_BUNDLE_IDENTIFIER = KEKFU6H295.com.typeFace.AddressBook;
 				PRODUCT_NAME = Typeface;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1174,7 +1178,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
+				PRODUCT_BUNDLE_IDENTIFIER = KEKFU6H295.com.typeFace.AddressBook;
 				PRODUCT_NAME = Typeface;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1245,7 +1249,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.groverlight.Typeface;
+				PRODUCT_BUNDLE_IDENTIFIER = KEKFU6H295.com.typeFace.AddressBook;
 				PRODUCT_NAME = Typeface;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
