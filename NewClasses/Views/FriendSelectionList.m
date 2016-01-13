@@ -635,7 +635,9 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 
-{for (int section = 0; section < [self numberOfSections]; section++) {
+{
+        GlobalParameters* parameters = GetGlobalParameters();
+    for (int section = 0; section < [self numberOfSections]; section++) {
     for (int row = 0; row < [self numberOfRowsInSection:section]; row++) {
         NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
         TableViewCell* cell = [self cellForRowAtIndexPath:cellPath];
@@ -645,7 +647,10 @@
          {
          }];
 
+            PopLabel*                 fullName  = [cell getCellItemAtIndex:0];
+            fullName.font                       = parameters.friendsUsernameFont;
         
+
     }
 }
     if (!ParseRefreshActive && (scrollView.contentOffset.y < GetGlobalParameters().friendsListParseRefreshThresholdOffset))
