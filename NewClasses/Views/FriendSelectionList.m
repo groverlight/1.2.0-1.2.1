@@ -335,7 +335,7 @@
     };
     cell->MainContentViewPanTouchAction = ^
     {
-        self.scrollEnabled = NO;
+       // self.scrollEnabled = NO;
         if (!UseBlankState || (pseudoButton.state != E_FriendProgressState_Blank))
         {
             Completed = NO;
@@ -407,7 +407,7 @@
                     
                     NSInteger index = [self getIndex:mycell.tableSection and:mycell.tableRow];
                     ProgressCancelled([self calculatePoint:pseudoButton.center fromIndexPath:indexPath], index);
-                    self.scrollEnabled = YES;
+                    //self.scrollEnabled = YES;
                    
                 }
                 
