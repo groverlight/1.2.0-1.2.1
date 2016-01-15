@@ -36,7 +36,7 @@
         self.phoneNumber      = user[@"phoneNumber"];
         NSLog(@"FriendRecord initWithUser: %f, %@", self.lastActivityTime, self.fullName);
         }
-    NSLog(@"%@", self.phoneNumber);
+   // NSLog(@"%@", self.phoneNumber);
 
     return self;
 }
@@ -218,7 +218,7 @@
         NSMutableSet *names = [NSMutableSet set];
         
         for (FriendRecord* record in TimeSortedList) {
-            NSLog(@"phoneNumber: %@", record.phoneNumber);
+            //NSLog(@"phoneNumber: %@", record.phoneNumber);
            // NSLog(@"Timestamp : %f", record.lastActivityTime);
             NSString *destinationName = record.phoneNumber;
             if (![names containsObject:destinationName]) {
@@ -315,7 +315,7 @@
     NSMutableArray *uniqueArray = [NSMutableArray array];
     NSMutableSet *names = [NSMutableSet set];
     for (FriendRecord* record in NameSortedList) {
-        NSLog(@"phoneNumber: %@", record.phoneNumber);
+       // NSLog(@"phoneNumber: %@", record.phoneNumber);
         // NSLog(@"Timestamp : %f", record.lastActivityTime);
         NSString *destinationName = record.phoneNumber;
         if (![names containsObject:destinationName]) {
