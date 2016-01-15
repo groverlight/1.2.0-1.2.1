@@ -141,8 +141,9 @@
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(AllFriendsList == recentListUsers)
+    if([AllFriendsList count] == [recentListUsers count])
     {
+        
         return [arrayOfSectionTitles objectAtIndex:section];
         
     }
@@ -239,11 +240,10 @@
 
 - (void)updateCellSelection:(TableViewCell*)cell
 {
+
     FriendListItemStateView* newStateView = [cell getCellItemAtIndex:1];
-    [newStateView animateToState:E_FriendProgressState_Selected completion:^
-     {
-     }];
-    
+    [newStateView setState:E_FriendProgressState_Selected];
+                   
   NSIndexPath* indexPath = [self indexPathForCell:cell];
    NSLog(@"Section: %ld, Row: %ld", (long)indexPath.section, (long)indexPath.row);
     GlobalParameters* parameters = GetGlobalParameters();
@@ -253,9 +253,9 @@
         PopLabel*                 fullName  = [oldCell getCellItemAtIndex:0];
         FriendListItemStateView*  stateView = [oldCell getCellItemAtIndex:1];
         fullName.font                       = parameters.friendsUsernameFont;
-        [stateView animateToState:E_FriendProgressState_Unselected completion:^
-         {
-         }];
+        
+        [stateView setState:E_FriendProgressState_Unselected];
+
     }
     SelectedItem        = indexPath;
     PopLabel* fullName  = [cell getCellItemAtIndex:0];
@@ -299,7 +299,7 @@
         {
             Completed = NO;
             if (!TouchActive)
-            {NSLog(@"I touched a button, and i liked it3");
+            {//NSLog(@"I touched a button, and i liked it3");
                 if (!StateViewHidden)
                 {
                     if (SimulateButton)
@@ -316,9 +316,9 @@
                     }
                     else
                     {
-                        NSLog(@"Tappable Sound");
+                       // NSLog(@"Tappable Sound");
                         [self updateCellSelection:mycell];
-                        /*[myPseudoButton animateToState:E_FriendProgressState_Selected completion:^
+                       /* [myPseudoButton animateToState:E_FriendProgressState_Selected completion:^
                          {
                              NSLog(@"pseudo button %u", myPseudoButton.state);
                          }];*/
@@ -636,29 +636,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 
 {
-        GlobalParameters* parameters = GetGlobalParameters();
-    for (int section = 0; section < [self numberOfSections]; section++) {
-    for (int row = 0; row < [self numberOfRowsInSection:section]; row++) {
-        NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
-        TableViewCell* cell = [self cellForRowAtIndexPath:cellPath];
-        //do stuff with 'cell'
-        FriendListItemStateView*  stateView = [cell getCellItemAtIndex:1];
-        [stateView animateToState:E_FriendProgressState_Unselected completion:^
-         {
-         }];
 
-            PopLabel*                 fullName  = [cell getCellItemAtIndex:0];
-            fullName.font                       = parameters.friendsUsernameFont;
-        
-
-    }
-}
     if (!ParseRefreshActive && (scrollView.contentOffset.y < GetGlobalParameters().friendsListParseRefreshThresholdOffset))
     {
         ParseRefreshActive = YES;
         RefreshRequest();
     }
-      NSLog(@"scrollViewDidScroll: %6.2f, %6.2f", scrollView.contentOffset.x, scrollView.contentOffset.y);
+     // NSLog(@"scrollViewDidScroll: %6.2f, %6.2f", scrollView.contentOffset.x, scrollView.contentOffset.y);
 }
 //__________________________________________________________________________________________________
 

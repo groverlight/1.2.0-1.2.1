@@ -151,7 +151,7 @@ BOOL ParseInitialization
 
 
        NSArray* friends = [PFUser currentUser][@"friends"];
-        NSLog(@"friends: %@", friends);
+        //NSLog(@"friends: %@", friends);
             for (NSMutableDictionary *person in temp[@"FriendsList"])
             {
                
@@ -210,10 +210,7 @@ BOOL ParseInitialization
          }];
         
     //  NSLog(@"recentListUsers udpated: %@", recentListUsers);
-        for (FriendRecord *record in recentListUsers)
-        {
-            NSLog(@"fullname:%@ phoneNumber %@",record.fullName, record.phoneNumber);
-        }
+
     }
 
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -789,7 +786,7 @@ void ParseLoadMessageArray
               // being add friend
             ParseMessage* parseMsg = objects[i];
               NSArray *friends = [PFUser currentUser][@"friends"];
-              NSLog(@"friends: %@", friends);
+             // NSLog(@"friends: %@", friends);
               if (![friends containsObject:parseMsg.fromUser])
               {
                   [[PFUser currentUser] addUniqueObject:parseMsg.fromUser.objectId forKey:@"friends"];

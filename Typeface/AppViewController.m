@@ -261,10 +261,10 @@ static AppViewController* MainViewController = nil;
     {
       if (newUser)
       {
-          [self dismissViewControllerAnimated:YES completion:nil];
+          /*[self dismissViewControllerAnimated:YES completion:nil];
           Intro = [[VideoViewController alloc]init];
           dispatch_async(dispatch_get_main_queue(), ^(void){
-              [self presentViewController:Intro animated:YES completion:nil];      });
+              [self presentViewController:Intro animated:YES completion:nil];      });*/
 
         [NavView showLoginFromStart:restart];
       }

@@ -207,11 +207,11 @@ SystemSoundID           soundEffect;
                              [myself->AzFriendsListView activate];
                          });
                          
-                         if (myself->SendToListView.allFriends == nil)
+                         if (recentListUsers == nil)
                          {
-                             NSLog(@"Hi");
+                            
                              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                                 
+                                  NSLog(@"Hi");
                                  [myself->SendToListView updateFriendsLists];
                              });
                          }
@@ -220,14 +220,14 @@ SystemSoundID           soundEffect;
                      else
                      {
                          dispatch_async(dispatch_get_main_queue(), ^{
-                             
+                             NSLog(@"sup");
                              [myself->SendToListView activate];
                              
                          });
                          
                          
                          
-                         if (myself->SendToListView.allFriends == nil)
+                         if (recentListUsers == nil)
                          {
                              NSLog(@"Hi");
                              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
@@ -276,6 +276,7 @@ SystemSoundID           soundEffect;
         get_myself;
         RefreshAllFriends(^
                           {
+                              NSLog(@"azfriends");
                               [myself updateFriendsLists];
                               UnreadMessages* unreadMsgs = GetSharedUnreadMessages();
                               ParseSetBadge(unreadMsgs->Messages.count);  // Update the icon badge number with the number of unread messages.
@@ -353,6 +354,7 @@ SystemSoundID           soundEffect;
     AzFriendsListView->FriendsAdded = ^
     {
         get_myself;
+        NSLog(@"friends addded");
         [myself updateFriendsLists];
         if (!myself->ScrollView.scrollView.scrollEnabled)
         {
@@ -776,6 +778,7 @@ SystemSoundID           soundEffect;
 
 - (void)ScrollToSendToPageAnimated:(BOOL)animated
 {
+    NSLog(@"scrolltoSend");
     [SendToListView updateFriendsLists];
     [self activateSendToListView];
     [self ScrollToPageAtIndex:2 animated:animated];
@@ -825,7 +828,7 @@ SystemSoundID           soundEffect;
 
 - (void)updateFriendsLists
 {
-    
+    NSLog(@"updatefriendslists");
     [ActivityListView   updateFriendsLists];
     [SendToListView     updateFriendsLists];
     [AzFriendsListView  updateFriendsLists];
@@ -847,7 +850,7 @@ SystemSoundID           soundEffect;
         [ParseUser findUserWithObjectId:objectId completion:^(ParseUser* user, NSError* error)
          {
              
-             NSLog(@"%@", user);
+            // NSLog(@"%@", user);
              FriendRecord *record = [FriendRecord new];
              record.fullName = user.fullName;
              record.phoneNumber = user.phoneNumber;
@@ -859,7 +862,7 @@ SystemSoundID           soundEffect;
                  //NSLog(@"friend: %@ record: %@", friend.phoneNumber, record.phoneNumber);
                  if ([friend.phoneNumber isEqualToString: record.phoneNumber])
                  {
-                     NSLog(@"found");
+                     //NSLog(@"found");
                      record.lastActivityTime = friend.lastActivityTime;
                      recentListUsers[i] = record;
                      //NSLog(@"record:%@",record.user);
@@ -867,10 +870,9 @@ SystemSoundID           soundEffect;
                  }
              }
              
-             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                 
+
                  [self updateFriendsLists];
-             });
+             
          }];
     }
     

@@ -12,8 +12,10 @@
 //! View that display the current friend list item state.
 @interface FriendListItemStateView : PseudoButtonView
 {
+
 }
 //____________________
+- (void)setState:(FriendProgressStates)state;
 
 @end
 //__________________________________________________________________________________________________

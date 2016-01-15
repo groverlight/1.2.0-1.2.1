@@ -672,7 +672,7 @@
 
     [avPlayerLayer setFrame:self.view.frame];
     
-    self.movieView.alpha = 0.2;
+    self.movieView.alpha = 0.7;
     [self.movieView.layer insertSublayer:avPlayerLayer atIndex:0]; // this sets up Video
     
 }

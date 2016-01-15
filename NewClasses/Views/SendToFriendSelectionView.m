@@ -61,6 +61,9 @@
 
 - (void)updateFriendsLists // this is where I edit the index list.
 {
+    NSLog(@"updated");
+if ([indexTitles count] != 27)
+{
     indexTitles = @[@"√", @"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     self->indexView = [BDKCollectionIndexView indexViewWithFrame:CGRectMake(self.window.width-28,self.window.height/6,28,self.window.height-self.window.height/6) indexTitles:nil]; // Roast Beef
     
@@ -69,7 +72,7 @@
     self->indexView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self->indexView];
     //[self bringSubviewToFront:self->indexView];
-
+}
   self.recentFriends  = GetTimeSortedFriendRecords();
    // NSLog(@"contacts: %@", recentListUsers);
     [recentListUsers sortUsingComparator:^NSComparisonResult(id obj1, id obj2)

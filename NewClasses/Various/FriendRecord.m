@@ -213,7 +213,7 @@
 
     else
     {
-
+        NSLog(@"TimeSortedList:%@", TimeSortedList);
         NSMutableArray *uniqueArray = [NSMutableArray array];
         NSMutableSet *names = [NSMutableSet set];
         
@@ -290,6 +290,8 @@
         //NSArray *originalArray = ... // original array of objects with duplicates
 
     }
+    
+    
 #if 0
     NSLog(@"sortTimeList:");
     for (FriendRecord* record in TimeSortedList)
@@ -400,7 +402,7 @@
     }
     else
     {
-        NSLog(@"found");
+        //NSLog(@"found");
         FriendRecord* foundActivity = [TimeSortedList objectAtIndex:index];
         changed = foundActivity.lastActivityTime < time;
         if (changed)
@@ -526,7 +528,7 @@
         {
           
             NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-            NSLog(@"9 updateActivityForFriends: %@", friend.fullName);
+           // NSLog(@"9 updateActivityForFriends: %@", friend.fullName);
             FriendRecord* friendRecord = [[FriendRecord alloc] initWithUser:friend andTime:time];
             [NameSortedList addObject:friendRecord];
             //[TimeSortedList addObject:friendRecord];// empty time list
@@ -575,9 +577,10 @@ switch (myStatus) {
 
 - (void)load
 {
+    //NSLog(@"load");
     NSUserDefaults* defaults  = [NSUserDefaults standardUserDefaults];
     NSArray* loadedArray      = [defaults objectForKey:FRIEND_RECORD_LIST_NAME];
-    
+   // NSLog(@"loadedARray: %@", loadedArray);
     if (loadedArray != nil)
     {
         TimeSortedList = [NSMutableArray arrayWithCapacity:loadedArray.count];
@@ -587,6 +590,7 @@ switch (myStatus) {
             @try
             {
                 friendRecord = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                NSLog(@"friendRecord: %@", friendRecord);
             }
             @catch (NSException* exception)
             {
@@ -596,6 +600,7 @@ switch (myStatus) {
             if ((friendRecord != nil)  || (friendRecord.fullName != nil))
             {
                 // Check for duplicates. Should never happen, but reality doesn't always follow programmer's intents.
+               /* NSLog(@"friendrecord is nil");
                 BOOL found = NO;
                 for (FriendRecord* record in TimeSortedList)
                 {
@@ -608,7 +613,8 @@ switch (myStatus) {
                 if (!found)
                 {
                     [TimeSortedList addObject:friendRecord];
-                }
+                }*/
+                [TimeSortedList addObject:friendRecord];
             }
         }
     }
@@ -624,7 +630,7 @@ switch (myStatus) {
 - (void)save
 {
 
-    
+    NSLog(@"save");
     // First check that all users are not null.
     for (FriendRecord* friendRecord in TimeSortedList)
     {
@@ -639,7 +645,7 @@ switch (myStatus) {
     //  NSLog(@"FriendRecord save");
     for (FriendRecord* friendRecord in TimeSortedList)
     {
-        //      NSLog(@"3 (%@) User: %p -> fullName: '%@'", Name, friendRecord.user, friendRecord.fullName);
+              NSLog(@"3  User: %p -> fullName: '%@'", friendRecord.user, friendRecord.fullName);
 
             NSData* data = [NSKeyedArchiver archivedDataWithRootObject:friendRecord];
             [saveArray addObject:data];

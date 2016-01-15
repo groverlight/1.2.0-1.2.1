@@ -1213,10 +1213,10 @@ NSMutableArray*      recentListUsers;
                                              [push setQuery:pushQuery];
                                              [push setMessage:@"this works"];
                                              [push setData:data];
-                                             [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
+                                           /*  [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
                                               {
                                                   NSLog(@"Sending Push");
-                                              }];
+                                              }];*/
 
                                              [[PFUser currentUser] addUniqueObject:object.objectId forKey:@"friends"];
                                              [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror) {

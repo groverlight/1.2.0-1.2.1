@@ -76,7 +76,7 @@ NSMutableArray* GetSharedFriendsList(void)
     NSLog(@"0 findUserWithObjectId: num friends: %d (%d)", (int)self.friends.count, (int)friends.count);
     for (NSString* friendObjectId in self.friends)
     {
-         NSLog(@"currentUser: %p, friendObjectId: %@", GetCurrentParseUser(), friendObjectId);
+        // NSLog(@"currentUser: %p, friendObjectId: %@", GetCurrentParseUser(), friendObjectId);
       [ParseUser findUserWithObjectId:friendObjectId completion:^(ParseUser* user, NSError* error)
       {
 //        NSLog(@"1 findUserWithObjectId: index: %ld, NSNotFOund: %ld, friendObjectId: %@", (long)[friends indexOfObject:user], (long)NSNotFound, friendObjectId);
@@ -330,7 +330,7 @@ NSMutableArray* GetSharedFriendsList(void)
 + (void)findUserWithObjectId:(NSString*)objectId completion:(BlockUserErrorAction)completion
 {
   PFQuery* query = [ParseUser query];
-   NSLog(@"findUserWithObjectId: %@", objectId);
+   //NSLog(@"findUserWithObjectId: %@", objectId);
     
   [query getObjectInBackgroundWithId:objectId block:^(PFObject* foundUser, NSError *error)
   {
