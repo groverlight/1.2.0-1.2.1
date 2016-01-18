@@ -177,20 +177,20 @@ NSMutableArray*      recentListUsers;
   Editor.returnKeyType            = UIReturnKeyDone;
   //Editor.keyboardAppearance = UIKeyboardAppearanceDark;
   Editor.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-  Editor.font                     = [UIFont fontWithName:@"AvenirNext-Regular" size:parameters.friendsEditorFontSize];
+  Editor.font                     = [UIFont fontWithName:@"AvenirNext-Medium" size:parameters.friendsEditorFontSize];
   Editor.autocorrectionType  = UITextAutocorrectionTypeNo;
   Editor.autocapitalizationType  = UITextAutocapitalizationTypeNone;
 
 
 
   Editor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:parameters.friendsEditorPlaceholderText
-                                                                    attributes:@{NSFontAttributeName:[UIFont fontWithName:@"AvenirNext-Italic" size:parameters.friendsEditorFontSize]}];
+                                                                    attributes:@{NSFontAttributeName:[UIFont fontWithName:@"AvenirNext-MediumItalic" size:parameters.friendsEditorFontSize]}];
 
   [Editor addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
   InviteButton.alpha  = 0.0;
   AddButton.alpha     = 0.0;
 
-  UIColor *color = [TypePink colorWithAlphaComponent:0.40];
+  UIColor *color = LightGrey;
   Editor.attributedPlaceholder = [[NSAttributedString alloc] initWithString:parameters.friendsEditorPlaceholderText
                                                                    attributes:@{NSForegroundColorAttributeName: color}];
 
@@ -1213,10 +1213,10 @@ NSMutableArray*      recentListUsers;
                                              [push setQuery:pushQuery];
                                              [push setMessage:@"this works"];
                                              [push setData:data];
-                                           /*  [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
+                                             [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *sendError)
                                               {
                                                   NSLog(@"Sending Push");
-                                              }];*/
+                                              }];
 
                                              [[PFUser currentUser] addUniqueObject:object.objectId forKey:@"friends"];
                                              [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *saveerror) {

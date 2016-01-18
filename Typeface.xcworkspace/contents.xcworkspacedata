@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:TYPEFACE_TUTOR_4 (1).m4v.mov">
-   </FileRef>
-   <FileRef
       location = "group:logo_tut.png">
    </FileRef>
    <FileRef

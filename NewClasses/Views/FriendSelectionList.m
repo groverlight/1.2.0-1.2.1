@@ -549,7 +549,7 @@
 //__________________________________________________________________________________________________
 - (NSArray *)indexLettersForStrings:(NSArray *)records {
     NSMutableArray *letters = [NSMutableArray array];
-    [letters addObject:@"√"];
+    [letters addObject:@"💛"];
     NSString *currentLetter = nil;
     for (FriendRecord* record in records) {
         if (record.fullName.length > 0) {

@@ -149,7 +149,7 @@
   UnderlineView.centerX             = ActiveItem.width / 2;
   UnderlineView.centerY             = Separator.centerY;
   UnderlineView.width               = ActiveItem.titleWidth;
-  //UnderlineView.layer.cornerRadius  = UnderlineHeight / 2;
+  UnderlineView.layer.cornerRadius  = UnderlineHeight / 2;
 }
 //__________________________________________________________________________________________________
 

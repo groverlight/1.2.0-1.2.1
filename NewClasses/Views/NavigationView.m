@@ -622,7 +622,7 @@ SystemSoundID           soundEffect;
                 NSDictionary *data = @{
                                        
                                        @"content-available": @"1",
-                                       @"alert" : [NSString stringWithFormat:@"%@ just read your message 👀" ,Name],
+                                       @"alert" : [NSString stringWithFormat:@"%@ just read your message 📖" ,Name],
                                        @"sound" : @"digi_alert.aif",
                                        @"p" :[PFUser currentUser].objectId,
                                        @"t" :[PFUser currentUser][@"phoneNumber"],

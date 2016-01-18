@@ -17,7 +17,7 @@ GlobalParameters* InitGlobalParameters(AppViewController* viewController)
   GlobalParameters* parameters = GetGlobalParameters();
 
   // Parse parameters.
-  parameters.parseNotificationFormatString = NSLocalizedString(@"%@: %@(Reply Now ⏲)", @"");
+  parameters.parseNotificationFormatString = NSLocalizedString(@"%@: \"%@\"(Reply Now 💬)", @"");
   //parameters.parseRemoveFriendNotificationFormatString  = NSLocalizedString(@"%@ removed you from his/her friend list", @"");
 
   //! Blocked users parameters.
@@ -117,8 +117,8 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.cameraWhiteBalanceBlueGain           = 1.0;
   parameters.cameraUseBackCamera                  = NO;
 
-  parameters.gradientTopColor                     = ColorWithAlpha(White, 1.0);
-  parameters.gradientBottomColor                  = ColorWithAlpha(White , 0.55);
+  parameters.gradientTopColor                     = ColorWithAlpha(White, 0.9);
+  parameters.gradientBottomColor                  = ColorWithAlpha(White , 0.6);
   parameters.gradientAlpha                        = 1.0;
 
   parameters.separatorLineWidth                   = 0.40;
@@ -132,7 +132,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.headerHeight                         = 65;
   parameters.headerTopMargin                      = 20;
   parameters.headerSideMargin                     = 17;
-  parameters.headerUnderlineHeight                = 0.40;
+  parameters.headerUnderlineHeight                = 2.40;
   parameters.headerUnderlineGap                   = 18;
   parameters.headerUnderlineColor                 = TypePink;
   parameters.headerUnderlineAnimParameters        = [PopAnimParameters new];
@@ -196,7 +196,7 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
 
   parameters.friendsStateViewLeftMargin             = 14;
   parameters.friendsStateViewRightMargin            = 14;
-  parameters.friendsListRowHeight                 	= 60;
+  parameters.friendsListRowHeight                 	= 56;
   parameters.friendsListHeaderHeight                = 26;
 
   parameters.friendsListBackgroundColor             = Transparent;
@@ -215,15 +215,15 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
   parameters.friendsProgressStrokeColor             = Transparent;
   parameters.friendsProgressFillColor               = parameters.secondaryButtonColor;
   parameters.friendsSendToLabelTitle              	= NSLocalizedString(@"press & KEEP holding 🚀", @"");
-  parameters.friendsA_ZLabelTitle                 	= NSLocalizedString(@"tap search to find friends", @"");
+  parameters.friendsA_ZLabelTitle                 	= NSLocalizedString(@"find friends below 🔎", @"");
   parameters.friendsActivityLabelTitle              = NSLocalizedString(@"press & KEEP holding 🎁", @"");
-  parameters.friendsLabelTitleColor                 = LightGrey;
+  parameters.friendsLabelTitleColor                 = [TypePink colorWithAlphaComponent:0.30];
   parameters.friendsLabelTitleFontSize              = 16;
   parameters.friendsProgressDuration                = 2;
   parameters.friendsMaxRecentFriends                = 5; //  this is where we need to look at
 
   parameters.friendsEditorPlaceholderText           = NSLocalizedString(@"Search by username", @"");
-  parameters.friendsEditorFontSize                  = 18;
+  parameters.friendsEditorFontSize                  = 17;
   parameters.friendsEditorHeight                    = 60;
   parameters.friendsEditorLeftMargin                = 18;
   parameters.friendsInviteFriendButtonWidth         = 220;
@@ -303,10 +303,10 @@ parameters.blockedUserReasonMessage       = NSLocalizedString(@"You have been bl
 
   //parameters.TypingButtonFont                     = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
   parameters.typingFaceButtonTitle                = NSLocalizedString(@"FACE", @"");
-  parameters.typingMaxCharacterCount              = 140;
+  parameters.typingMaxCharacterCount              = 100;
   parameters.typingFontSizeCharacterCountTrigger  = 67;
   parameters.typingCharacterCountFontSize         = 12;
-    parameters.typingCharacterCountColor            = [White colorWithAlphaComponent:0.5];;
+  parameters.typingCharacterCountColor            = [White colorWithAlphaComponent:0.5];;
   parameters.typingCharacterCountRightMargin      = 24;
   parameters.typingLeftButtonAlertTitle           = NSLocalizedString(@"Look up at the lens", @"");
   parameters.typingLeftButtonAlertMessage         = NSLocalizedString(@"Add a facial expression to your blurb, so you won't be misunderstood", @"");
